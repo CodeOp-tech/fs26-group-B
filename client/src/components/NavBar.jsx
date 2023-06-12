@@ -24,9 +24,9 @@ export default function NavBar() {
                 <h1>Logo</h1>
             </div>
             <div className="navBar__links">
-                <Link to={"/register"} onClick={handleSelectSignUp}>Sign Up</Link>
-                <Link to="/login" onClick={() => setSelectSignUp(true)}>Login</Link>
-               { auth && <Link to="/menu" onClick={handleSelectHome}>menu</Link>}
+                {!auth && selectSignUp === false && <Link to={"/register"} onClick={handleSelectSignUp}>Sign Up</Link>}
+                {!auth && selectSignUp === true && <Link to="/login" onClick={() => setSelectSignUp(false)}>Login</Link>}
+               {<Link to="/menu" onClick={handleSelectHome}>menu</Link>}
             </div>
         </div>
     )
