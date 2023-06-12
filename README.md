@@ -6,6 +6,6 @@ Add to your .env:
 
 DB_HOST=localhost
 DB_USER=root
-DB_NAME=
+DB_NAME=planner
 DB_PASS=root
 SUPER_SECRET=shhhhh
