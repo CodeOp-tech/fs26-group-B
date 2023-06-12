@@ -32,6 +32,7 @@ function Login() {
       //store it locally
       localStorage.setItem("token", data.token);
       auth.login();
+      console.log(auth);
       console.log(data.message, data.token);
       setData(data.message);
       navigate("/home");
