@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import ProfilePage from "./pages/ProfilePage";
+import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 import AuthContext from "./contexts/AuthContext";
 import RequireAuth from "./components/RequireAuth";
