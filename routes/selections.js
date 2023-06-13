@@ -18,7 +18,9 @@ router.post("/", async function (req, res, next) {
   }
 });
 
-// Get selection by planID where planID count is 2(twice)  << do this every time the user says yes
+// GET match cuando coinciden (event id coincide)
+
+// GET EVENT ID
 
 // router.get("/:planId", async function (req, res, next){
 // try {

@@ -2,6 +2,25 @@ var express = require("express");
 var router = express.Router();
 const models = require("../models");
 
-//EVENTID = LA PARTIDA
-// posts every time we send a request
-router.post("/", async function (req, res, next) {});
+// CREATE new event
+
+router.post("/", async function (req, res, next) {
+  const { userId_1, userId_2, chosenPlanId, status } = req.body;
+  try {
+    const event = await models.Events.create({
+      userId_1,
+      userId_2,
+      //USER 2 ES NULL PQ LA RESPUESTA ESTÁ PENDING
+      chosenPlanId,
+      //COMIENZA SIENDO NULL
+      status,
+    });
+    res.send(event);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// PUT PARA AÑADIR EL USER 2
+
+//

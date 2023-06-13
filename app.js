@@ -9,6 +9,10 @@ var usersRouter = require("./routes/users");
 var plansRouter = require("./routes/plans");
 var selectionsRouter = require("./routes/selections");
 
+var authRouter = require("./routes/auth");
+
+//  cec721975da5fa77651485f9e08d6e82269c6c4e
+
 var app = express();
 
 app.use(cors());
@@ -25,5 +29,7 @@ app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/plans", plansRouter);
 app.use("/api/selections", selectionsRouter);
+
+app.use("/api/auth", authRouter);
 
 module.exports = app;
