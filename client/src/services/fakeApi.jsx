@@ -7,7 +7,7 @@
 
 
 const events = [
-        { id: 1, userId_1: 1, userId_2: 2, planId: 1, status: close },
+        { id: 1, userId_1: 1, userId_2: 2, chosenPlanId: 1, status: close },
     ]
 
 const selections = [
@@ -59,28 +59,27 @@ export const fakeApi = {
 
     // to create a user in the user table to have a userId with the credential in blanck
     // it is mainly when user 1 is registered and user 2 is not registered yet user 1 creates and event
-    createUserPending: async (id) => {
-        users.push = { id: id, name: null, username: null, email: null, password: null }
-        const fakeResponse =
-            "user2 reserved on user table"
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(fakeResponse);
-            }, 500);
-        }
-        );
+    // createUserPending: async (id) => {
+    //     users.push = { id: id, name: null, username: null, email: null, password: null }
+    //     const userId_2 = id;
+    //     const fakeResponse = userId_2 ;
+    //     return new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             resolve(fakeResponse);
+    //         }, 500);
+    //     }
+    //     );
     
-    },
+    // },
     
     // Fake post request to add new event to table events in the database
-    // receive the userId_1 and userId_2 from the user table
+    // receive the userId_1
     // happens when user 1 initiate an event match with user 2
-    createEvent: async (id, userId_1, userId_2) => {
+    createEvent: async (id, userId_1) => {
         // Simulate a response with fake data
 
-        events.push = { id: id, userId_1: userId_1, userId_2: userId_2, planId: null, status: open }
-        const fakeResponse =
-            "event created"
+        events.push = { id: id, userId_1: userId_1, userId_2: null, chosenPlanId: null, status: open }
+    const fakeResponse = `new event created id:${id}`;
         // while planId is not null the status is open
         // is going to receive the planId from selection table when the planId is twice with the same dateEvent_id
     
@@ -92,13 +91,14 @@ export const fakeApi = {
         });
     },
 
-    // fake put request to put into a userId its credential info when it is registered
-    addUserCredential: async (userId_2, name, username, email, password) => {
+    // AUTHENTICATION
+    // Put request to put into a userId its credential info when it is registered
+    addUserIdToEvent: async (eventId, userId_2, name, username, email, password) => {
         // Simulate a put into fake users table
         users.push = { id: userId_2, name: name, username: username, email: email, password: password, }
-        const fakeResponse =
-            "new user created"
-            ;
+        events.find(event => event.id === eventId).userId_2 = userId_2;
+        
+        const fakeResponse = userId_2;
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(fakeResponse);
@@ -110,20 +110,8 @@ export const fakeApi = {
     // fake post request to add new selection to the selection table in the database
     addSelection: async (id, eventId, userId, planId) => {
         // simulate a post into fake selection table
-        events.push = { id: id, eventId: eventId, userId: userId, planId: planId, status: open };
-        const fakeResponse = "new selection";
-        // Return a promise that resolves with the fake response object after 500ms
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(fakeResponse);
-            }, 500);
-        });
-    },
+        selections.push = { id: id, planId: planId, eventId: eventId, userId: userId };
 
-    // fake put request to put into DateEvent table in database the id of the event_id when in the
-    // selection table the event_id is two times with the same dateEvent_id
-    getMatch: async (eventId) => {
-        // Simulate a response with fake data if the same event_id and the planId is twice in the selection table
         const matchingEventId = selections.filter((selection) => selection.eventId === eventId);
 
         const matchingPlanIds = matchingEventId.map((selection) => selection.planId);
@@ -131,11 +119,16 @@ export const fakeApi = {
         const repeatedPlanId = matchingPlanIds.filter((planId, index) => {
             matchingPlanIds.indexOf(planId) !== index;
         });
-  
-        const fakeResponse =
-            repeatedPlanId.length > 0 ? repeatedPlanId[0] : "The is no match yet"
-            ;
-    
+
+
+        if (repeatedPlanId.length > 0) {
+            planId = repeatedPlanId[0] ;
+            events.find(event => event.eventId === eventId).chosenPlanId = planId;
+            events.find(event => event.eventId === eventId).status = close;
+        }
+
+        const fakeResponse = `new match found planId:${planId}`;
+      
         // Return a promise that resolves with the fake response object after 500ms
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -143,25 +136,48 @@ export const fakeApi = {
             }, 500);
         });
     },
+
+//     // fake put request to put into DateEvent table in database the id of the event_id when in the
+//     // selection table the event_id is two times with the same dateEvent_id
+//     getMatch: async (eventId) => {
+//         // Simulate a response with fake data if the same event_id and the planId is twice in the selection table
+//         const matchingEventId = selections.filter((selection) => selection.eventId === eventId);
+
+//         const matchingPlanIds = matchingEventId.map((selection) => selection.planId);
+
+//         const repeatedPlanId = matchingPlanIds.filter((planId, index) => {
+//             matchingPlanIds.indexOf(planId) !== index;
+//         });
+  
+//         const fakeResponse =
+//             repeatedPlanId.length > 0 ? repeatedPlanId[0] : "The is no match yet"
+//             ;
+    
+//         // Return a promise that resolves with the fake response object after 500ms
+//         return new Promise((resolve) => {
+//             setTimeout(() => {
+//                 resolve(fakeResponse);
+//             }, 500);
+//         });
+//     },
    
 
-    // is the is a match this should be called to update the event table with the planId and status close
-    putEventMatchPla: async (planId, eventId) => {
+//     // is the is a match this should be called to update the event table with the planId and status close
+//     putEventMatchPlan: async (planId, eventId) => {
 
-        events.find(event => event.eventId === eventId).planId = planId;
-        events.find(event => event.eventId === eventId).status = close;
+//         events.find(event => event.eventId === eventId).planId = planId;
+//         events.find(event => event.eventId === eventId).status = close;
 
-        const fakeResponse =
-            "event match plan updated";
+//         const fakeResponse =
+//             "event match plan updated";
         
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve(fakeResponse);
-                }, 500);
-            }
-            );
-    
-    },
+//             return new Promise((resolve) => {
+//                 setTimeout(() => {
+//                     resolve(fakeResponse);
+//                 }, 500);
+//             }
+//             );
+//     },
 };
 
 export {
@@ -172,7 +188,4 @@ export {
 }
     
 export default fakeApi;
-    
-    
-    
 
