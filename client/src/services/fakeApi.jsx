@@ -61,8 +61,8 @@ export const fakeApi = {
     // it is mainly when user 1 is registered and user 2 is not registered yet user 1 creates and event
     createUserPending: async (id) => {
         users.push = { id: id, name: null, username: null, email: null, password: null }
-        const fakeResponse =
-            "user2 reserved on user table"
+        const userId_2 = id;
+        const fakeResponse = userId_2 ;
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(fakeResponse);

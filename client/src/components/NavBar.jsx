@@ -4,7 +4,7 @@ import { Link  } from 'react-router-dom'
 // import Api from '../Api'
 import { ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import {theme, nav_bar} from '../styles'
+import {theme} from '../styles'
 
 
 
@@ -24,12 +24,12 @@ export default function NavBar() {
 
     
   return (
-    <div>
+    <div className='navbar'>
       <div className="navBar__logo">
         <h1>Logo</h1>
       </div>
       <ThemeProvider theme={theme}>
-        <Container sx={nav_bar}>
+        <div >
           {!auth && selectSignUp === false && (
             <Link to="/register" onClick={handleSelectSignUp}>
               Sign Up
@@ -42,7 +42,7 @@ export default function NavBar() {
           )}
           <button>Logout</button>
           <button>menu</button>
-        </Container>
+        </div>
       </ThemeProvider>
     </div>
   );
