@@ -3,10 +3,12 @@ import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
 import "..css/login.css";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../services/data.js";
 
 function Login() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  const { login } = api();
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -22,19 +24,9 @@ function Login() {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const login = async () => {
+  const handleLogin = async () => {
     try {
-      const { data } = await axios("/api/auth/login", {
-        method: "POST",
-        data: credentials,
-      });
-
-      //store it locally
-      localStorage.setItem("token", data.token);
-      auth.login();
-      console.log(auth);
-      console.log(data.message, data.token);
-      setData(data.message);
+      await login(credentials);
       navigate("/home");
     } catch (error) {
       console.log(error);
@@ -67,7 +59,7 @@ function Login() {
           />
         </div>
         <div className="d-flex justify-content-center">
-          <button className="btn btn-primary" onClick={login}>
+          <button className="btn btn-primary" onClick={handleLogin}>
             Log in
           </button>
         </div>
