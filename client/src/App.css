@@ -1,12 +1,11 @@
 #root {
-  padding: 1rem;
+  padding: 4px;
   text-align: center;
   justify-content: center;
 }
 
 .logo {
   height: 6em;
-  padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -22,7 +21,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #ccc;
+  margin-bottom: 6rem ;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2em;
+}
+
+.nav-links a {
+  font-weight: 600;
+  color: #010101bb;
+  text-decoration: inherit;
+  cursor: pointer;
 }
 
 @keyframes logo-spin {
