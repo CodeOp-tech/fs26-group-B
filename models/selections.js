@@ -14,8 +14,6 @@ module.exports = (sequelize, DataTypes) => {
   Selections.init(
     {
       userId: DataTypes.INTEGER,
-    },
-    {
       planId: DataTypes.INTEGER,
     },
     {
