@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link  } from 'react-router-dom'
 // import Menu from './Menu'
 // import Api from '../Api'
@@ -15,8 +15,8 @@ export default function NavBar() {
     const auth = false;
     const [selectSignUp, setSelectSignUp] = useState(false)
 
-    // useEffect(() => {
-    // }, [selectSignUp, auth]);
+    useEffect(() => {
+    }, [selectSignUp, auth]);
 
     const handleSelectSignUp = () => {
         setSelectSignUp(true)
