@@ -13,7 +13,8 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token"); just for testing and access to search page
+    const token = true;
     if (token) {
       setUser(true);
     }

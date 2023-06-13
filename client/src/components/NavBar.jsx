@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link  } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate  } from 'react-router-dom'
 // import Menu from './Menu'
 // import Api from '../Api'
 import { ThemeProvider } from '@mui/material/styles';
@@ -11,20 +11,28 @@ import { theme } from '../styles';
 
 export default function NavBar() {
     // const auth = useContext(AuthContext);
+    const auth = true;
+    const [selectSignUp, setSelectSignUp] = useState(false);
+    const [selectHomePage, setSelectHomePage] = useState(false);
+    const navigate = useNavigate();
   
-    const auth = false;
-    const [selectSignUp, setSelectSignUp] = useState(false)
-
-    // useEffect(() => {
-    // }, [selectSignUp, auth]);
+    useEffect(() => {
+      if (selectHomePage === true) {
+        navigate('/home');
+      }
+    }, [selectHomePage]);
 
     const handleSelectSignUp = () => {
         setSelectSignUp(true)
     }
+
+    const handleClickLogo = () => {
+        setSelectHomePage(true)
+    }
     
   return (
     <div className='navbar'>
-      <div className="navBar__logo">
+      <div className="navBar__logo" onClick={handleClickLogo}>
         <h2>Logo</h2>
       </div>
       
@@ -39,7 +47,7 @@ export default function NavBar() {
               Login
             </Link>
           )}
-          {auth && <button>Logout</button>}
+          {auth && <a>Logout</a>}
           <a><MenuRoundedIcon /></a>
         </div>
      

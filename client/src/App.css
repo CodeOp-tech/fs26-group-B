@@ -36,6 +36,11 @@
   cursor: pointer;
 }
 
+.navBar__logo {
+  
+  cursor: pointer;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
