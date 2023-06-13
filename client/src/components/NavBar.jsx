@@ -3,6 +3,7 @@ import { Link  } from 'react-router-dom'
 // import Menu from './Menu'
 // import Api from '../Api'
 import { ThemeProvider } from '@mui/material/styles';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 // import Container from '@mui/material/Container';
 import { theme } from '../styles';
 
@@ -24,10 +25,10 @@ export default function NavBar() {
   return (
     <div className='navbar'>
       <div className="navBar__logo">
-        <h1>Logo</h1>
+        <h2>Logo</h2>
       </div>
-      <ThemeProvider theme={theme}>
-        <div >
+      
+        <div className='nav-links' >
           {!auth && selectSignUp === false && (
             <Link to="/register" onClick={handleSelectSignUp}>
               Sign Up
@@ -39,9 +40,9 @@ export default function NavBar() {
             </Link>
           )}
           {auth && <button>Logout</button>}
-          <button>menu</button>
+          <a><MenuRoundedIcon /></a>
         </div>
-      </ThemeProvider>
+     
     </div>
   );
 }
