@@ -1,12 +1,11 @@
 #root {
-  padding: 1rem;
+  padding: 4px;
   text-align: center;
   justify-content: center;
 }
 
 .logo {
   height: 6em;
-  padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -22,7 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #ccc;
+
 }
 
 @keyframes logo-spin {

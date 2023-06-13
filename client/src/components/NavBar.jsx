@@ -4,14 +4,14 @@ import { Link  } from 'react-router-dom'
 // import Api from '../Api'
 import { ThemeProvider } from '@mui/material/styles';
 // import Container from '@mui/material/Container';
-import {theme} from '../styles'
+import { theme } from '../styles';
 
 
 
 export default function NavBar() {
     // const auth = useContext(AuthContext);
   
-    const auth = true;
+    const auth = false;
     const [selectSignUp, setSelectSignUp] = useState(false)
 
     // useEffect(() => {
@@ -20,8 +20,6 @@ export default function NavBar() {
     const handleSelectSignUp = () => {
         setSelectSignUp(true)
     }
-
-
     
   return (
     <div className='navbar'>
@@ -40,7 +38,7 @@ export default function NavBar() {
               Login
             </Link>
           )}
-          <button>Logout</button>
+          {auth && <button>Logout</button>}
           <button>menu</button>
         </div>
       </ThemeProvider>
