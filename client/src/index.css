@@ -17,6 +17,8 @@
 * {
   box-sizing: border-box;
   margin: 0 auto;
+  line-height: 1.5;
+  padding: 4px;
 }
 
 a {
@@ -31,9 +33,10 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column;
   min-width: 420px;
   min-height: 100vh;
+  
 }
 
 h1 {
