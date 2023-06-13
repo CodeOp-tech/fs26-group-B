@@ -63,6 +63,12 @@ export const fakeApi = {
         users.push = { id: id, name: null, username: null, email: null, password: null }
         const fakeResponse =
             "user2 reserved on user table"
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(fakeResponse);
+            }, 500);
+        }
+        );
     
     },
     
@@ -146,7 +152,14 @@ export const fakeApi = {
         events.find(event => event.eventId === eventId).status = close;
 
         const fakeResponse =
-            "event match plan updated"
+            "event match plan updated";
+        
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(fakeResponse);
+                }, 500);
+            }
+            );
     
     },
 };
