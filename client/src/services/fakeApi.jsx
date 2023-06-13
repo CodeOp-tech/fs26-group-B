@@ -56,6 +56,20 @@ export const fakeApi = {
         });
     },
 
+    searchPartner: async (name) => {
+        // Simulate a response with fake data
+        //search on users array is there is a user with same username as the name given 
+        const requestedUser = users.map(user => user.name === name);
+        const fakeResponse = {
+            requestedUser
+        };
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(fakeResponse);
+            }, 500);
+        });
+    },
+
 
     // to create a user in the user table to have a userId with the credential in blanck
     // it is mainly when user 1 is registered and user 2 is not registered yet user 1 creates and event

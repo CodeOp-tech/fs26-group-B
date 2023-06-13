@@ -16,25 +16,6 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.navbar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6rem ;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2em;
-}
-
-.nav-links a {
-  font-weight: 600;
-  color: #010101bb;
-  text-decoration: inherit;
-  cursor: pointer;
-}
 
 @keyframes logo-spin {
   from {
