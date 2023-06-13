@@ -33,6 +33,7 @@ a:hover {
 
 body {
   margin: 0 auto;
+  padding: 0 2.5rem;
   display: flex;
   flex-direction: column;
   min-width: 420px;
