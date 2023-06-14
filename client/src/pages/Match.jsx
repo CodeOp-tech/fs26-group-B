@@ -1,10 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../services/data.js";
 
 export default function Match() {
   const scrollReference = useRef(null);
   const [plan, setPlan] = useState({});
+  const [queryParams, setQueryParams] = useSearchParams();
 
   const planID = 1;
 
@@ -28,7 +30,7 @@ export default function Match() {
     scrollReference.current.scrollIntoView({
       inline: "center",
       behavior: "smooth",
-      alignToTop: false,
+      alignToTop: true,
       block: "nearest",
     });
 
@@ -48,13 +50,18 @@ export default function Match() {
           </div>
         </div>
 
-        <button onClick={readMore}>Read more</button>
+        <button className="btn-readMore" onClick={readMore}>
+          Read more
+        </button>
       </div>
 
       <div ref={scrollReference}>
         {plan.keyword ? (
           <div>
             <h2>Check out some useful places for your date</h2>
+
+            {/* placeholder imge to prove the scroll works */}
+            <img className="match-image" src={plan.imageSrc} />
             {/* <div>  ////  MAP   ////   </div> */}
           </div>
         ) : null}
