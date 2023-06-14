@@ -62,6 +62,14 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/its-a-date"
+            element={
+              <RequireAuth>
+                <Match />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </div>
     </AuthContext.Provider>
