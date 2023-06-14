@@ -150,7 +150,7 @@ const plans = [
 
 export const fakeApi = {
   getPlan: async (planId) => {
-    const plan = plans.map((plan) => plan.id === planId);
+    const plan = plans.filter((plan) => plan.id === planId)[0];
 
     // Return a promise that resolves with the fake response object after 500ms
     return new Promise((resolve) => {
