@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import Match from "./pages/Match";
 import NavBar from "./components/NavBar";
 import AuthContext from "./contexts/AuthContext";
 import RequireAuth from "./components/RequireAuth";
