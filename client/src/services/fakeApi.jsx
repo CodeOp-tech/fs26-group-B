@@ -41,7 +41,12 @@ const plans = [
   {
     id: 2,
     name: "Picnic",
-    imgSrc:
+    keyword: "park",
+    shortDescription:
+      "Pack a delicious lunch or dinner, a cozy blanket, and head to a nearby park for a picnic. Enjoy good food, share stories, and bask in the beauty of nature.",
+    longDescription:
+      "You are going on a delightful picnic in the park! Imagine the warm sun on your face and the gentle breeze rustling through the trees. Pack a scrumptious assortment of sandwiches, fruits, and snacks. Don't forget to bring a cozy blanket to sit on! Find a serene spot, lay out your spread, and immerse yourself in the beautiful surroundings. Consider bringing along a Frisbee or a deck of cards for added entertainment. It's the perfect opportunity to unwind, reconnect, and enjoy quality time in nature.",
+    imageSrc:
       "https://images.unsplash.com/photo-1590166774851-bc49b23a18fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=778&q=80",
   },
   {
