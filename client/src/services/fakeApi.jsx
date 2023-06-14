@@ -92,7 +92,7 @@ export const fakeApi = {
     createEvent: async (id, userId_1) => {
         // Simulate a response with fake data
 
-        events.push = { id: id, userId_1: userId_1, userId_2: null, chosenPlanId: null, status: open }
+    events.push = { id: id, userId_1: userId_1, userId_2: null, chosenPlanId: null, status: open }
     const fakeResponse = `new event created id:${id}`;
         // while planId is not null the status is open
         // is going to receive the planId from selection table when the planId is twice with the same dateEvent_id
