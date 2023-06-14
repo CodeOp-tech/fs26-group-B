@@ -8,7 +8,7 @@ import api from "../services/data.js";
 function Login() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { login } = api;
+  // const { login } = api;
 
   const [credentials, setCredentials] = useState({
     username: "",
