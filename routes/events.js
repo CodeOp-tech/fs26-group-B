@@ -9,12 +9,15 @@ router.post("/", async function (req, res, next) {
   try {
     const event = await models.Events.create({
       userId_1,
-      userId_2,
       //USER 2 ES NULL PQ LA RESPUESTA ESTÁ PENDING
-      chosenPlanId,
+
+      userId_2,
       //COMIENZA SIENDO NULL
+
+      chosenPlanId,
       status,
     });
+    //DEVUELVE EL EVENT ID Y "NEW EVENT CREATED"
     res.send(event);
   } catch (error) {
     res.status(500).send(error);
@@ -22,5 +25,4 @@ router.post("/", async function (req, res, next) {
 });
 
 // PUT PARA AÑADIR EL USER 2
-
-//
+// DESDE AUTHENTICATION
