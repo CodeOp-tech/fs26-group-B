@@ -1,13 +1,23 @@
 import React from "react";
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import api from "../services/data.js";
 
 export default function Match() {
   const scrollReference = useRef(null);
+  const [plan, setPlan] = useState({});
 
   const planID = 1;
 
-  const plan = api.getPlan(planID);
+  useEffect(() => {
+    const fetchData = async () => {
+      const plan = await api.getPlan(planID);
+      setPlan(plan);
+    };
+    fetchData();
+  }, []);
+
+  // console.log(plan);
+  // console.log(plan.longDescription);
 
   // function to scroll the page down to the map
   function readMore() {
