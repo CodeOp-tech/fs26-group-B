@@ -37,11 +37,16 @@ export default function Match() {
       <div>
         <h1>It's a Date!</h1>
 
-        <img src={plan.imageSrc} />
+        <div className="featured-date">
+          <div className="image-card">
+            <img className="match-image" src={plan.imageSrc} />
+          </div>
 
-        <h3>{plan.name}</h3>
-
-        <p>{plan.longDescription}</p>
+          <div className="featured-text">
+            <h2>You both chose: {plan.name}</h2>
+            <p className="match-longDesc">{plan.longDescription}</p>
+          </div>
+        </div>
 
         <button onClick={readMore}>Read more</button>
       </div>
@@ -49,7 +54,7 @@ export default function Match() {
       <div ref={scrollReference}>
         {plan.keyword ? (
           <div>
-            <h2>Check out some place where you could go {plan.name}</h2>
+            <h2>Check out some useful places for your date</h2>
             {/* <div>  ////  MAP   ////   </div> */}
           </div>
         ) : null}
