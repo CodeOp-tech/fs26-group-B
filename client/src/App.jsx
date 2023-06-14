@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 import NavBar from "./components/NavBar";
 import AuthContext from "./contexts/AuthContext";
 import RequireAuth from "./components/RequireAuth";
@@ -12,7 +13,8 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token"); just for testing and access to search page
+    const token = true;
     if (token) {
       setUser(true);
     }

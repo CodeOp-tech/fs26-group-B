@@ -1,14 +1,14 @@
 import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
-import "..css/register.css";
-import { useNavigate } from "react-router-dom";
+// import "..css/register.css";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../services/data.js";
 
 function Register() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { register } = api();
+  const { register } = api;
 
   const [credentials, setCredentials] = useState({
     username: "",

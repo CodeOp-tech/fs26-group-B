@@ -1,14 +1,14 @@
 import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-import axios from "axios";
-import "..css/login.css";
+// import axios from "axios";
+// import "..css/login.css";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../services/data.js";
 
 function Login() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { login } = api();
+  const { login } = api;
 
   const [credentials, setCredentials] = useState({
     username: "",
