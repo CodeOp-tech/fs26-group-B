@@ -17,7 +17,6 @@
 * {
   box-sizing: border-box;
   line-height: 1.5;
- 
 }
 
 a {
@@ -49,7 +48,7 @@ h1 {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.4em .9em;
+  padding: 0.4em 0.9em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -73,7 +72,7 @@ button:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6rem ;
+  margin-bottom: 6rem;
 }
 
 .nav-links {
@@ -89,7 +88,6 @@ button:focus-visible {
 }
 
 .navBar__logo {
-  
   cursor: pointer;
 }
 
@@ -142,6 +140,40 @@ button:focus-visible {
   margin-top: 6rem;
 }
 
+/********************* Match Page *********************/
+.featured-date {
+  column-count: 2;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  height: 25em;
+}
+
+.image-card {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 400px;
+  height: 400px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-text {
+  column-span: 1;
+}
+
+.match-longDesc {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
