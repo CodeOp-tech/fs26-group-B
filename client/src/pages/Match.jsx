@@ -1,18 +1,20 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import api from "../services/data.js";
 
 export default function Match() {
   const scrollReference = useRef(null);
   const [plan, setPlan] = useState({});
-  const [queryParams, setQueryParams] = useSearchParams();
 
   // use url params to get plan ID
-  const planID = 1;
+  // const { hash } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
+      const event = await api.getEvent(hash);
+      const planID = event.chosenPlanId;
+
       const plan = await api.getPlan(planID);
       setPlan(plan);
     };
