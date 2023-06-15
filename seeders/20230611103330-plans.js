@@ -328,6 +328,27 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "Theme Park",
+        keyword: "theme+park",
+        shortDescription:
+          "Gear up for an exhilarating adventure at the theme park! Brace yourself for thrilling rides, live entertainment, and endless fun as you immerse yourself in a world of excitement and laughter.",
+        longDescription:
+          "Get ready for an unforgettable day of non-stop excitement, laughter, and adrenaline-pumping rides at the theme park! Step into a realm of imagination and thrills, where roller coasters twist and turn, water slides make a splash, and live entertainment brings the park to life. From the heart-stopping drops of the tallest roller coasters to the whimsical adventures of family-friendly attractions, there's something for everyone to enjoy. Feel the rush of wind in your hair as you plummet down steep drops, scream with delight as you spin through twists and loops, and challenge your friends to friendly competitions on interactive games and attractions. Take breaks to refuel with delicious snacks and refreshing treats, and capture magical moments with photos and souvenirs that will forever remind you of this extraordinary day. With its vibrant atmosphere, captivating shows, and a sense of wonder around every corner, the theme park promises an action-packed, laughter-filled experience that will create cherished memories for years to come.",
+        imageSrc:
+          "https://images.unsplash.com/photo-1611745179863-e123a89795fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "No more options",
+        keyword: "",
+        shortDescription: "You've ",
+        longDescription: "",
+        imageSrc: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
