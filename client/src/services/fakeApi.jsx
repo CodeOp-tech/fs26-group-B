@@ -165,6 +165,25 @@ export const fakeApi = {
     });
   },
 
+  createUser: async (name, username, email, password) => {
+    const newUser = {
+      id: 3,
+      name,
+      username,
+      email,
+      password,
+    };
+
+    users.push(newUser);
+    console.log(users);
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ message: "New user created!" });
+      }, 500);
+    });
+  },
+
   getUser: async (userId) => {
     // Simulate a response with fake data
 
