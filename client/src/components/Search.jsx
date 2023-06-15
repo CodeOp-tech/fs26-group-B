@@ -1,7 +1,8 @@
 import api from "../services/data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from '@mui/icons-material/Send';
+import { useNavigate } from "react-router-dom";
 
 export default function Search() {
 	const [user, setUser] = useState({
@@ -9,12 +10,17 @@ export default function Search() {
 		name: "",
 		username: "",
 		email: "",
-	});
+    });
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        // navigate('/selections')
+    }, []);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log("searching for partner");
-		api.searchPartner();
+        api.searchPartner();
 	};
 
 	const handleChange = (e) => {

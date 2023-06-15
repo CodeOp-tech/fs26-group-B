@@ -1,30 +1,14 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  line-height: 1.2;
+  background-color: #fefefe;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 * {
   box-sizing: border-box;
-  line-height: 1.5;
- 
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-  cursor: pointer;
+  line-height: 1.6;
+  margin: 0;
 }
 
 a:hover {
@@ -33,12 +17,13 @@ a:hover {
 
 body {
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 1rem 2.5rem;
   display: flex;
   flex-direction: column;
   min-width: 420px;
   min-height: 100vh;
   max-width: 160vh;
+  text-align: center;
 }
 
 h1 {
@@ -53,7 +38,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+ 
   cursor: pointer;
   transition: border-color 0.25s;
   text-align: center;
@@ -73,7 +58,7 @@ button:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6rem ;
+  margin-bottom: 3rem ;
 }
 
 .nav-links {
@@ -143,15 +128,279 @@ button:focus-visible {
 }
 
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/********************* Card *********************/
+
+.empty-card {
+  visibility: hidden;
+  width: 340px;
+  height: 420px;
+
+}
+
+.card {
+  width: 340px;
+  height: 420px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+}
+
+.card__image {
+  width: 100%;
+  height: 74%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+}
+
+.card__info h2 {
+  font-size: 1.5em;
+  color: #000000;
+}
+
+
+
+/********************* Selections *********************/
+
+.selection-view {
+  display: flex;
+  
+  flex-direction: column;
+  padding-top: 3.2rem;
+
+}
+
+.cards-group {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  
+  gap: 1rem;
+}
+
+.back-card {
+  background-color: #ffffff;
+  transform: scale(.8);
+  z-index: 0;
+  filter: blur(2px);
+
+}
+
+.main-card {
+  background-color: #ffffff;
+  transform: scale(1.2);
+  z-index: 9999;
+}
+
+.select-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.select-button a * {
+  width: 4rem;
+  height: auto;
+  margin-top: 2.8rem;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.2;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #213547;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  line-height: 1.5;
+  margin: 0;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0 auto;
+  padding: 1rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 420px;
+  min-height: 100vh;
+  max-width: 160vh;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.4em 0.9em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  text-align: center;
+  justify-content: center;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/********************* NavBar *********************/
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2em;
+}
+
+.nav-links a {
+  font-weight: 600;
+  color: #010101bb;
+  text-decoration: inherit;
+  cursor: pointer;
+}
+
+.navBar__logo {
+  cursor: pointer;
+}
+
+/********************* Search *********************/
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  text-align: left;
+  max-width: 40rem;
+  margin: 0 auto;
+  margin-top: 14rem;
+}
+
+.search-field label {
+  font-size: 14px;
+  color: #000000;
+}
+
+.search-field div {
+  display: flex;
+  padding-top: 6px;
+  gap: 1em;
+  justify-content: space-around;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+}
+
+.search-field input {
+  width: 100%;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  border: 1px solid #1a1a1a;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: #ffffff;
+  transition: border-color 0.25s;
+  text-align: center;
+  justify-content: center;
+}
+
+.share-link {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 1em;
+  margin-top: 6rem;
+}
+
+/********************* Invitation Received *********************/
+
+.invite-message {
+  margin-top: 2rem;
+}
+
+.invite-button {
+  margin-top: 2rem;
+}
+
+/********************* Match Page *********************/
+.featured-date {
+  column-count: 2;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  height: 25em;
+}
+
+.image-card {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  height: 400px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-text {
+  column-span: 1;
+}
+
+.match-longDesc {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  text-align: justify;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+.btn-readMore {
+  margin-bottom: 40px;
 }
