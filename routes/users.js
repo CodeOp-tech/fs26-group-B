@@ -15,7 +15,7 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-// Get user by username
+// Get user by id
 router.get("/:id", async function (req, res, next) {
   try {
     const { id } = req.params;
@@ -31,20 +31,39 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-// FAKE POST
-router.post("/", async function (req, res, next) {
-  const { name, username, password, email } = req.body;
+// Get user by username
+router.get("/username/:username", async function (req, res, next) {
   try {
-    const user = await models.User.create({
-      name,
-      username,
-      password,
-      email,
+    const { username } = req.params;
+    const user = await models.User.findOne({
+      where: { username },
+      attributes: { exclude: ["password"] },
     });
-    res.send(user);
+
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send("User not found");
+    }
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
+// FAKE POST
+// router.post("/", async function (req, res, next) {
+//   const { name, username, password, email } = req.body;
+//   try {
+//     const user = await models.User.create({
+//       name,
+//       username,
+//       password,
+//       email,
+//     });
+//     res.send(user);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
 
 module.exports = router;

@@ -4,12 +4,9 @@ const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   class Event extends Model {
-    // each event has multiple users
-
     static associate(models) {
       Event.belongsTo(models.User, { as: "inviter", foreignKey: "userId_1" });
       Event.belongsTo(models.User, { as: "invitee", foreignKey: "userId_2" });
-      // throws error in user.js
     }
   }
 
@@ -19,6 +16,7 @@ module.exports = (sequelize) => {
       userId_2: DataTypes.INTEGER,
       chosenPlanId: DataTypes.INTEGER,
       status: DataTypes.BOOLEAN,
+      hash: DataTypes.STRING,
     },
     {
       sequelize,

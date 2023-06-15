@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Event, { as: "invitations", foreignKey: "userId_1" });
       // a users receives an event, which means they "get a proposal"
       User.hasMany(models.Event, { as: "proposals", foreignKey: "userId_2" });
-      //throws error in user.js
     }
   }
   User.init(

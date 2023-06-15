@@ -11,7 +11,9 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-// Post selection (every time you click YES the userID and planID goes to selection)
+// Post selection (every time both users select the same plan, "it's a date")
+// To know if they select the same, both users will be in the same event id.
+//
 
 router.post("/", async function (req, res, next) {
   const { userId, planId, eventId } = req.body;
@@ -27,19 +29,14 @@ router.post("/", async function (req, res, next) {
   }
 });
 
+//add column to event table: "invitation hash"
+
+//get invitation: get event where hash is... include inviter and invitee
+
 //check if there is a match
 // if there is, post it in the event table
 
 // GET match cuando coinciden (event id coincide)
-
-// GET EVENT ID
-
-// router.get("/:planId", async function (req, res, next){
-// try {
-//   const {planId} = req.params;
-//   const plan
-// }
-// })
 
 //PLANID = EVENTID
 
