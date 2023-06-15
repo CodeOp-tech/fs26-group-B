@@ -8,6 +8,7 @@ export default function Match() {
   const [plan, setPlan] = useState({});
   const [queryParams, setQueryParams] = useSearchParams();
 
+  // use url params to get plan ID
   const planID = 1;
 
   useEffect(() => {
