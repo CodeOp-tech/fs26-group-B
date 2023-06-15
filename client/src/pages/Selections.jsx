@@ -41,11 +41,7 @@ export default function Selections() {
         else {
             setSelected(false);
         }
-       console.log(cardB.id)
-   
     }, [currentIndex]);
-
-    
 
 	const handleInteraction = () => {
         setCurrentIndex(currentIndex + 1);
@@ -53,7 +49,6 @@ export default function Selections() {
         setCardB(plans[currentIndex + 1]);
         setCardC(plans[currentIndex + 2]);
         if (currentIndex + 2 === plans.length) {
-       
             setCardA(plans[currentIndex]);
             setCardB(plans[currentIndex + 1]);
             setCardC({ name: "No more options", imageSrc: null });
