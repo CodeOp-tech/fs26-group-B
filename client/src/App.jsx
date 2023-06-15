@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Match from "./pages/Match";
 import Invitation from "./pages/Invitation";
 import NavBar from "./components/NavBar";
+import Selections from "./pages/Selections";
 import AuthContext from "./contexts/AuthContext";
 import RequireAuth from "./components/RequireAuth";
 
@@ -53,6 +54,7 @@ function App() {
             element={
               <RequireAuth>
                 <Home />
+                
               </RequireAuth>
             }
           ></Route>
@@ -80,6 +82,15 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/selections"
+            element={
+              <RequireAuth>
+                <Selections />
+              </RequireAuth>
+            }
+          />
+          
         </Routes>
       </div>
     </AuthContext.Provider>
