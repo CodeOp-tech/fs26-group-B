@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate  } from 'react-router-dom'
 // import Menu from './Menu'
-// import Api from '../Api'
-import { ThemeProvider } from '@mui/material/styles';
+import Api from '../services/data'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 // import Container from '@mui/material/Container';
 import { theme } from '../styles';
