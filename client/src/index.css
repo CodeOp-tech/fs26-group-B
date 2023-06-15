@@ -141,6 +141,16 @@ button:focus-visible {
   margin-top: 6rem;
 }
 
+/********************* Invitation Received *********************/
+
+.invite-message {
+  margin-top: 2rem;
+}
+
+.invite-button {
+  margin-top: 2rem;
+}
+
 /********************* Match Page *********************/
 .featured-date {
   column-count: 2;
