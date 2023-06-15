@@ -5,7 +5,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import api from "../services/data";
 
 export default function Selections() {
-	const [selected, setSelected] = useState(false);
+    const [selected, setSelected] = useState(false);
+    const [selectedPlanId, setSelectedPlanId] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
     const [plans, setPlans] = useState([]);
     const [cardA, setCardA] = useState({name: null, imageSrc: null});
@@ -17,7 +18,6 @@ export default function Selections() {
 	const fetchData = async () => {
 		try {
 			const plansData = await api.getAllPlans();
-			console.log("Fetched plans:", plansData);
             setPlans(plansData);
             if (plansData.length === 0) {
                 console.log("no plans")
@@ -33,9 +33,22 @@ export default function Selections() {
 	};
         fetchData();
         
-        console.log(plans[currentIndex])
+        // console.log(cardB.id)
        
-	}, []);
+       
+    }, []);
+    
+    useEffect(() => {
+        if (selectedPlanId.includes(cardB.id)) {
+            console.log(selectedPlanId)
+            setSelected(true);
+        }
+        else {
+            setSelected(false);
+        }
+       console.log(cardB.id)
+   
+    }, [currentIndex]);
 
     
 
@@ -44,17 +57,31 @@ export default function Selections() {
         setCardA(plans[currentIndex]);
         setCardB(plans[currentIndex + 1]);
         setCardC(plans[currentIndex + 2]);
+        if (currentIndex + 2 === plans.length) {
+       
+            setCardA(plans[currentIndex]);
+            setCardB(plans[currentIndex + 1]);
+            setCardC({ name: "No more options", imageSrc: null });
+            setCurrentIndex(0)
+        }
+        
 	};
 
 	const handleSelection = () => {
-		setSelected(!selected);
+        setSelected(!selected);
+        // adds the focus eventid to the selectedPlanIds array
+        if (!selectedPlanId.includes(cardB.id)) {
+            setSelectedPlanId([...selectedPlanId, cardB.id]);
+        }
+        
 		//take main card id and send to backend
 		// wait for an answer from backend to see if is there a match
 		// if there is a match, navigate to match page
 	};
 
 	const handleHoverButton = () => {
-		console.log("hovering");
+        // console.log("hovering");
+        
     };
     
     
