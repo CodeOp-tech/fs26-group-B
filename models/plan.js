@@ -3,10 +3,7 @@ const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Plan extends Model {
-    static associate(models) {
-      // Plan.belongsToMany(models.Events, {through: models.Selections});
-      Plan.belongsTo(models.Selection);
-    }
+    static associate(models) {}
   }
 
   Plan.init(
@@ -18,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Plan",
+      freezeTableName: true,
     }
   );
 

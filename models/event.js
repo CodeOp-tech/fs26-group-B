@@ -21,6 +21,7 @@ module.exports = (sequelize) => {
     {
       sequelize,
       modelName: "Event",
+      freezeTableName: true,
     }
   );
 

@@ -6,7 +6,7 @@ const models = require("../models");
 
 router.get("/", async function (req, res, next) {
   try {
-    const plans = await models.Plans.findAll();
+    const plans = await models.Plan.findAll();
     res.send(plans);
   } catch (error) {
     res.status(500).send(error);

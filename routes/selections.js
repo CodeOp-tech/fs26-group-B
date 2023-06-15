@@ -7,7 +7,7 @@ const models = require("../models");
 router.post("/", async function (req, res, next) {
   const { userId, planId, eventId } = req.body;
   try {
-    const selection = await models.Selections.create({
+    const selection = await models.Selection.create({
       userId,
       planId,
       eventId,

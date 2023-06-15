@@ -29,7 +29,7 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-//FAKE POST
+// FAKE POST
 // router.post("/", async function (req, res, next) {
 //   const { username, password, email } = req.body;
 //   try {

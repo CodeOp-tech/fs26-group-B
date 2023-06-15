@@ -2,12 +2,7 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate(models) {
-      // one user has many selections
-      //one user belongs to one event
-      User.hasMany(models.Selection);
-      User.hasMany(models.Event);
-    }
+    static associate(models) {}
   }
   User.init(
     {
@@ -19,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
+      freezeTableName: true,
     }
   );
   return User;
