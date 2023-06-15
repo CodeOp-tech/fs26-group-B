@@ -178,33 +178,18 @@ export const fakeApi = {
     });
   },
 
-  getUser: async (userId) => {
-    // Simulate a response with fake data
-
+  getUsername: async (username) => {
     // Find and refers the requested user based on the userId
-    const requestedUser = users.filter((user) => user.id === userId)[0];
-
-    // Return a promise that resolves with the fake response object after 500ms
+    const requestedUser = users.filter((user) => user.username === username)[0] || null;
+    // Return a promise that resolves with the fake response object after 5ms
+     
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(requestedUser);
-      }, 500);
+      }, 5);
     });
   },
 
-  searchPartner: async (name) => {
-    // Simulate a response with fake data
-    //search on users array is there is a user with same username as the name given
-    const requestedUser = users.map((user) => user.name === name);
-    const fakeResponse = {
-      requestedUser,
-    };
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(fakeResponse);
-      }, 500);
-    });
-  },
 
   // to create a user in the user table to have a userId with the credential in blanck
   // it is mainly when user 1 is registered and user 2 is not registered yet user 1 creates and event
@@ -222,11 +207,11 @@ export const fakeApi = {
   // },
 
   // Fake post request to add new event to table events in the database
-  // receive the userId_1
-  // happens when user 1 initiate an event match with user 2
-  createEvent: async (id, userId_1) => {
+  // receive the userId_1 which is the user sending the invitation request
+  // sends back the invitation id or hash
+  sendInvitation: async (userId_1) => {
     // Simulate a response with fake data
-
+      const id = 2;
     events.push = {
       id: id,
       userId_1: userId_1,
@@ -234,7 +219,7 @@ export const fakeApi = {
       chosenPlanId: null,
       status: open,
     };
-    const fakeResponse = `new event created id:${id}`;
+    const fakeResponse = id;
     // while planId is not null the status is open
     // is going to receive the planId from selection table when the planId is twice with the same dateEvent_id
 
@@ -242,7 +227,7 @@ export const fakeApi = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(fakeResponse);
-      }, 500);
+      }, 50);
     });
   },
 
