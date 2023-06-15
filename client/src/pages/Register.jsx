@@ -25,10 +25,16 @@ function Register() {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleRegister = async () => {
+  const register = async () => {
     try {
-      await register(credentials);
-      navigate("/home");
+      const { data } = await axios("/api/auth/register", {
+        method: "POST",
+        data: credentials,
+      });
+
+      console.log(data.message);
+      setData(data.message);
+      auth.login();
     } catch (error) {
       console.log(error);
       setData(error.response.data.message);
@@ -68,7 +74,7 @@ function Register() {
           />
         </div>
         <div className="d-flex justify-content-center">
-          <button className="btn btn-primary" onClick={handleRegister}>
+          <button className="btn btn-primary" onClick={register}>
             Sign Up
           </button>
         </div>
