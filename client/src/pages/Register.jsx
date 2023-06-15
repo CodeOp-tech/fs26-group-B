@@ -8,7 +8,7 @@ import api from "../services/data.js";
 function Register() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { register } = api;
+  // const { register } = api;
 
   const [credentials, setCredentials] = useState({
     username: "",

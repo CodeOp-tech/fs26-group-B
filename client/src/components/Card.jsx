@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function Card({ planContent}) {
     return (
-        <div className="card">
+        <div className={planContent.name !== null ? "card" : "empty-card"}>
           <div className="card__image">
             <img
               src={planContent.imageSrc} // Accede a la imagen del plan desde planContent
@@ -24,6 +24,5 @@ Card.propTypes = {
       imageSrc: PropTypes.string.isRequired, // Agrega la validación para 'imageSrc'
       name: PropTypes.string.isRequired,
         shortDescription: PropTypes.string.isRequired,
-        longDescription: PropTypes.string.isRequired,
     }).isRequired,
   };

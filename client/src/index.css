@@ -130,6 +130,13 @@ button:focus-visible {
 
 /********************* Card *********************/
 
+.empty-card {
+  visibility: hidden;
+  width: 340px;
+  height: 420px;
+
+}
+
 .card {
   width: 340px;
   height: 420px;

@@ -42,7 +42,7 @@ export const fakeApi = {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(plan);
-            }, 500);
+            }, 0);
         });
     },
 

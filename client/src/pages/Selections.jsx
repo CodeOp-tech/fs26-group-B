@@ -8,7 +8,7 @@ export default function Selections() {
 	const [selected, setSelected] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
     const [plans, setPlans] = useState([]);
-    const [cardA, setCardA] = useState({});
+    const [cardA, setCardA] = useState({name: null, imageSrc: null, description: 'Beach description'});
     const [cardB, setCardB] = useState({});
     const [cardC, setCardC] = useState({});
 
@@ -18,15 +18,26 @@ export default function Selections() {
 		try {
 			const plansData = await api.getAllPlans();
 			console.log("Fetched plans:", plansData);
-			setPlans(plansData);
+            setPlans(plansData);
+            if (plansData.length === 0) {
+                console.log("no plans")
+                return;
+            }
+            // setCardA(plansData[currentIndex ]);
+            setCardB(plansData[currentIndex ]);
+            setCardC(plansData[currentIndex + 1]);
+             
 		} catch (error) {
 			console.error("Error fetching plans:", error);
 		}
 	};
         fetchData();
-        console.log( plans[currentIndex + 2])
+        
+        console.log(plans[currentIndex])
+       
 	}, []);
 
+    
 
 	const handleInteraction = () => {
         setCurrentIndex(currentIndex + 1);
@@ -50,8 +61,7 @@ export default function Selections() {
 
 	return (
         <div className="selection-view">
-            {plans &&
-
+            {plans  &&
 			<div className="cards-group">
 				<div className="back-card ">
 					<Card planContent={cardA} />
