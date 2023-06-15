@@ -2,14 +2,12 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.changeColumn("Selection", "eventId", {
+    await queryInterface.addColumn("Event", "hashId", {
       type: Sequelize.STRING,
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.changeColumn("Selection", "eventId", {
-      type: Sequelize.INTEGER,
-    });
+    await queryInterface.removeColumn("Event", "hashId");
   },
 };

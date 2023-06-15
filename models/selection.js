@@ -4,10 +4,6 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Selection extends Model {
     static associate(models) {
-      // each selection is made by one user
-      // many selections are made into one event
-      // one selection is made to one plan
-
       Selection.belongsTo(models.User);
       Selection.belongsTo(models.Plan);
       Selection.belongsTo(models.Event);
@@ -16,9 +12,10 @@ module.exports = (sequelize, DataTypes) => {
 
   Selection.init(
     {
-      eventId: DataTypes.STRING,
+      eventId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
       planId: DataTypes.INTEGER,
+      hashEventId: DataTypes.STRING,
     },
     {
       sequelize,
