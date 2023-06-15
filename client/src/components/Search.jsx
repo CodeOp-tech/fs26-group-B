@@ -10,14 +10,16 @@ export default function Search() {
 	const [user, setUser] = useState("");
     const navigate = useNavigate();
     const [errorMsg, setErrorMsg] = useState(false);
+    const [invitationMsg, setInvitationMsg] = useState("");
     
 
 	useEffect(() => {
-		// navigate('/selections')
 
         setUser({});
      
-	}, []);
+    }, []);
+    
+
 
 	const handleSearch = (e) => {
 		e.preventDefault();
@@ -31,7 +33,6 @@ export default function Search() {
 			const data = await api.getUsername(userSearch);
             data && setUser(data) || setErrorMsg(true);
             data && setErrorMsg(false) 
-            console.log(user);
             console.log(errorMsg);
             console.log(data);
 		} catch (error) {
@@ -42,20 +43,27 @@ export default function Search() {
 	const handleInvitation = async () => {
 		try {
 			const data = await api.sendInvitation(1);
-			if (data) console.log("invitation sent" + data);
-			navigate("/selections");
+			if (data) setInvitationMsg("Invitation sent successfully!");
+			
 		} catch (error) {
 			console.log(error);
-		}
-	};
+        }
+        setUser({});
+       
+    };
+    
+    const handleStart = () => {
+        navigate('/selections')
+    }
 
 	const handleChange = (e) => {
 		setUserSearch(e.target.value);
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSearch}>
+        <div>
+            <div className="search-box">
+			<form >
 				<div className="search-field">
 					<label htmlFor="eventTitle">Search for your partner</label>
 					<div>
@@ -65,7 +73,7 @@ export default function Search() {
 							name="eventTitle"
 							value={userSearch}
 							onChange={handleChange}
-							required
+							
 						/>
 							<button
 								className="submit-button"
@@ -78,27 +86,30 @@ export default function Search() {
 					
 					</div>
                 </div>
-                {user.username &&
-                    <div className="found msg">
-                        <p>{user.username}    <span>user found!</span></p>
-                    
-                    	
-							<button
-								onClick={handleInvitation}
-							>
-								Invite
-                        </button>
-                    </div>
+               
 					
-                }
+                
             </form>
+            {user.username &&
+                <div className="found msg">
+                    <p>{user.username}    <span>user found!</span></p>
+                    <button
+                        onClick={handleInvitation}
+                    >
+                        Invite
+                    </button>
+                    </div>}
+                    </div>
             
 
 			{errorMsg === true && (
 				<div className="msg not-found">
 					<p>Sorry, user not found </p>
 				</div>
-			)}
+            )}
+            {invitationMsg && <div className="confirmation">{invitationMsg}
+                <p>Press Start to begin your selection</p>
+                <button onClick={handleStart}>Start</button></div>}
 
 			{/* <div className="share-link">
                 <a>Or send registration Link </a><a><SendIcon /></a>
