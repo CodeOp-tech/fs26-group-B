@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Selection.init(
     {
-      eventId: DataTypes.INTEGER,
+      eventId: DataTypes.STRING,
       userId: DataTypes.INTEGER,
       planId: DataTypes.INTEGER,
     },

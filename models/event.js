@@ -12,11 +12,14 @@ module.exports = (sequelize) => {
 
   Event.init(
     {
+      id: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+      },
       userId_1: DataTypes.INTEGER,
       userId_2: DataTypes.INTEGER,
       chosenPlanId: DataTypes.INTEGER,
       status: DataTypes.BOOLEAN,
-      hash: DataTypes.STRING,
     },
     {
       sequelize,
