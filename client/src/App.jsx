@@ -56,6 +56,14 @@ function App() {
             }
           ></Route>
           <Route
+            path="/invitation"
+            element={
+              <RequireAuth>
+                <Invitation />
+              </RequireAuth>
+            }
+          />
+          <Route
             path="/profile"
             element={
               <RequireAuth>
