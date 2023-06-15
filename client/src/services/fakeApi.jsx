@@ -182,16 +182,12 @@ export const fakeApi = {
     // Simulate a response with fake data
 
     // Find and refers the requested user based on the userId
-    const requestedUser = users.map((user) => user.id === userId);
-
-    const fakeResponse = {
-      requestedUser,
-    };
+    const requestedUser = users.filter((user) => user.id === userId)[0];
 
     // Return a promise that resolves with the fake response object after 500ms
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(fakeResponse);
+        resolve(requestedUser);
       }, 500);
     });
   },

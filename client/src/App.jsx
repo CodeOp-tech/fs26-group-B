@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Match from "./pages/Match";
+import Invitation from "./pages/Invitation";
 import NavBar from "./components/NavBar";
 import Selections from "./pages/Selections";
 import AuthContext from "./contexts/AuthContext";
@@ -57,6 +58,14 @@ function App() {
               </RequireAuth>
             }
           ></Route>
+          <Route
+            path="/invitation"
+            element={
+              <RequireAuth>
+                <Invitation />
+              </RequireAuth>
+            }
+          />
           <Route
             path="/profile"
             element={
