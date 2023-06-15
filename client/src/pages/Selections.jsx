@@ -8,7 +8,7 @@ export default function Selections() {
 	const [selected, setSelected] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
     const [plans, setPlans] = useState([]);
-    const [cardA, setCardA] = useState({name: null, imageSrc: null, description: 'Beach description'});
+    const [cardA, setCardA] = useState({name: null, imageSrc: null});
     const [cardB, setCardB] = useState({});
     const [cardC, setCardC] = useState({});
 

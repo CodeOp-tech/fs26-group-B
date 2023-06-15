@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import Match from "./pages/Match";
 import NavBar from "./components/NavBar";
 import Selections from "./pages/Selections";
 import AuthContext from "./contexts/AuthContext";
@@ -61,6 +62,14 @@ function App() {
             element={
               <RequireAuth>
                 <Profile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/its-a-date"
+            element={
+              <RequireAuth>
+                <Match />
               </RequireAuth>
             }
           />
