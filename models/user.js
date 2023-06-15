@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // one user has many selections
       //one user belongs to one event
-      User.hasMany(models.Selection), User.hasMany(models.Event);
+      User.hasMany(models.Selection);
+      User.hasMany(models.Event);
     }
   }
   User.init(

@@ -6,7 +6,7 @@ const models = require("../models");
 
 router.get("/", async function (req, res, next) {
   try {
-    const users = await models.Users.findAll();
+    const users = await models.User.findAll();
     res.send(users);
   } catch (error) {
     res.status(500).send(error);
@@ -17,7 +17,7 @@ router.get("/", async function (req, res, next) {
 router.get("/:id", async function (req, res, next) {
   try {
     const { id } = req.params;
-    const user = await models.Users.findOne({ where: { id } });
+    const user = await models.User.findOne({ where: { id } });
 
     if (user) {
       res.send(user);
@@ -29,18 +29,16 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-// POST USER 2 DESDE AUTHENTICATION
-
 //FAKE POST
 // router.post("/", async function (req, res, next) {
 //   const { username, password, email } = req.body;
 //   try {
-//     const selection = await models.Selections.create({
+//     const user = await models.User.create({
 //       username,
 //       password,
 //       email,
 //     });
-//     res.send(selection);
+//     res.send(user);
 //   } catch (error) {
 //     res.status(500).send(error);
 //   }

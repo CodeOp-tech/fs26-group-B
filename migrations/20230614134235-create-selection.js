@@ -2,40 +2,36 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Event", {
+    await queryInterface.createTable("Selection", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId_1: {
+      eventId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
+          model: "Event",
           key: "id",
         },
         allowNull: false,
       },
-
-      userId_2: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
+          model: "User",
           key: "id",
         },
         allowNull: false,
       },
-      chosenPlanId: {
+      planId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Plans",
+          model: "Plan",
           key: "id",
         },
         allowNull: false,
-      },
-      status: {
-        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
@@ -48,6 +44,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Event");
+    await queryInterface.dropTable("Selection");
   },
 };
