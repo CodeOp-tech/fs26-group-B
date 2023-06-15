@@ -28,11 +28,11 @@ module.exports = {
       },
       chosenPlanId: {
         type: Sequelize.INTEGER,
-        // references: {
-        //   model: "Plan",
-        //   key: "id",
-        // },
-        // allowNull: false,
+        references: {
+          model: "Plan",
+          key: "id",
+        },
+        allowNull: false,
       },
       status: {
         type: Sequelize.BOOLEAN,

@@ -7,7 +7,9 @@ module.exports = (sequelize) => {
     // each event has multiple users
 
     static associate(models) {
-      Event.hasMany(models.User);
+      Event.belongsTo(models.User, { as: "inviter", foreignKey: "userId_1" });
+      Event.belongsTo(models.User, { as: "invitee", foreignKey: "userId_2" });
+      // throws error in user.js
     }
   }
 

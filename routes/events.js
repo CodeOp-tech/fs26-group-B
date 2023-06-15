@@ -15,7 +15,6 @@ router.post("/", async function (req, res, next) {
       chosenPlanId,
       status,
     });
-    //DEVUELVE EL EVENT ID Y "NEW EVENT CREATED"
     res.send(event.id && "New event created");
   } catch (error) {
     res.status(500).send(error);
@@ -24,7 +23,9 @@ router.post("/", async function (req, res, next) {
 
 router.get("/", async function (req, res, next) {
   try {
-    const events = await models.Event.findAll();
+    const events = await models.Event.findAll({
+      include: ["inviter", "invitee"],
+    });
     res.send(events);
   } catch (error) {
     res.status(500).send(error);
