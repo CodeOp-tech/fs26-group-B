@@ -1,28 +1,14 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.2;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #fefefe;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 * {
   box-sizing: border-box;
   line-height: 1.6;
   margin: 0;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-  cursor: pointer;
 }
 
 a:hover {
@@ -37,6 +23,7 @@ body {
   min-width: 420px;
   min-height: 100vh;
   max-width: 160vh;
+  text-align: center;
 }
 
 h1 {
@@ -51,7 +38,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+ 
   cursor: pointer;
   transition: border-color 0.25s;
   text-align: center;
@@ -71,7 +58,7 @@ button:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4rem ;
+  margin-bottom: 3rem ;
 }
 
 .nav-links {
@@ -144,9 +131,9 @@ button:focus-visible {
 /********************* Card *********************/
 
 .card {
-  /* box-shadow: 0 0 22px 22px #b8b8b84b; */
-  width: 370px;
-  height: 460px;
+  width: 340px;
+  height: 420px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
 }
 
 .card__image {
@@ -163,47 +150,57 @@ img {
 .card__info {
   display: flex;
   flex-direction: column;
+  padding-top: 1rem;
 }
 
-.card focus {
-  width: 120%; /* Adjust the percentage value as needed */
-  height: auto; /* The height will adjust proportionally based on the content */
+.card__info h2 {
+  font-size: 1.5em;
+  color: #000000;
 }
+
 
 
 /********************* Selections *********************/
 
-.cards-group {
+.selection-view {
   display: flex;
-  padding-top: 2rem;
-  align-items: center;
-  justify-content: space-between;
+  
+  flex-direction: column;
+  padding-top: 3.2rem;
+
 }
 
+.cards-group {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  
+  gap: 1rem;
+}
 
 .back-card {
-  position: relative;
-  box-shadow: 0 0 7px 8px #b8b8b833
+  background-color: #ffffff;
+  transform: scale(.8);
+  z-index: 0;
+
 }
 
 .main-card {
-  position: relative;
-  box-shadow: 0 0 20px 20px #b1b1b15a;
-  z-index: 1;
+  background-color: #ffffff;
+  transform: scale(1.2);
+  z-index: 9999;
 }
 
-
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.select-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
+
+.select-button a * {
+  width: 4rem;
+  height: auto;
+  margin-top: 2.8rem;
+}
+

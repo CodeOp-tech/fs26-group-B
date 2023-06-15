@@ -14,7 +14,7 @@ export default function Search() {
     const navigate = useNavigate();
     
     useEffect(() => {
-        navigate('/selections')
+        // navigate('/selections')
     }, []);
 
 	const handleSubmit = (e) => {

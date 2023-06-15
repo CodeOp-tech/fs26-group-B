@@ -1,16 +1,29 @@
+import PropTypes from 'prop-types';
 
 
-export default function Card() {
-
+export default function Card({ planContent}) {
     return (
         <div className="card">
-            <div className="card__image">
-                <img src="https://images.unsplash.com/photo-1686515815090-fcf7f9028950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="" />
-            </div>
-            <div className="card__info">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
+          <div className="card__image">
+            <img
+              src={planContent.imageSrc} // Accede a la imagen del plan desde planContent
+              alt=""
+            />
+          </div>
+          <div className="card__info">
+            <h2>{planContent.name}</h2> {/* Accede al título del plan desde planContent */}
+            <p>short description</p> {/* Accede a la descripción del plan desde planContent */}
+          </div>
         </div>
-    )
+      );
 }
+
+
+Card.propTypes = {
+    planContent: PropTypes.shape({
+      imageSrc: PropTypes.string.isRequired, // Agrega la validación para 'imageSrc'
+      name: PropTypes.string.isRequired,
+        shortDescription: PropTypes.string.isRequired,
+        longDescription: PropTypes.string.isRequired,
+    }).isRequired,
+  };

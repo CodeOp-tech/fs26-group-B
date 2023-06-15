@@ -1,13 +1,6 @@
 #root {
   padding: 2px;
-  text-align: center;
   justify-content: center;
-}
-
-.logo {
-  height: 6em;
-  will-change: filter;
-  transition: filter 300ms;
 }
 
 
