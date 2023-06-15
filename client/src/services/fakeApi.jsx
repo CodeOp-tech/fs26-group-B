@@ -277,81 +277,44 @@ export const fakeApi = {
   // fake post request to add new selection to the selection table in the database
   addSelection: async (id, eventId, userId, planId) => {
     // simulate a post into fake selection table
+      let isMatch = false;
     selections.push = {
       id: id,
       planId: planId,
       eventId: eventId,
       userId: userId,
     };
+    //   just pass the  plan id and the eventid
 
-    const matchingEventId = selections.filter(
-      (selection) => selection.eventId === eventId
+    const filterSelections= selections.filter(
+      (selection) => selection.eventId === eventId && selection.planId === planId
     );
 
-    const matchingPlanIds = matchingEventId.map(
-      (selection) => selection.planId
-    );
+    // const matchingPlanIds = matchingEventId.map(
+    //   (selection) => selection.planId
+    // );
 
-    const repeatedPlanId = matchingPlanIds.filter((planId, index) => {
-      matchingPlanIds.indexOf(planId) !== index;
-    });
+    // const repeatedPlanId = matchingPlanIds.filter((planId, index) => {
+    //   matchingPlanIds.indexOf(planId) !== index;
+    // });
 
-    if (repeatedPlanId.length > 0) {
-      planId = repeatedPlanId[0];
+    if (filterSelections.length === 2) {
+      
       events.find((event) => event.eventId === eventId).chosenPlanId = planId;
-      events.find((event) => event.eventId === eventId).status = close;
+        events.find((event) => event.eventId === eventId).status = "close";
+        isMatch = true;
     }
 
-    const fakeResponse = `new match found planId:${planId}`;
+    const fakeResponse = `the ir a match ${isMatch}`;
 
     // Return a promise that resolves with the fake response object after 500ms
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(fakeResponse);
-      }, 500);
+      }, 5);
     });
   },
 
-  //     // fake put request to put into DateEvent table in database the id of the event_id when in the
-  //     // selection table the event_id is two times with the same dateEvent_id
-  //     getMatch: async (eventId) => {
-  //         // Simulate a response with fake data if the same event_id and the planId is twice in the selection table
-  //         const matchingEventId = selections.filter((selection) => selection.eventId === eventId);
-
-  //         const matchingPlanIds = matchingEventId.map((selection) => selection.planId);
-
-  //         const repeatedPlanId = matchingPlanIds.filter((planId, index) => {
-  //             matchingPlanIds.indexOf(planId) !== index;
-  //         });
-
-  //         const fakeResponse =
-  //             repeatedPlanId.length > 0 ? repeatedPlanId[0] : "The is no match yet"
-  //             ;
-
-  //         // Return a promise that resolves with the fake response object after 500ms
-  //         return new Promise((resolve) => {
-  //             setTimeout(() => {
-  //                 resolve(fakeResponse);
-  //             }, 500);
-  //         });
-  //     },
-
-  //     // is the is a match this should be called to update the event table with the planId and status close
-  //     putEventMatchPlan: async (planId, eventId) => {
-
-  //         events.find(event => event.eventId === eventId).planId = planId;
-  //         events.find(event => event.eventId === eventId).status = close;
-
-  //         const fakeResponse =
-  //             "event match plan updated";
-
-  //             return new Promise((resolve) => {
-  //                 setTimeout(() => {
-  //                     resolve(fakeResponse);
-  //                 }, 500);
-  //             }
-  //             );
-  //     },
 };
 
 export { users, events, selections, plans };

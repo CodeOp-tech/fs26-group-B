@@ -190,6 +190,7 @@ img {
   background-color: #ffffff;
   transform: scale(.8);
   z-index: 0;
+  filter: blur(2px);
 
 }
 
