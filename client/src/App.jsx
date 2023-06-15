@@ -5,7 +5,10 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import Match from "./pages/Match";
+import Invitation from "./pages/Invitation";
 import NavBar from "./components/NavBar";
+import Selections from "./pages/Selections";
 import AuthContext from "./contexts/AuthContext";
 import RequireAuth from "./components/RequireAuth";
 
@@ -13,7 +16,8 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token"); just for testing and access to search page
+    const token = true;
     if (token) {
       setUser(true);
     }
@@ -50,9 +54,18 @@ function App() {
             element={
               <RequireAuth>
                 <Home />
+                
               </RequireAuth>
             }
           ></Route>
+          <Route
+            path="/invitation"
+            element={
+              <RequireAuth>
+                <Invitation />
+              </RequireAuth>
+            }
+          />
           <Route
             path="/profile"
             element={
@@ -61,6 +74,23 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/its-a-date"
+            element={
+              <RequireAuth>
+                <Match />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/selections"
+            element={
+              <RequireAuth>
+                <Selections />
+              </RequireAuth>
+            }
+          />
+          
         </Routes>
       </div>
     </AuthContext.Provider>

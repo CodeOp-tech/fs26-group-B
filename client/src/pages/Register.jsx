@@ -2,13 +2,13 @@ import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
 // import "..css/register.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../services/data.js";
 
 function Register() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { register } = api();
+  // const { register } = api;
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -25,10 +25,16 @@ function Register() {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleRegister = async () => {
+  const register = async () => {
     try {
-      await register(credentials);
-      navigate("/home");
+      const { data } = await axios("/api/auth/register", {
+        method: "POST",
+        data: credentials,
+      });
+
+      console.log(data.message);
+      setData(data.message);
+      auth.login();
     } catch (error) {
       console.log(error);
       setData(error.response.data.message);
@@ -68,7 +74,7 @@ function Register() {
           />
         </div>
         <div className="d-flex justify-content-center">
-          <button className="btn btn-primary" onClick={handleRegister}>
+          <button className="btn btn-primary" onClick={register}>
             Sign Up
           </button>
         </div>

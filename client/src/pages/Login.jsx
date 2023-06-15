@@ -8,7 +8,7 @@ import api from "../services/data.js";
 function Login() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { login } = api;
+  // const { login } = api;
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -24,10 +24,19 @@ function Login() {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleLogin = async () => {
+  const login = async () => {
     try {
-      await login(credentials);
-      navigate("/home");
+      const { data } = await axios("/api/auth/login", {
+        method: "POST",
+        data: credentials,
+      });
+
+      //store it locally
+      localStorage.setItem("token", data.token);
+      auth.login();
+      console.log(auth);
+      console.log(data.message, data.token);
+      setData(data.message);
     } catch (error) {
       console.log(error);
       setData("Login failed, please try again");
@@ -59,7 +68,7 @@ function Login() {
           />
         </div>
         <div className="d-flex justify-content-center">
-          <button className="btn btn-primary" onClick={handleLogin}>
+          <button className="btn btn-primary" onClick={login}>
             Log in
           </button>
         </div>
