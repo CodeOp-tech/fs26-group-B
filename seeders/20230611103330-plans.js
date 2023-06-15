@@ -60,7 +60,7 @@ module.exports = {
         longDescription:
           "You are about to embark on a captivating journey as you visit a local museum. Immerse yourself in the world of art, history, or science. Explore fascinating exhibits and allow your curiosity to guide you. Take your time examining intricate artwork or learning about past civilizations. Engage in insightful discussions, share your perspectives, and appreciate the beauty of human creativity and innovation. Don't forget to check the museum's schedule for any guided tours or special events to make the most of your visit.",
         imageSrc:
-          "https://images.unsplash.com/photo-1515169273894-7e876dcf13da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
+          "https://images.unsplash.com/photo-1512540452972-baac55d40ef1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -240,7 +240,7 @@ module.exports = {
         longDescription:
           "Get ready for an exciting hiking adventure! Lace up your sturdy shoes, grab a backpack with snacks and water, and head out to a scenic trail. Explore nature's beauty as you traverse through winding paths and immerse yourself in serene surroundings. Observe the flora and fauna, breathe in the fresh air, and relish the tranquility of being away from the hustle and bustle. Capture memorable moments with photos or simply pause to appreciate the breathtaking views. Take the opportunity to engage in deep conversations and create lasting memories along the way.",
         imageSrc:
-          "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1844&q=80",
+          "https://images.unsplash.com/photo-1536625979259-edbae645c7c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -337,6 +337,18 @@ module.exports = {
           "Get ready for an unforgettable day of non-stop excitement, laughter, and adrenaline-pumping rides at the theme park! Step into a realm of imagination and thrills, where roller coasters twist and turn, water slides make a splash, and live entertainment brings the park to life. From the heart-stopping drops of the tallest roller coasters to the whimsical adventures of family-friendly attractions, there's something for everyone to enjoy. Feel the rush of wind in your hair as you plummet down steep drops, scream with delight as you spin through twists and loops, and challenge your friends to friendly competitions on interactive games and attractions. Take breaks to refuel with delicious snacks and refreshing treats, and capture magical moments with photos and souvenirs that will forever remind you of this extraordinary day. With its vibrant atmosphere, captivating shows, and a sense of wonder around every corner, the theme park promises an action-packed, laughter-filled experience that will create cherished memories for years to come.",
         imageSrc:
           "https://images.unsplash.com/photo-1611745179863-e123a89795fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Climbing",
+        keyword: "climbing+center",
+        shortDescription:
+          "Embark on an exciting indoor climbing adventure! Conquer challenging walls, test your skills, and experience the thrill of reaching new heights in a safe and controlled environment.",
+        longDescription:
+          "Get ready for an incredible indoor climbing adventure! As you step into the cutting-edge climbing center, you will be filled with excitement. The towering walls, colorful routes, and diverse climbing surfaces will beckon you both. Securing your climbing gear, you will be eager to push yourselves to new heights. You will exchange ideas and plan your session, starting with warm-up routes to build confidence before tackling more challenging walls. With each climb, you will celebrate victories, cheer each other on, and create lasting memories. This thrilling experience will strengthen your bond and leave you both exhilarated and eager for more.",
+        imageSrc:
+          "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1844&q=80",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
