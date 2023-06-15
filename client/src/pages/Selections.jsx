@@ -54,6 +54,7 @@ export default function Selections() {
             setCardC({ name: "No more options", imageSrc: null });
             setCurrentIndex(0)
         }
+
 	};
 
 	const handleSelection = async() => {
