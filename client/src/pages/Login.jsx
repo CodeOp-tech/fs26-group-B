@@ -75,7 +75,7 @@ function Login() {
           Not a user yet? <Link to="/register">Sign Up</Link>
         </p>
 
-        <div>
+        <div className="error-message">
           <p>{data}</p>
         </div>
       </div>
