@@ -28,9 +28,11 @@ getAllEvents()
 
 createEvent(inviter, invitee)
 
-getEvent(hashId)
+getEvent(hash)
 
 getEvent(eventId)
+
+getEvent(inviteeId)
 
 
 
