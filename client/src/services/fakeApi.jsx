@@ -194,8 +194,8 @@ export const fakeApi = {
     });
   },
 
-  getUser: async (userId) => {
-    // Simulate a response with fake data
+//   getUser: async (userId) => {
+//     // Simulate a response with fake data
 
   getUsername: async (username) => {
     // Find and refers the requested user based on the userId
