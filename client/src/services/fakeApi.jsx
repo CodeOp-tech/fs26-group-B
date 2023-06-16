@@ -18,7 +18,7 @@ const users = [
 ];
 
 const events = [
-  { id: 1, userId_1: 1, userId_2: 2, chosenPlanId: 1, status: close },
+  { id: 1, userId_1: 1, userId_2: 2, chosenPlanId: null, status: "open" },
 ];
 
 const selections = [
@@ -209,6 +209,17 @@ export const fakeApi = {
     });
   },
 
+
+  //search open status event for userid and returns the whole event
+  getOpenEvents: async (userId) => {
+    // Simulate a response with fake data
+    const fakeResponse = events.filter(event => event.userId_2 === userId && event.status === "open")[0];
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(fakeResponse);
+      }, 5);
+    });
+  },
 
   // to create a user in the user table to have a userId with the credential in blanck
   // it is mainly when user 1 is registered and user 2 is not registered yet user 1 creates and event

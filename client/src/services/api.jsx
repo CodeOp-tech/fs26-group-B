@@ -32,6 +32,8 @@ getEvent(hash)
 
 getEvent(eventId)
 
+getOpenEvents(userId) search open status event for userid and returns the whole event
+
 getEvent(inviteeId)
 
 

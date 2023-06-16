@@ -74,6 +74,11 @@ button:hover {
   cursor: pointer;
 }
 
+.auth-links {
+  display: flex;
+  gap: 2em;
+}
+
 /********************* Sign Up & Login *********************/
 
 .register-box {
@@ -212,6 +217,27 @@ form input {
 
 .confirmation button {
   margin-top: 2rem;
+}
+
+/********************* Pending invitations *********************/
+.pending-page {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 8rem;
+}
+
+.invitation-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  width: 48%;
+  height: 4rem;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.382);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 1rem;
 }
 
 /********************* Card *********************/
