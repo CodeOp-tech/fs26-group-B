@@ -74,6 +74,11 @@ button:hover {
   cursor: pointer;
 }
 
+.auth-links {
+  display: flex;
+  gap: 2em;
+}
+
 /********************* Sign Up & Login *********************/
 
 .register-box {
@@ -116,10 +121,7 @@ button:hover {
   margin-bottom: 30px;
 }
 
-.auth-links {
-  display: flex;
-  gap: 2em;
-}
+
 
 /********************* Search *********************/
 

@@ -1,4 +1,4 @@
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import Menu from './Menu'
 import api from '../services/data'
@@ -41,9 +41,9 @@ export default function NavBar() {
   //   setSelectSignUp(true);
   // };
 
-    const handleClickLogo = () => {
-        setSelectHomePage(true)
-    }
+    // const handleClickLogo = () => {
+    //     setSelectHomePage(true)
+    // }
 
     const handleNotification = () => {
         navigate('/pending');
