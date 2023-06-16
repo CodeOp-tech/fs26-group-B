@@ -15,10 +15,10 @@ router.post("/", async (req, res) => {
 
   try {
     // Generate a unique identifier for the event
-    const hashId = uuidv4();
+    const hash = uuidv4();
 
     // Hash the event ID to create a secure private token
-    const privateToken = await bcrypt.hash(hashId, saltRounds);
+    const privateToken = await bcrypt.hash(hash, saltRounds);
     const eventId = req.params;
     // Create the event with the public ID and private token
     const event = await models.Event.create({
@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
       userId_2,
       chosenPlanId,
       status,
-      hashId: privateToken,
+      hash: privateToken,
     });
 
     res.send(event);
@@ -59,15 +59,15 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-//GET event with HASHID (private)WORK IN ROGRESS
+//GET event with hash (private)WORK IN ROGRESS
 
-router.get("/eventprivate/:hashId", async function (req, res, next) {
-  const { hashId } = req.params;
+router.get("/eventprivate/:hash", async function (req, res, next) {
+  const { hash } = req.params;
 
   try {
     // Find the event using the hashed URL token
     const event = await models.Event.findOne({
-      where: { hashId },
+      where: { hash },
     });
 
     if (event !== null) {
