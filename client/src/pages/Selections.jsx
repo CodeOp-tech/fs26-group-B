@@ -12,6 +12,7 @@ export default function Selections() {
     const [cardA, setCardA] = useState({name: null, imageSrc: null});
     const [cardB, setCardB] = useState({});
     const [cardC, setCardC] = useState({});
+    const [lastCard, setLastCard] = useState(false);
 
     useEffect(() => {
 	const fetchData = async () => {
@@ -41,19 +42,41 @@ export default function Selections() {
         else {
             setSelected(false);
         }
+        // if (currentIndex === 0) {
+        //     setCardA({ name: null, imageSrc: null });
+        //     setCardB(plans[currentIndex]);
+        //     setCardC(plans[currentIndex + 1]);
+        // }
+            
     }, [currentIndex]);
 
-	const handleInteraction = () => {
-        setCurrentIndex(currentIndex + 1);
-        setCardA(plans[currentIndex]);
-        setCardB(plans[currentIndex + 1]);
-        setCardC(plans[currentIndex + 2]);
-        if (currentIndex + 2 === plans.length) {
+    const handleInteraction = () => {
+        if (currentIndex === 0) {
+            setCardA({ name: null, imageSrc: null });
+            setCardB(plans[currentIndex]);
+            setCardC(plans[currentIndex + 1]);
+            setLastCard(false);
+        }
+        if (currentIndex + 1 === plans.length) {
+            // setCardA(plans[currentIndex + 1]);
+            setCardB({ name: "No more options", imageSrc: "https://i.gifer.com/19E6.gif" });
+            setCardC({ name: null, imageSrc: null });
+            setCurrentIndex(0)
+            setLastCard(true);
+        }
+        else {
+            setCurrentIndex(currentIndex + 1);
             setCardA(plans[currentIndex]);
             setCardB(plans[currentIndex + 1]);
-            setCardC({ name: "No more options", imageSrc: null });
-            setCurrentIndex(0)
-        }
+            setCardC(plans[currentIndex + 2]);
+            if (currentIndex + 2 === plans.length) {
+                // setCardA(plans[currentIndex]);
+                // setCardB(plans[currentIndex + 1]);
+                setCardC({ name: "No more options", imageSrc:"https://i.gifer.com/19E6.gif" });
+                // setCurrentIndex(0)
+            }
+    }
+       
 
 	};
 
@@ -79,9 +102,12 @@ export default function Selections() {
       
 	};
 
-	const handleHoverButton = () => {
-        // console.log("hovering"); 
-    };
+    const handleTryAgain = () => {
+        setSelectedPlanId([]);
+        setLastCard(false);
+        handleInteraction();
+    }
+       
     
 	return (
         <div className="selection-view">
@@ -97,7 +123,8 @@ export default function Selections() {
 					<Card planContent={cardC} />
 				</div>
 			</div>}
-			<div className="select-button" onMouseOver={handleHoverButton}>
+            <div className="select-button" >
+                {lastCard ? <button onClick={handleTryAgain}>Try again</button> : <>
 				{!selected && (
 					<a onClick={handleSelection}>
 						<FavoriteBorderIcon />
@@ -107,7 +134,9 @@ export default function Selections() {
 					<a onClick={handleSelection}>
 						<FavoriteIcon />
 					</a>
-				)}
+                    )}
+                </>
+                }
 			</div>
 		</div>
 	);
