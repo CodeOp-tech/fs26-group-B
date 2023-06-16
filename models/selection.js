@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       eventId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
       planId: DataTypes.INTEGER,
-      hashEventId: DataTypes.STRING,
+      eventId: DataTypes.INTEGER,
     },
     {
       sequelize,
