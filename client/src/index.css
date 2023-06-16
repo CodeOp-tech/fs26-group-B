@@ -83,12 +83,8 @@ button:hover {
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-
-  text-align: left;
   max-width: 30rem;
-
   margin: 0 auto;
-  
 }
 
 .search-field {
@@ -162,15 +158,14 @@ form input {
   color: #5b4e4e;
 }
 .confirmation {
-  margin: 0 26rem;
+  width: 20rem;
+  margin: 0 auto;
   margin-top: 2rem;
-
   font-size: 16px;
   padding: 1rem 0;
   color: #000000;
   box-shadow: 0 0 19px 1px rgba(86, 86, 86, 0.177);
   border-radius: 8px;
-
 }
 
 .confirmation button {
