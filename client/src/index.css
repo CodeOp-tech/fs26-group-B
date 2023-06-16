@@ -84,7 +84,7 @@ button:hover {
   flex-direction: column;
   margin-bottom: 2rem;
   text-align: left;
-  max-width: 40rem;
+  max-width: 30rem;
   margin: 0 auto;
   
 }
@@ -115,10 +115,9 @@ form input {
   width: 100%;
   padding: 0.5em 1em;
   border-radius: 4px;
-  border: 1px solid #1a1a1a;
+  border: 1px solid #1a1a1ab7;
+  text-align: left;
   font-size: 1em;
-  font-family: inherit;
-  text-align: center;
   justify-content: center;
 }
 
