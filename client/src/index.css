@@ -8,7 +8,7 @@
 * {
   box-sizing: border-box;
   line-height: 1.6;
-  margin: 0 ;
+  margin: 0;
 }
 
 a:hover {
@@ -33,7 +33,7 @@ h1 {
 
 button {
   border-radius: 6px;
-  padding: 6px  14px;
+  padding: 6px 14px;
   border: none;
   font-weight: 500;
   cursor: pointer;
@@ -42,14 +42,12 @@ button {
   text-align: center;
   background-color: #000000;
   color: #ffffff;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 button:hover {
   background-color: #008771;
   color: #ffffff;
 }
-
-
 
 /********************* NavBar *********************/
 .navbar {
@@ -57,7 +55,7 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 3rem ;
+  margin-bottom: 3rem;
 }
 
 .nav-links {
@@ -73,9 +71,57 @@ button:hover {
 }
 
 .navBar__logo {
-  
   cursor: pointer;
 }
+
+.auth-links {
+  display: flex;
+  gap: 2em;
+}
+
+/********************* Sign Up & Login *********************/
+
+.register-box {
+  width: auto;
+  border-color: #706f6f;
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+.input-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.input-div-bottom {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.register-input {
+  margin-bottom: 2;
+  width: 25%;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.login-input {
+  margin-bottom: 2;
+  width: 25%;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.signup-btn {
+  margin-bottom: 30px;
+}
+
+
 
 /********************* Search *********************/
 
@@ -139,7 +185,7 @@ form input {
   box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.121);
   background-color: #d6f4ed92;
   border-radius: 4px;
-  padding :  8px;
+  padding: 8px;
   width: 89%;
   margin-top: 0;
   justify-content: space-between;
@@ -150,7 +196,6 @@ form input {
   padding: 0 1rem;
   color: #02a993;
 }
-
 
 .not-found {
   margin-top: 2rem;
@@ -172,13 +217,34 @@ form input {
   margin-top: 2rem;
 }
 
+/********************* Pending invitations *********************/
+.pending-page {
+  display: flex;
+  flex-direction: column;
+  
+  margin-top: 8rem;
+}
+
+
+.invitation-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  width: 48%;
+  height: 4rem;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.382);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 1rem;
+}
+
 /********************* Card *********************/
 
 .empty-card {
   visibility: hidden;
   width: 340px;
   height: 420px;
-
 }
 
 .card {
@@ -209,16 +275,13 @@ img {
   color: #000000;
 }
 
-
-
 /********************* Selections *********************/
 
 .selection-view {
   display: flex;
-  
+
   flex-direction: column;
   padding-top: 3.2rem;
-
 }
 
 .cards-group {
@@ -226,13 +289,13 @@ img {
   justify-items: center;
   align-items: center;
   justify-content: center;
-  
+
   gap: 1rem;
 }
 
 .back-card {
   background-color: #ffffff;
-  transform: scale(.8);
+  transform: scale(0.8);
   z-index: 0;
   filter: blur(1px);
   opacity: 0.7;
@@ -254,6 +317,10 @@ img {
   width: 4rem;
   height: auto;
   margin-top: 2.8rem;
+}
+
+.select-button button {
+  margin-top: 3rem;
 }
 
 /********************* Match Page *********************/
