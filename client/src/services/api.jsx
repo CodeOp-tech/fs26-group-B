@@ -1,5 +1,14 @@
 import axios from "axios";
 
+// Auth
+
+// export const login = async (username, password) => {
+//   await axios("/api/auth/login", {
+//     method: "POST",
+//     data: { username, password },
+//   });
+// };
+
 // Users
 
 export const getUser = async (userId) => {
