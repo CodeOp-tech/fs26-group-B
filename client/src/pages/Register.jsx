@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
-// import "..css/register.css";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/data.js";
 
@@ -25,12 +24,12 @@ function Register() {
 
   const register = async () => {
     try {
-      // const { data } = await axios("/api/auth/register", {
-      //   method: "POST",
-      //   data: credentials,
-      // });
+      const { data } = await axios("/api/auth/register", {
+        method: "POST",
+        data: credentials,
+      });
 
-      const data = await api.createUser(credentials);
+      // const data = await api.createUser(credentials);
 
       console.log(data.message);
       setData(data.message);
@@ -45,52 +44,59 @@ function Register() {
   return (
     <div>
       <div>
-        <h3 className="text-center mt-5">Sign up to get started</h3>
-        <div className="d-flex mt-4 justify-content-center">
-          <input
-            value={name}
-            onChange={handleChange}
-            name="name"
-            type="text"
-            placeholder="Your name"
-            className="form-control mb-2 w-25"
-          />
-          <input
-            value={username}
-            onChange={handleChange}
-            name="username"
-            type="text"
-            placeholder="username"
-            className="form-control mb-2 w-25"
-          />
-          <input
-            value={email}
-            onChange={handleChange}
-            name="email"
-            type="email"
-            placeholder="email"
-            className="form-control mb-2 w-25"
-          />
+        <h2>Sign up to get started</h2>
+        <div className="register-box">
+          <div className="input-div">
+            <input
+              value={name}
+              onChange={handleChange}
+              name="name"
+              type="text"
+              placeholder="Name"
+              className="register-input"
+            />
+          </div>
+          <div className="input-div">
+            <input
+              value={username}
+              onChange={handleChange}
+              name="username"
+              type="text"
+              placeholder="Username"
+              className="register-input"
+            />
+          </div>
+          <div className="input-div">
+            <input
+              value={email}
+              onChange={handleChange}
+              name="email"
+              type="email"
+              placeholder="Email"
+              className="register-input"
+            />
+          </div>
+          <div className="input-div-bottom">
+            <input
+              value={password}
+              onChange={handleChange}
+              name="password"
+              type="password"
+              placeholder="Password"
+              className="register-input"
+            />
+          </div>
+          <div className="signup-btn">
+            <button onClick={register}>Sign Up</button>
+          </div>
+
+          <p>
+            Already have an account? <Link to="/login">Log in</Link>
+          </p>
         </div>
-        <div className="d-flex justify-content-center">
-          <input
-            value={password}
-            onChange={handleChange}
-            name="password"
-            type="password"
-            placeholder="password"
-            className="form-control mb-4 w-25"
-          />
-        </div>
-        <div className="d-flex justify-content-center">
-          <button className="btn btn-primary" onClick={register}>
-            Sign Up
-          </button>
-        </div>
-        <p>Already have an account?</p>
-        <Link to="/login">Log in</Link>
+
         <div>
-          <h5 className="text-center mt-5">{data}</h5>
+          <p>{data}</p>
         </div>
       </div>
     </div>
