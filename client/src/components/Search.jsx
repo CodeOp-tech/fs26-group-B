@@ -8,6 +8,7 @@ import Select from "react-select";
 export default function Search() {
 	const [userSearch, setUserSearch] = useState("");
 	const [user, setUser] = useState("");
+
 	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState(false);
 	const [invitationMsg, setInvitationMsg] = useState("");
@@ -16,6 +17,7 @@ export default function Search() {
 	useEffect(() => {
 		setUser({});
 	}, []);
+
 
 	const handleSearch = (e) => {
 		e.preventDefault();
@@ -27,10 +29,13 @@ export default function Search() {
 	const searchUser = async () => {
 		try {
 			const data = await api.getUsername(userSearch);
+
+
 			(data && setUser(data)) || setErrorMsg(true);
 			data && setErrorMsg(false);
 			console.log(errorMsg);
 			console.log(data);
+
 		} catch (error) {
 			console.log(error);
 		}
@@ -40,6 +45,7 @@ export default function Search() {
 		try {
 			const data = await api.sendInvitation(1);
 			if (data) setInvitationMsg("Invitation sent successfully!");
+
 			setEventHash(data); //should receive event hash from api
 		} catch (error) {
 			console.log(error);
@@ -52,11 +58,13 @@ export default function Search() {
 		// navigate(`/event/${eventHash}`) with real api call
 	};
 
+
 	const handleChange = (e) => {
 		setUserSearch(e.target.value);
 	};
 
 	return (
+
 		<div>
 			<div className="search-box">
 				<form>
@@ -72,6 +80,7 @@ export default function Search() {
 								value={userSearch}
 								onChange={handleChange}
 							/>
+
 							<button
 								className="submit-button"
 								type="submit"
@@ -81,6 +90,9 @@ export default function Search() {
 							</button>
 						</div>
 					</div>
+
+      <button onClick={handleStart}>Start</button></div>}
+
 				</form>
 				{user.username && (
 					<div className="found msg">
@@ -104,6 +116,7 @@ export default function Search() {
 					</div>
 				)}
 			</div>
+
 
 			{/* <div className="share-link">
                 <a>Or send registration Link </a><a><SendIcon /></a>
