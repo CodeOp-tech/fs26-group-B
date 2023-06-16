@@ -38,7 +38,8 @@ export default function PendingInvites() {
         } catch (error) {
             console.error("Error accepting invitation", error);
         }
-        navigate(`/invitation/${eventHash}`);
+        // navigate(`/invitation/${eventHash}`);
+        navigate(`/event/123444`);
     }
 
     return (
