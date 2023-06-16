@@ -6,16 +6,19 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { v4: uuidv4 } = require("uuid");
 
+//get event by [boolean]
+//getOpenEvents(userId)
+
 // CREATE new event with private ID
 router.post("/", async (req, res) => {
   const { userId_1, userId_2, chosenPlanId, status } = req.body;
 
   try {
     // Generate a unique identifier for the event
-    const hashId = uuidv4();
+    const hash = uuidv4();
 
     // Hash the event ID to create a secure private token
-    const privateToken = await bcrypt.hash(hashId, saltRounds);
+    const privateToken = await bcrypt.hash(hash, saltRounds);
     const eventId = req.params;
     // Create the event with the public ID and private token
     const event = await models.Event.create({
@@ -24,7 +27,7 @@ router.post("/", async (req, res) => {
       userId_2,
       chosenPlanId,
       status,
-      hashId: privateToken,
+      hash: privateToken,
     });
 
     res.send(event);
@@ -56,29 +59,28 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-//GET event with HASHID (private)
+//GET event with hash (private)WORK IN ROGRESS
 
-//***WORK IN PROGRESS****
-// router.get("/eventprivate/:hashId", async function (req, res, next) {
-//   const { hashId } = req.params;
+router.get("/eventprivate/:hash", async function (req, res, next) {
+  const { hash } = req.params;
 
-//   try {
-//     // Find the event using the hashed URL token
-//     const event = await models.Event.findOne({
-//       where: { hashId },
-//       include: ["inviter", "invitee"],
-//     });
+  try {
+    // Find the event using the hashed URL token
+    const event = await models.Event.findOne({
+      where: { hash },
+    });
 
-//     if (event) {
-//       res.send(event);
-//     } else {
-//       res.status(404).send("Event not found");
-//     }
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging purposes
-//     res.status(500).send("Internal server error");
-//   }
-// });
+    if (event !== null) {
+      // Check if event is not null
+      res.send(event);
+    } else {
+      res.status(404).send("Event not found");
+    }
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).send("Internal server error");
+  }
+});
 
 // GET ALL EVENTS
 router.get("/", async function (req, res, next) {
