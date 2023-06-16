@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
+
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import Menu from './Menu'
 import api from '../services/data'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
 import NotificationsActiveRoundedIcon from '@mui/icons-material/NotificationsActiveRounded';
+import AuthContext from "../contexts/AuthContext";
 
 
 // need endpoint to get open events for user
 
 export default function NavBar() {
-    // const auth = useContext(AuthContext);
-    const auth = true;
-    const id = 2;
-    const [selectSignUp, setSelectSignUp] = useState(false);
-    const [selectHomePage, setSelectHomePage] = useState(false);
+    const auth = useContext(AuthContext);
+    // const auth = true;
+  // const [selectSignUp, setSelectSignUp] = useState(false);
+  // const [selectHomePage, setSelectHomePage] = useState(false);
+  // const navigate = useNavigate();
     const [pendingInvites, setPendingInvites] = useState([]);
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,6 +31,7 @@ export default function NavBar() {
         };
         fetchData();
         }, []);
+
 
     useEffect(() => {
       if (selectHomePage === true) {
