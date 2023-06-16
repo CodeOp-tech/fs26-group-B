@@ -33,11 +33,11 @@ export default function NavBar() {
       <div className="navBar__logo">
         <Link to="/home">
           Logo
-          {/* <img
-                  src=""
-                  alt=""
-                  width=""
-                /> */}
+          <img
+            src="../assets/its-a-date.png"
+            alt="It's a date!"
+            width="200px"
+          />
         </Link>
       </div>
 
