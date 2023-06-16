@@ -13,10 +13,10 @@ import AuthContext from "../contexts/AuthContext";
 
 export default function NavBar() {
     const auth = useContext(AuthContext);
-    // const auth = true;
+    
     const id = 2;
-  // const [selectSignUp, setSelectSignUp] = useState(false);
-  // const [selectHomePage, setSelectHomePage] = useState(false);
+  const [selectSignUp, setSelectSignUp] = useState(false);
+  const [selectHomePage, setSelectHomePage] = useState(false);
   const navigate = useNavigate();
     const [pendingInvites, setPendingInvites] = useState([]);
     //const navigate = useNavigate();
@@ -41,9 +41,9 @@ export default function NavBar() {
     //   }
     // }, [selectHomePage]);
 
-  // const handleSelectSignUp = () => {
-  //   setSelectSignUp(true);
-  // };
+  const handleSelectSignUp = () => {
+    setSelectSignUp(true);
+  };
 
     // const handleClickLogo = () => {
     //     setSelectHomePage(true)
@@ -59,32 +59,32 @@ export default function NavBar() {
     <div className="navbar">
       <div className="navBar__logo">
         <Link to="/home">
-          Logo
-          {/* <img
-                  src=""
-                  alt=""
-                  width=""
-                /> */}
+          
+          <img
+                  src="../assets/its-a-date.png"
+                  alt="It’s a date!"
+                  width="200px"
+                />
         </Link>
       </div>
       
           <div className='nav-links' >
               
-          {!auth && selectSignUp === false && (
+          {!auth.user && selectSignUp === false && (
             <Link to="/register" onClick={handleSelectSignUp}>
               Sign Up
             </Link>
           )}
-          {!auth && selectSignUp === true && (
+          {!auth.user && selectSignUp === true && (
             <Link to="/login" onClick={() => setSelectSignUp(false)}>
               Login
             </Link>
           )}
-              {auth && <div className='auth-links'>  
+              {auth.user && <div className='auth-links'>  
                   {pendingInvites.id ?
                       <a onClick={handleNotification}><NotificationsActiveRoundedIcon /></a>
                       : <a><NotificationsNoneRoundedIcon /></a>}
-                  <a>Logout</a>
+                  <a onClick={auth.logout}>Logout</a>
                 </div>}
           
           <a><MenuRoundedIcon /></a>

@@ -36,6 +36,7 @@ function Login() {
       console.log(auth);
       console.log(data.message, data.token);
       setData(data.message);
+      navigate("/home");
     } catch (error) {
       console.log(error);
       setData("Login failed, please try again");
