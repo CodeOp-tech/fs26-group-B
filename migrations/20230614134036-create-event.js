@@ -11,12 +11,21 @@ module.exports = {
       },
       userId_1: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       userId_2: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       chosenPlanId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      chosenPlanId: {
+        type: Sequelize.INTEGER,
+      },
+      hash: {
+        type: Sequelize.STRING,
       },
       status: {
         type: Sequelize.BOOLEAN,
