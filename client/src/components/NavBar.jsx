@@ -59,12 +59,15 @@ export default function NavBar() {
     <div className="navbar">
       <div className="navBar__logo">
         <Link to="/home">
-          
-          <img
-                  src="../assets/its-a-date.png"
+                  <img
+                      className="logo"
+                  src=" ../assets/its-a-date.png"
                   alt="It’s a date!"
                   width="200px"
-                />
+                  />
+                  
+                  
+                 
         </Link>
       </div>
       
