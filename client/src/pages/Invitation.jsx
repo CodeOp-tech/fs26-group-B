@@ -1,41 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/data.js";
 
 export default function Invitation() {
   const navigate = useNavigate();
-  const [queryParams, setQueryParams] = useSearchParams();
-  const [inviter, setInviter] = useState({});
-  const [invitee, setInvitee] = useState({});
+  const [event, setEvent] = useState({});
 
-  // use url params to get inviter's and invitee's user ID and event ID
-  const inviterID = 1;
-  const inviteeID = 2;
-  const eventID = 1;
+  // use url params to get event ID
+  // const { hash } = useParams();
 
   useEffect(() => {
-    const fetchInviter = async () => {
-      const user = await api.getUser(inviterID);
-      setInviter(user);
+    const fetchEvent = async () => {
+      const invitation = await api.getEvent(hash);
+      setEvent(invitation);
     };
-    fetchInviter();
-
-    const fetchInvitee = async () => {
-      const user = await api.getUser(inviteeID);
-      setInvitee(user);
-    };
-    fetchInvitee();
+    fetchEvent();
   }, []);
-
   // console.log(user);
 
   // create variable for url with params
-  // maybe we should hash these so they are protected?
-  // or do we do an auth check that the id's match with the logged in user?
-
-  const url = `/selections/event=${eventID}/invitee=${invitee.id}`;
-
+  const url = `/events/${hash}`;
   function getStarted() {
     navigate(url);
   }
@@ -43,11 +28,11 @@ export default function Invitation() {
   return (
     <div>
       <h1 className="invite-header">
-        {invitee.name}, you've received an invitation!
+        {event.invitee.name}, you've received an invitation!
       </h1>
 
       <h2 className="invite-message">
-        {inviter.name} wants to make plans with you
+        {event.inviter.name} wants to make plans with you
       </h2>
 
       <button className="invite-button" onClick={getStarted}>

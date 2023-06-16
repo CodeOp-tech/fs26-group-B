@@ -54,12 +54,11 @@ function App() {
             element={
               <RequireAuth>
                 <Home />
-                
               </RequireAuth>
             }
           ></Route>
           <Route
-            path="/invitation"
+            path="/invitation/:hash"
             element={
               <RequireAuth>
                 <Invitation />
@@ -75,7 +74,7 @@ function App() {
             }
           />
           <Route
-            path="/its-a-date"
+            path="/its-a-date/:hash"
             element={
               <RequireAuth>
                 <Match />
@@ -83,14 +82,13 @@ function App() {
             }
           />
           <Route
-            path="/selections"
+            path="/event/:hash"
             element={
               <RequireAuth>
                 <Selections />
               </RequireAuth>
             }
           />
-          
         </Routes>
       </div>
     </AuthContext.Provider>
