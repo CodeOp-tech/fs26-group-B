@@ -1,16 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const { Sequelize } = require("sequelize");
 const models = require("../models");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { v4: uuidv4 } = require("uuid");
 
-//get event by [boolean]
-//getOpenEvents(userId)
-
 // CREATE new event with private ID
-router.post("/", async (req, res) => {
+router.post("/", async function (req, res) {
   const { userId_1, userId_2, chosenPlanId, status } = req.body;
 
   try {
@@ -30,9 +28,31 @@ router.post("/", async (req, res) => {
       hash: privateToken,
     });
 
-    res.send(event);
+    res.send(event && "New event created!");
   } catch (error) {
-    console.error(error); // Log the error for debugging purposes
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+// GET events by userid only if it's open/true
+router.get("/user/:userId", async function (req, res, next) {
+  const { userId } = req.params;
+
+  try {
+    const event = await models.Event.findAll({
+      where: Sequelize.literal(
+        `(userId_1 = ${userId} OR userId_2 = ${userId}) AND status = true`
+      ),
+    });
+
+    if (event && event.length > 0) {
+      res.send(event);
+    } else {
+      res.status(404).send("Event not found");
+    }
+  } catch (error) {
+    console.error(error);
     res.status(500).send("Internal server error");
   }
 });
@@ -59,7 +79,7 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-//GET event with hash (private)WORK IN ROGRESS
+//GET event by hash (private)
 
 router.get("/eventprivate/:hash", async function (req, res, next) {
   const { hash } = req.params;
@@ -70,14 +90,14 @@ router.get("/eventprivate/:hash", async function (req, res, next) {
       where: { hash },
     });
 
-    if (event !== null) {
+    if (event) {
       // Check if event is not null
       res.send(event);
     } else {
       res.status(404).send("Event not found");
     }
   } catch (error) {
-    console.error(error); // Log the error for debugging purposes
+    console.error(error);
     res.status(500).send("Internal server error");
   }
 });
