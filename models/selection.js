@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       eventId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
       planId: DataTypes.INTEGER,
-      eventId: DataTypes.INTEGER,
     },
     {
       sequelize,

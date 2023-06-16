@@ -11,24 +11,21 @@ module.exports = {
       },
       userId_1: {
         type: Sequelize.INTEGER,
-<<<<<<< HEAD
         allowNull: false,
-=======
->>>>>>> aab1759c7ea9736ed1adad312ada579de2d153b3
       },
       userId_2: {
         type: Sequelize.INTEGER,
-<<<<<<< HEAD
         allowNull: false,
       },
       chosenPlanId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-=======
       },
       chosenPlanId: {
         type: Sequelize.INTEGER,
->>>>>>> aab1759c7ea9736ed1adad312ada579de2d153b3
+      },
+      hash: {
+        type: Sequelize.STRING,
       },
       status: {
         type: Sequelize.BOOLEAN,

@@ -15,8 +15,8 @@ module.exports = (sequelize) => {
       userId_1: DataTypes.INTEGER,
       userId_2: DataTypes.INTEGER,
       chosenPlanId: DataTypes.INTEGER,
-      status: DataTypes.BOOLEAN,
       hash: DataTypes.STRING,
+      status: DataTypes.BOOLEAN,
     },
     {
       sequelize,
