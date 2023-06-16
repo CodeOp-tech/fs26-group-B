@@ -9,7 +9,6 @@ export default function Invitation() {
 
   // use url params to get event ID
   // const { hash } = useParams();
-  const hash = 1;
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -18,15 +17,10 @@ export default function Invitation() {
     };
     fetchEvent();
   }, []);
-
   // console.log(user);
 
   // create variable for url with params
-  // maybe we should hash these so they are protected?
-  // or do we do an auth check that the id's match with the logged in user?
-
   const url = `/events/${hash}`;
-
   function getStarted() {
     navigate(url);
   }
