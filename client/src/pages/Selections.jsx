@@ -14,7 +14,6 @@ export default function Selections() {
     const [cardC, setCardC] = useState({});
 
     useEffect(() => {
-        
 	const fetchData = async () => {
 		try {
 			const plansData = await api.getAllPlans();
@@ -32,10 +31,6 @@ export default function Selections() {
 		}
 	};
         fetchData();
-        
-        // console.log(cardB.id)
-       
-       
     }, []);
     
     useEffect(() => {
@@ -46,11 +41,7 @@ export default function Selections() {
         else {
             setSelected(false);
         }
-       console.log(cardB.id)
-   
     }, [currentIndex]);
-
-    
 
 	const handleInteraction = () => {
         setCurrentIndex(currentIndex + 1);
@@ -58,34 +49,40 @@ export default function Selections() {
         setCardB(plans[currentIndex + 1]);
         setCardC(plans[currentIndex + 2]);
         if (currentIndex + 2 === plans.length) {
-       
             setCardA(plans[currentIndex]);
             setCardB(plans[currentIndex + 1]);
             setCardC({ name: "No more options", imageSrc: null });
             setCurrentIndex(0)
         }
-        
+
 	};
 
-	const handleSelection = () => {
+	const handleSelection = async() => {
         setSelected(!selected);
         // adds the focus eventid to the selectedPlanIds array
         if (!selectedPlanId.includes(cardB.id)) {
             setSelectedPlanId([...selectedPlanId, cardB.id]);
         }
+        try {
+            const data = await api.addSelection(3, 2, 1, cardB.id);
+            console.log(data);
+        }
+        catch (error) {
+            console.log(error);
+        }
+        // console.log(selectedPlanId);
+
         
 		//take main card id and send to backend
 		// wait for an answer from backend to see if is there a match
 		// if there is a match, navigate to match page
+      
 	};
 
 	const handleHoverButton = () => {
-        // console.log("hovering");
-        
+        // console.log("hovering"); 
     };
     
-    
-
 	return (
         <div className="selection-view">
             {plans  &&
