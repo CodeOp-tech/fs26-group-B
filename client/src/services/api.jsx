@@ -24,9 +24,13 @@ getPlan(planId)
 
 // Events
 
+getAllEvents()
+
 createEvent(inviter, invitee)
 
-getEvent(hash)
+getEvent(hashId)
+
+getEvent(eventId)
 
 
 

@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-// import axios from "axios";
-// import "..css/login.css";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../services/data.js";
 
@@ -46,36 +45,38 @@ function Login() {
   return (
     <div>
       <div>
-        <h3 className="text-center mt-5">Log in to get started</h3>
-        <div className="d-flex mt-4 justify-content-center">
+        <h2>Log in to get started</h2>
+        <div className="input-div">
           <input
             value={username}
             onChange={handleChange}
             name="username"
             type="text"
-            placeholder="username"
-            className="form-control mb-2 w-25"
+            placeholder="Username"
+            className="login-input"
           />
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="input-div-bottom">
           <input
             value={password}
             onChange={handleChange}
             name="password"
             type="password"
-            placeholder="password"
-            className="form-control mb-4 w-25"
+            placeholder="Password"
+            className="login-input"
           />
         </div>
-        <div className="d-flex justify-content-center">
-          <button className="btn btn-primary" onClick={login}>
+        <div>
+          <button className="signup-btn" onClick={login}>
             Log in
           </button>
         </div>
-        <p>Not a user yet?</p>
-        <Link to="/register">Sign Up</Link>
+        <p>
+          Not a user yet? <Link to="/register">Sign Up</Link>
+        </p>
+
         <div>
-          <h5 className="text-center mt-5">{data}</h5>
+          <p>{data}</p>
         </div>
       </div>
     </div>
