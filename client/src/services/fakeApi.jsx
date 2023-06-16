@@ -154,18 +154,16 @@ const plans = [
 ];
 
 export const fakeApi = {
-
-    getAllPlans: async () => {
-        // Simulate a response with fake data
-        const fakeResponse = plans;
-        // Return a promise that resolves with the fake response object after 500ms
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(fakeResponse);
-            }, 5);
-        });
-      },
-
+  getAllPlans: async () => {
+    // Simulate a response with fake data
+    const fakeResponse = plans;
+    // Return a promise that resolves with the fake response object after 500ms
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(fakeResponse);
+      }, 5);
+    });
+  },
 
   getPlan: async (planId) => {
     const plan = plans.filter((plan) => plan.id === planId)[0];
@@ -177,6 +175,27 @@ export const fakeApi = {
       }, 500);
     });
   },
+
+  createUser: async (credentials) => {
+    const { name, username, email, password } = credentials;
+    users.push({
+      id: 3,
+      name: name,
+      username: username,
+      email: email,
+      password: password,
+    });
+    console.log(users);
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ message: "New user created!" });
+      }, 500);
+    });
+  },
+
+//   getUser: async (userId) => {
+//     // Simulate a response with fake data
 
   getUsername: async (username) => {
     // Find and refers the requested user based on the userId
