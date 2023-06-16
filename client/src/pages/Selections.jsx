@@ -15,7 +15,11 @@ export default function Selections() {
     const [lastCard, setLastCard] = useState(false);
 
     useEffect(() => {
-	const fetchData = async () => {
+	
+        fetchData();
+    }, []);
+    
+    const fetchData = async () => {
 		try {
 			const plansData = await api.getAllPlans();
             setPlans(plansData);
@@ -31,9 +35,7 @@ export default function Selections() {
 			console.error("Error fetching plans:", error);
 		}
 	};
-        fetchData();
-    }, []);
-    
+
     useEffect(() => {
         if (selectedPlanId.includes(cardB.id)) {
             console.log(selectedPlanId)
@@ -47,16 +49,9 @@ export default function Selections() {
         //     setCardB(plans[currentIndex]);
         //     setCardC(plans[currentIndex + 1]);
         // }
-            
     }, [currentIndex]);
 
     const handleInteraction = () => {
-        if (currentIndex === 0) {
-            setCardA({ name: null, imageSrc: null });
-            setCardB(plans[currentIndex]);
-            setCardC(plans[currentIndex + 1]);
-            setLastCard(false);
-        }
         if (currentIndex + 1 === plans.length) {
             // setCardA(plans[currentIndex + 1]);
             setCardB({ name: "No more options", imageSrc: "https://i.gifer.com/19E6.gif" });
@@ -64,6 +59,7 @@ export default function Selections() {
             setCurrentIndex(0)
             setLastCard(true);
         }
+       
         else {
             setCurrentIndex(currentIndex + 1);
             setCardA(plans[currentIndex]);
@@ -75,8 +71,13 @@ export default function Selections() {
                 setCardC({ name: "No more options", imageSrc:"https://i.gifer.com/19E6.gif" });
                 // setCurrentIndex(0)
             }
+        if (currentIndex === 0) {
+                setCardA({ name: null, imageSrc: null });
+                setCardB(plans[currentIndex]);
+                setCardC(plans[currentIndex + 1]);
+                setLastCard(false);
+           }
     }
-       
 
 	};
 
@@ -93,19 +94,14 @@ export default function Selections() {
         catch (error) {
             console.log(error);
         }
-        // console.log(selectedPlanId);
-
-        
-		//take main card id and send to backend
-		// wait for an answer from backend to see if is there a match
-		// if there is a match, navigate to match page
-      
 	};
 
     const handleTryAgain = () => {
         setSelectedPlanId([]);
         setLastCard(false);
-        handleInteraction();
+        
+        setCardB(plans[currentIndex ]);
+            setCardC(plans[currentIndex + 1]);
     }
        
     
