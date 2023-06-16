@@ -28,6 +28,8 @@ createEvent(inviter, invitee)
 
 getEvent(hash)
 
+getOpenEvents(userId) search open status event for userid and returns the whole event
+
 
 
 

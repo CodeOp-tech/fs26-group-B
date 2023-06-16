@@ -1,23 +1,39 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate  } from 'react-router-dom'
 // import Menu from './Menu'
-import Api from '../services/data'
+import api from '../services/data'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-// import Container from '@mui/material/Container';
-import { theme } from '../styles';
+import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
+import NotificationsActiveRoundedIcon from '@mui/icons-material/NotificationsActiveRounded';
 
 
+// need endpoint to get open events for user
 
 export default function NavBar() {
     // const auth = useContext(AuthContext);
     const auth = true;
+    const id = 2;
     const [selectSignUp, setSelectSignUp] = useState(false);
     const [selectHomePage, setSelectHomePage] = useState(false);
+    const [pendingInvites, setPendingInvites] = useState([]);
     const navigate = useNavigate();
-  
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await api.getOpenEvents(id);
+                setPendingInvites(res);
+            } catch (error) {
+                console.error("Error fetching open events", error);
+            }
+        };
+        fetchData();
+        }, []);
+
     useEffect(() => {
       if (selectHomePage === true) {
-        navigate('/home');
+          navigate('/home');
+          setSelectHomePage(false);
       }
     }, [selectHomePage]);
 
@@ -35,7 +51,8 @@ export default function NavBar() {
         <h2>Logo</h2>
       </div>
       
-        <div className='nav-links' >
+          <div className='nav-links' >
+              
           {!auth && selectSignUp === false && (
             <Link to="/register" onClick={handleSelectSignUp}>
               Sign Up
@@ -46,7 +63,11 @@ export default function NavBar() {
               Login
             </Link>
           )}
-          {auth && <a>Logout</a>}
+              {auth && <div className='auth-links'>  
+                  {pendingInvites ? <a><NotificationsActiveRoundedIcon /></a> : <a><NotificationsNoneRoundedIcon /></a>}
+                  <a>Logout</a>
+                </div>}
+          
           <a><MenuRoundedIcon /></a>
         </div>
      

@@ -73,8 +73,12 @@ button:hover {
 }
 
 .navBar__logo {
-  
   cursor: pointer;
+}
+
+.auth-links {
+  display: flex;
+  gap: 2em;
 }
 
 /********************* Search *********************/
