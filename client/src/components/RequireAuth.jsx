@@ -6,7 +6,6 @@ export default function RequireAuth({ children }) {
   const [loading, setLoading] = useState(false);
 
   const auth = useContext(AuthContext);
-  // const auth = {user: "fakeuser"}; // just for testing and access to search page
 
   useEffect(() => {
     const token = localStorage.getItem("token");

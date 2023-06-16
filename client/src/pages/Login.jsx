@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../services/data.js";
+// import api from "../services/data.js";
 
 function Login() {
   const auth = useContext(AuthContext);
@@ -29,8 +29,6 @@ function Login() {
         method: "POST",
         data: credentials,
       });
-
-      //store it locally
       localStorage.setItem("token", data.token);
       auth.login();
       console.log(auth);
@@ -76,7 +74,7 @@ function Login() {
           Not a user yet? <Link to="/register">Sign Up</Link>
         </p>
 
-        <div>
+        <div className="error-message">
           <p>{data}</p>
         </div>
       </div>

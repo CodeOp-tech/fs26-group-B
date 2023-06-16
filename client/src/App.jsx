@@ -18,7 +18,6 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    // const token = true;
     if (token) {
       setUser(true);
     }

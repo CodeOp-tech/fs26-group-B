@@ -14,7 +14,7 @@ export default function NavBar() {
 
 	const id = 2;
 	const [selectSignUp, setSelectSignUp] = useState(false);
-	const [selectHomePage, setSelectHomePage] = useState(false);
+	// const [selectHomePage, setSelectHomePage] = useState(false);
 	const navigate = useNavigate();
 	const [pendingInvites, setPendingInvites] = useState([]);
 	//const navigate = useNavigate();
@@ -30,6 +30,17 @@ export default function NavBar() {
 		};
 		fetchData();
 	}, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.getOpenEvents(id);
+        setPendingInvites(res);
+      } catch (error) {
+        console.error("Error fetching open events", error);
+      }
+    };
+    fetchData();
+  }, []);
 
 	// useEffect(() => {
 	//   if (selectHomePage === true) {
@@ -37,6 +48,12 @@ export default function NavBar() {
 	//       setSelectHomePage(false);
 	//   }
 	// }, [selectHomePage]);
+  // useEffect(() => {
+  //   if (selectHomePage === true) {
+  //       navigate('/home');
+  //       setSelectHomePage(false);
+  //   }
+  // }, [selectHomePage]);
 
 	const handleSelectSignUp = () => {
 		setSelectSignUp(true);
@@ -45,6 +62,9 @@ export default function NavBar() {
 	// const handleClickLogo = () => {
 	//     setSelectHomePage(true)
 	// }
+  // const handleClickLogo = () => {
+  //     setSelectHomePage(true)
+  // }
 
 	const handleNotification = () => {
 		navigate("/pending");
