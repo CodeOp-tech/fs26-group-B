@@ -4,16 +4,15 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.changeColumn("Event", "id", {
       type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
       allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
     });
   },
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.changeColumn("Event", "id", {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
+      type: Sequelize.STRING,
       allowNull: false,
     });
   },
