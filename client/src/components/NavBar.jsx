@@ -44,6 +44,12 @@ export default function NavBar() {
     const handleClickLogo = () => {
         setSelectHomePage(true)
     }
+
+    const handleNotification = () => {
+        navigate('/pending');
+        setPendingInvites([null]);
+        console.log(pendingInvites)
+    }
     
   return (
     <div className='navbar'>
@@ -64,7 +70,9 @@ export default function NavBar() {
             </Link>
           )}
               {auth && <div className='auth-links'>  
-                  {pendingInvites ? <a><NotificationsActiveRoundedIcon /></a> : <a><NotificationsNoneRoundedIcon /></a>}
+                  {pendingInvites.id ?
+                      <a onClick={handleNotification}><NotificationsActiveRoundedIcon /></a>
+                      : <a><NotificationsNoneRoundedIcon /></a>}
                   <a>Logout</a>
                 </div>}
           
