@@ -52,7 +52,7 @@ export default function NavBar() {
     const handleNotification = () => {
         navigate('/pending');
         setPendingInvites([null]);
-        console.log(pendingInvites)
+        // console.log(pendingInvites)
     }
     
   return (
