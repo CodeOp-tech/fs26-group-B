@@ -33,15 +33,15 @@ router.post("/", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
-// GET event with private ID
 
-router.get("/:hashEventId", async function (req, res, next) {
-  const { eventId } = req.params;
+// GET event with ID NUMBER (public)
+router.get("/:id", async function (req, res, next) {
+  const { id } = req.params;
 
   try {
     // Find the event using the hashed URL token
     const event = await models.Event.findOne({
-      where: { id: eventId },
+      where: { id },
       include: ["inviter", "invitee"],
     });
 
@@ -56,8 +56,31 @@ router.get("/:hashEventId", async function (req, res, next) {
   }
 });
 
-// GET ALL EVENTS
+//GET event with HASHID (private)
 
+//***WORK IN PROGRESS****
+// router.get("/eventprivate/:hashId", async function (req, res, next) {
+//   const { hashId } = req.params;
+
+//   try {
+//     // Find the event using the hashed URL token
+//     const event = await models.Event.findOne({
+//       where: { hashId },
+//       include: ["inviter", "invitee"],
+//     });
+
+//     if (event) {
+//       res.send(event);
+//     } else {
+//       res.status(404).send("Event not found");
+//     }
+//   } catch (error) {
+//     console.error(error); // Log the error for debugging purposes
+//     res.status(500).send("Internal server error");
+//   }
+// });
+
+// GET ALL EVENTS
 router.get("/", async function (req, res, next) {
   try {
     const events = await models.Event.findAll({
