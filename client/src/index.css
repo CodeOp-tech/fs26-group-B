@@ -116,6 +116,10 @@ button:hover {
   margin-bottom: 30px;
 }
 
+.error-message {
+  margin-top: 20px;
+}
+
 /********************* Search *********************/
 
 .search-box {
