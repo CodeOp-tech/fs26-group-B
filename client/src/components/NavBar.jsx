@@ -1,15 +1,15 @@
-// import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import Menu from './Menu'
 // import Api from "../services/data";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 // import Container from '@mui/material/Container';
 import { theme } from "../styles";
-// import AuthContext from "../../contexts/AuthContext";
+import AuthContext from "../contexts/AuthContext";
 
 export default function NavBar() {
-  // const auth = useContext(AuthContext);
-  const auth = true;
+  const auth = useContext(AuthContext);
+  // const auth = true;
   // const [selectSignUp, setSelectSignUp] = useState(false);
   // const [selectHomePage, setSelectHomePage] = useState(false);
   // const navigate = useNavigate();
