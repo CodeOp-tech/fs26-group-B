@@ -14,9 +14,10 @@ import AuthContext from "../contexts/AuthContext";
 export default function NavBar() {
     const auth = useContext(AuthContext);
     // const auth = true;
+    const id = 2;
   // const [selectSignUp, setSelectSignUp] = useState(false);
   // const [selectHomePage, setSelectHomePage] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
     const [pendingInvites, setPendingInvites] = useState([]);
     //const navigate = useNavigate();
 
@@ -33,12 +34,12 @@ export default function NavBar() {
         }, []);
 
 
-    useEffect(() => {
-      if (selectHomePage === true) {
-          navigate('/home');
-          setSelectHomePage(false);
-      }
-    }, [selectHomePage]);
+    // useEffect(() => {
+    //   if (selectHomePage === true) {
+    //       navigate('/home');
+    //       setSelectHomePage(false);
+    //   }
+    // }, [selectHomePage]);
 
   // const handleSelectSignUp = () => {
   //   setSelectSignUp(true);
