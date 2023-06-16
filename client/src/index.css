@@ -42,7 +42,7 @@ button {
   text-align: center;
   background-color: #000000;
   color: #ffffff;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 button:hover {
   background-color: #008771;
@@ -317,6 +317,10 @@ img {
   width: 4rem;
   height: auto;
   margin-top: 2.8rem;
+}
+
+.select-button button {
+  margin-top: 3rem;
 }
 
 /********************* Match Page *********************/
