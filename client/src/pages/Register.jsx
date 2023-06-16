@@ -95,7 +95,7 @@ function Register() {
           </p>
         </div>
 
-        <div>
+        <div className="error-message">
           <p>{data}</p>
         </div>
       </div>

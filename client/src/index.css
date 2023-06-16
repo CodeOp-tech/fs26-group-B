@@ -121,7 +121,9 @@ button:hover {
   margin-bottom: 30px;
 }
 
-
+.error-message {
+  margin-top: 20px;
+}
 
 /********************* Search *********************/
 
@@ -221,10 +223,9 @@ form input {
 .pending-page {
   display: flex;
   flex-direction: column;
-  
+
   margin-top: 8rem;
 }
-
 
 .invitation-card {
   display: flex;

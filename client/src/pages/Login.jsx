@@ -29,13 +29,12 @@ function Login() {
         method: "POST",
         data: credentials,
       });
-
-      //store it locally
       localStorage.setItem("token", data.token);
       auth.login();
       console.log(auth);
       console.log(data.message, data.token);
       setData(data.message);
+      navigate("/home");
     } catch (error) {
       console.log(error);
       setData("Login failed, please try again");
@@ -75,7 +74,7 @@ function Login() {
           Not a user yet? <Link to="/register">Sign Up</Link>
         </p>
 
-        <div>
+        <div className="error-message">
           <p>{data}</p>
         </div>
       </div>

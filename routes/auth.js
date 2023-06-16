@@ -56,10 +56,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/profile", userShouldBeLoggedIn, (req, res) => {
-  res.send({
-    message:
-      "You are logged in. Here is the PROTECTED data for user " + req.user_id,
-  });
+  res.send(req.user);
 });
 
 module.exports = router;
