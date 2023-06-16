@@ -24,9 +24,13 @@ getPlan(planId)
 
 // Events
 
+getAllEvents()
+
 createEvent(inviter, invitee)
 
-getEvent(hash)
+getEvent(hashId)
+
+getEvent(eventId)
 
 getOpenEvents(userId) search open status event for userid and returns the whole event
 

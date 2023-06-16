@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Link, useNavigate  } from 'react-router-dom'
+// import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 // import Menu from './Menu'
 import api from '../services/data'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
@@ -37,9 +37,9 @@ export default function NavBar() {
       }
     }, [selectHomePage]);
 
-    const handleSelectSignUp = () => {
-        setSelectSignUp(true)
-    }
+  // const handleSelectSignUp = () => {
+  //   setSelectSignUp(true);
+  // };
 
     const handleClickLogo = () => {
         setSelectHomePage(true)
@@ -52,9 +52,16 @@ export default function NavBar() {
     }
     
   return (
-    <div className='navbar'>
-      <div className="navBar__logo" onClick={handleClickLogo}>
-        <h2>Logo</h2>
+    <div className="navbar">
+      <div className="navBar__logo">
+        <Link to="/home">
+          Logo
+          {/* <img
+                  src=""
+                  alt=""
+                  width=""
+                /> */}
+        </Link>
       </div>
       
           <div className='nav-links' >
