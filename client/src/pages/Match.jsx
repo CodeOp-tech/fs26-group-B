@@ -20,7 +20,6 @@ export default function Match() {
     };
     fetchData();
   }, []);
-
   // console.log(plan);
   // console.log(plan.longDescription);
 
@@ -28,7 +27,6 @@ export default function Match() {
   function readMore() {
     executeScroll();
   }
-
   const executeScroll = () =>
     scrollReference.current.scrollIntoView({
       inline: "center",
