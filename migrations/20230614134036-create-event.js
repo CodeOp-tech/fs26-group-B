@@ -11,27 +11,15 @@ module.exports = {
       },
       userId_1: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Users",
-          key: "id",
-        },
         allowNull: false,
       },
 
       userId_2: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Users",
-          key: "id",
-        },
         allowNull: false,
       },
       chosenPlanId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Plan",
-          key: "id",
-        },
         allowNull: false,
       },
       status: {
