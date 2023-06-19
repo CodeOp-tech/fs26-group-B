@@ -7,28 +7,47 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { v4: uuidv4 } = require("uuid");
 
+// GET events: inviter/invitee = null ???
+
 // CREATE new event with private ID
+
+// if event.status = true and userId_1 and userId_2, you have an open event
 router.post("/", async function (req, res) {
-  const { userId_1, userId_2, chosenPlanId, status } = req.body;
+  const { userId_1, userId_2, userId } = req.body;
+  const { chosenPlanId } = models.Selection;
 
   try {
-    // Generate a unique identifier for the event
-    const hash = uuidv4();
-
-    // Hash the event ID to create a secure private token
-    const privateToken = await bcrypt.hash(hash, saltRounds);
-    const eventId = req.params;
-    // Create the event with the public ID and private token
-    const event = await models.Event.create({
-      eventId,
-      userId_1,
-      userId_2,
-      chosenPlanId,
-      status,
-      hash: privateToken,
+    // Find an event with status true
+    const openEvent = await models.Event.findOne({
+      where: {
+        where: Sequelize.or(
+          { userId_1: [userId_1, userId_2] },
+          { userId_2: [userId_1, userId_2] }
+        ),
+        status: true,
+      },
     });
+    // if it exists, send message
+    if (openEvent) {
+      res.send("There's already an open event");
+      //If there is no event with status true, run the post
+    } else {
+      // Generate a unique identifier for the event
+      const hash = uuidv4();
 
-    res.send(event && "New event created!");
+      // Hash the event ID to create a secure private token
+      const privateToken = await bcrypt.hash(hash, saltRounds);
+      // Create the event with the public ID and private token
+      const event = await models.Event.create({
+        userId_1,
+        userId_2,
+        chosenPlanId,
+        status: true,
+        hash: privateToken,
+      });
+
+      res.send(event && "New event created!");
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
@@ -41,9 +60,10 @@ router.get("/user/:userId", async function (req, res, next) {
 
   try {
     const event = await models.Event.findAll({
-      where: Sequelize.literal(
-        `(userId_1 = ${userId} OR userId_2 = ${userId}) AND status = true`
-      ),
+      where: {
+        [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
+        status: true,
+      },
     });
 
     if (event && event.length > 0) {
@@ -114,20 +134,23 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-// DELETE all events
-// router.delete("/", async (req, res) => {
-//   try {
-//     // Delete all events
-//     await models.Event.destroy({
-//       where: {},
-//       truncate: true, // This ensures that the table is truncated, removing all rows
-//     });
+// PUT to add chosenPlanId (planId from selections)
+//returns the planId
 
-//     res.send("All events deleted successfully");
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging purposes
-//     res.status(500).send("Internal server error");
-//   }
-// });
+// DELETE all events
+router.delete("/", async (req, res) => {
+  try {
+    // Delete all events
+    await models.Event.destroy({
+      where: {},
+      truncate: true, // This ensures that the table is truncated, removing all rows
+    });
+
+    res.send("All events deleted successfully");
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;

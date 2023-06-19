@@ -51,19 +51,19 @@ router.get("/username/:username", async function (req, res, next) {
 });
 
 // FAKE POST
-// router.post("/", async function (req, res, next) {
-//   const { name, username, password, email } = req.body;
-//   try {
-//     const user = await models.User.create({
-//       name,
-//       username,
-//       password,
-//       email,
-//     });
-//     res.send(user);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+router.post("/", async function (req, res, next) {
+  const { name, username, password, email } = req.body;
+  try {
+    const user = await models.User.create({
+      name,
+      username,
+      password,
+      email,
+    });
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 module.exports = router;

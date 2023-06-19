@@ -18,6 +18,12 @@ module.exports = {
       imageSrc: {
         type: Sequelize.STRING,
       },
+      shortDescription: {
+        type: Sequelize.STRING,
+      },
+      longDescription: {
+        type: Sequelize.TEXT,
+      },
 
       createdAt: {
         allowNull: false,

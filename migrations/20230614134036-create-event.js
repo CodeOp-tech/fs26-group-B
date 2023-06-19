@@ -19,16 +19,14 @@ module.exports = {
       },
       chosenPlanId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      chosenPlanId: {
-        type: Sequelize.INTEGER,
       },
       hash: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       status: {
         type: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Events");
+    await queryInterface.dropTable("Event");
   },
 };
