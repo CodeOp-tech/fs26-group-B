@@ -44,10 +44,10 @@ export default function PendingInvites() {
 
     return (
         <div className='pending-page'>
-            {/* <h2>Pending Invites</h2> */}
+            <h3>Pending Invitations</h3>
             {pendingInvites ? 
                     <div className='invitation-card'>
-                        <h4>{pendingInvites.userId_1} is waiting for you to accept the invitation</h4>
+                        <p>{pendingInvites.userId_1} has invited you to match a date</p>
                         
                         <button onClick={handleAcceptInvitation}>Accept</button>
                     </div>
