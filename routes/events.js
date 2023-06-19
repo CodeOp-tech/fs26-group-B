@@ -1,38 +1,80 @@
 const express = require("express");
 const router = express.Router();
+const { Sequelize } = require("sequelize");
 const models = require("../models");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { v4: uuidv4 } = require("uuid");
 
-//get event by [boolean]
-//getOpenEvents(userId)
+// GET events: inviter/invitee = null ???
 
 // CREATE new event with private ID
-router.post("/", async (req, res) => {
-  const { userId_1, userId_2, chosenPlanId} = req.body;
+
+
+// if event.status = true and userId_1 and userId_2, you have an open event
+router.post("/", async function (req, res) {
+  const { userId_1, userId_2, userId } = req.body;
+  const { chosenPlanId } = models.Selection;
 
   try {
-    // Generate a unique identifier for the event
-    const hash = uuidv4();
+    // Find an event with status true
+    const openEvent = await models.Event.findOne({
+      where: {
+        where: Sequelize.or(
+          { userId_1: [userId_1, userId_2] },
+          { userId_2: [userId_1, userId_2] }
+        ),
+        status: true,
+      },
+    });
+    // if it exists, send message
+    if (openEvent) {
+      res.send("There's already an open event");
+      //If there is no event with status true, run the post
+    } else {
+      // Generate a unique identifier for the event
+      const hash = uuidv4();
 
-    // Hash the event ID to create a secure private token
-    const privateToken = await bcrypt.hash(hash, saltRounds);
-    const eventId = req.params;
-    // Create the event with the public ID and private token
-    const event = await models.Event.create({
-      eventId,
-      userId_1,
-      userId_2,
-      chosenPlanId,
-      status : true,
-      hash: privateToken,
+      // Hash the event ID to create a secure private token
+      const privateToken = await bcrypt.hash(hash, saltRounds);
+      // Create the event with the public ID and private token
+      const event = await models.Event.create({
+        userId_1,
+        userId_2,
+        chosenPlanId,
+        status: true,
+        hash: privateToken,
+      });
+
+      res.send(event && "New event created!");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+// GET events by userid only if it's open/true
+router.get("/user/:userId", async function (req, res, next) {
+  const { userId } = req.params;
+
+  try {
+    const event = await models.Event.findAll({
+      where: {
+        [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
+        status: true,
+      },
+
     });
 
-    res.send(event);
+    if (event && event.length > 0) {
+      res.send(event);
+    } else {
+      res.status(404).send("Event not found");
+    }
   } catch (error) {
-    console.error(error); // Log the error for debugging purposes
+    console.error(error);
     res.status(500).send("Internal server error");
   }
 });
@@ -59,7 +101,7 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-//GET event with hash (private)WORK IN ROGRESS
+//GET event by hash (private)
 
 router.get("/eventprivate/:hash", async function (req, res, next) {
   const { hash } = req.params;
@@ -70,14 +112,14 @@ router.get("/eventprivate/:hash", async function (req, res, next) {
       where: { hash },
     });
 
-    if (event !== null) {
+    if (event) {
       // Check if event is not null
       res.send(event);
     } else {
       res.status(404).send("Event not found");
     }
   } catch (error) {
-    console.error(error); // Log the error for debugging purposes
+    console.error(error);
     res.status(500).send("Internal server error");
   }
 });
@@ -93,6 +135,9 @@ router.get("/", async function (req, res, next) {
     res.status(500).send(error);
   }
 });
+
+// PUT to add chosenPlanId (planId from selections)
+//returns the planId
 
 // DELETE all events
 router.delete("/", async (req, res) => {

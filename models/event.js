@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
     static associate(models) {
       Event.belongsTo(models.User, { as: "inviter", foreignKey: "userId_1" });
       Event.belongsTo(models.User, { as: "invitee", foreignKey: "userId_2" });
+      // Event.hasOne(models.Plan);
     }
   }
 
