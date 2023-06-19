@@ -11,7 +11,7 @@ const { v4: uuidv4 } = require("uuid");
 
 // CREATE new event with private ID
 router.post("/", async (req, res) => {
-  const { userId_1, userId_2, chosenPlanId, status } = req.body;
+  const { userId_1, userId_2, chosenPlanId} = req.body;
 
   try {
     // Generate a unique identifier for the event
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
       userId_1,
       userId_2,
       chosenPlanId,
-      status,
+      status : true,
       hash: privateToken,
     });
 
@@ -95,19 +95,19 @@ router.get("/", async function (req, res, next) {
 });
 
 // DELETE all events
-// router.delete("/", async (req, res) => {
-//   try {
-//     // Delete all events
-//     await models.Event.destroy({
-//       where: {},
-//       truncate: true, // This ensures that the table is truncated, removing all rows
-//     });
+router.delete("/", async (req, res) => {
+  try {
+    // Delete all events
+    await models.Event.destroy({
+      where: {},
+      truncate: true, // This ensures that the table is truncated, removing all rows
+    });
 
-//     res.send("All events deleted successfully");
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging purposes
-//     res.status(500).send("Internal server error");
-//   }
-// });
+    res.send("All events deleted successfully");
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;

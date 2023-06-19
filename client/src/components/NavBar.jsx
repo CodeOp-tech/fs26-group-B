@@ -11,64 +11,37 @@ import AuthContext from "../contexts/AuthContext";
 
 export default function NavBar() {
 	const auth = useContext(AuthContext);
+	var user_id = localStorage.getItem("user_id");
 
-	const id = 2;
 	const [selectSignUp, setSelectSignUp] = useState(false);
 	// const [selectHomePage, setSelectHomePage] = useState(false);
 	const navigate = useNavigate();
 	const [pendingInvites, setPendingInvites] = useState([]);
+	const [isNotification, setIsNotification] = useState(false);
 	//const navigate = useNavigate();
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const res = await api.getOpenEvents(id);
-				setPendingInvites(res);
-			} catch (error) {
-				console.error("Error fetching open events", error);
-			}
-		};
 		fetchData();
 	}, []);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await api.getOpenEvents(id);
-        setPendingInvites(res);
-      } catch (error) {
-        console.error("Error fetching open events", error);
-      }
-    };
-    fetchData();
-  }, []);
 
-	// useEffect(() => {
-	//   if (selectHomePage === true) {
-	//       navigate('/home');
-	//       setSelectHomePage(false);
-	//   }
-	// }, [selectHomePage]);
-  // useEffect(() => {
-  //   if (selectHomePage === true) {
-  //       navigate('/home');
-  //       setSelectHomePage(false);
-  //   }
-  // }, [selectHomePage]);
+	const fetchData = async () => {
+		try {
+			const data = await api.getOpenEvents(user_id);
+			setPendingInvites(data);
+		} catch (error) {
+			console.error("Error fetching open events", error);
+		}
+		setIsNotification(true);
+	};
 
 	const handleSelectSignUp = () => {
 		setSelectSignUp(true);
 	};
 
-	// const handleClickLogo = () => {
-	//     setSelectHomePage(true)
-	// }
-  // const handleClickLogo = () => {
-  //     setSelectHomePage(true)
-  // }
 
 	const handleNotification = () => {
 		navigate("/pending");
-		setPendingInvites([null]);
+		setIsNotification(false);
 		// console.log(pendingInvites)
 	};
 
@@ -97,7 +70,7 @@ export default function NavBar() {
 				)}
 				{auth.user && (
 					<div className="auth-links">
-						{pendingInvites.id ? (
+						{isNotification? (
 							<a onClick={handleNotification}>
 								<NotificationsActiveRoundedIcon />
 							</a>

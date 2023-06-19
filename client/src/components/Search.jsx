@@ -20,15 +20,16 @@ import { useNavigate } from "react-router-dom";
 // 8. user2 press accept and is redirect to selection/event page with the hash of the event
 
 export default function Search() {
+	var user_id = localStorage.getItem('user_id');
 	const [userSearch, setUserSearch] = useState("");
-	const [user, setUser] = useState("");
+	const [invitee, setInvitee] = useState("");
 	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState(false);
 	const [invitationMsg, setInvitationMsg] = useState("");
 	const [eventHash, setEventHash] = useState("");
 
 	useEffect(() => {
-		setUser({});
+		setInvitee({});
 	}, []);
 
 	const handleSearch = (e) => {
@@ -42,31 +43,36 @@ export default function Search() {
 		console.log(userSearch)
 		try {
 			const data = await api.getUsername(userSearch);
-			(data && setUser(data)) || setErrorMsg(true);
+			(data && setInvitee(data)) || setErrorMsg(true);
 			data && setErrorMsg(false);
 			console.log(errorMsg);
 			console.log(data);
+			
 		} catch (error) {
 			console.log(error);
 		}
-		console.log(user);
+		console.log(invitee);
 	};
 
 	const handleInvitation = async () => {
 		try {
-			const data = await api.sendInvitation(1);
-			if (data) setInvitationMsg("Invitation sent successfully!");
+			console.log(user_id, invitee.id);
+			const data = await api.createEvent(user_id, invitee.id);
+			
+			if (data) console.log(data + "Event created");
 
 			setEventHash(data); //should receive event hash from api
+			setInvitationMsg(`${invitee.username} has been invited!`);
 		} catch (error) {
 			console.log(error);
 		}
-		setUser({});
+		setInvitee({});
+		console.log(eventHash);
 	};
 
 	const handleStart = () => {
-		navigate("/event/1");
-		// navigate(`/event/${eventHash}`) with real api call
+		
+		navigate(`/event/${eventHash}`) 
 	};
 
 	const handleChange = (e) => {
@@ -99,10 +105,10 @@ export default function Search() {
 						</div>
 					</div>
 				</form>
-				{user.username && (
+				{invitee.username && (
 					<div className="found msg">
 						<p>
-							{user.username} <span>user found!</span>
+							{invitee.username} <span>user found!</span>
 						</p>
 						<button onClick={handleInvitation}>Invite</button>
 					</div>
@@ -116,7 +122,7 @@ export default function Search() {
 				{invitationMsg && (
 					<div className="confirmation">
 						{invitationMsg}
-						<p>Press Start to begin your selection</p>
+						<p>Press Start to begin your selection.</p>
 						<button onClick={handleStart}>Start</button>
 					</div>
 				)}
