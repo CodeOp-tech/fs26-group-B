@@ -59,9 +59,9 @@ export default function Search() {
 			console.log(user_id, invitee.id);
 			const data = await api.createEvent(user_id, invitee.id);
 			
-			if (data) console.log(data + "Event created");
+			if (data) console.log(data.event);
 
-			setEventHash(data); //should receive event hash from api
+			setEventHash(data.event.hash); //should receive event hash from api
 			setInvitationMsg(`${invitee.username} has been invited!`);
 		} catch (error) {
 			console.log(error);

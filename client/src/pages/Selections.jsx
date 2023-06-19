@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Card from "../components/Card";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -6,6 +7,7 @@ import api from "../services/data";
 
 export default function Selections() {
 	var user_id = localStorage.getItem("user_id");
+	const {hash} = useParams();
 	const [selected, setSelected] = useState(false);
 	const [selectedPlanId, setSelectedPlanId] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,6 +20,7 @@ export default function Selections() {
 
 	useEffect(() => {
 		fetchData();
+		console.log(hash);
 	}, []);
 
 	const fetchData = async () => {
