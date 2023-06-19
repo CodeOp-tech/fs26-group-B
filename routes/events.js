@@ -11,6 +11,7 @@ const { v4: uuidv4 } = require("uuid");
 
 // CREATE new event with private ID
 
+
 // if event.status = true and userId_1 and userId_2, you have an open event
 router.post("/", async function (req, res) {
   const { userId_1, userId_2, userId } = req.body;
@@ -64,6 +65,7 @@ router.get("/user/:userId", async function (req, res, next) {
         [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
         status: true,
       },
+
     });
 
     if (event && event.length > 0) {

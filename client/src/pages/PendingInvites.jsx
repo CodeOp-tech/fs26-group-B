@@ -2,52 +2,48 @@
 import { useState, useContext,  useEffect } from 'react'
 import { useNavigate  } from 'react-router-dom'
 import api from '../services/data'
-import AuthContext from "../contexts/AuthContext";
+// import AuthContext from "../contexts/AuthContext";
 
 
 export default function PendingInvites() {
-    const auth = useContext(AuthContext);
-    // const auth = true;
-    const id = 2;
+    var user_id = localStorage.getItem("user_id");
     const [pendingInvites, setPendingInvites] = useState([]);
-    const [eventHash, setEventHash] = useState(null);
+   
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await api.getOpenEvents(id);
-                setPendingInvites(res);
-            } catch (error) {
-                console.error("Error fetching open events", error);
-            }
-        };
-        fetchData();
-       
-    }, []);
+		fetchData();
+	}, []);
+
+	const fetchData = async () => {
+		try {
+			const data = await api.getOpenEvents(user_id);
+			setPendingInvites(data);
+		} catch (error) {
+			console.error("Error fetching open events", error);
+		}
+	};
     
-    console.log(pendingInvites)
-    const handleAcceptInvitation = async () =>
-    {
-        try {
-            const res = await api.acceptInvitation(id, pendingInvites[0].id);
-            console.log(res);
-            setEventHash(res); //saving the res that should be a hash to state
+    const handleAcceptInvitation = () =>  {
+    // {
+    //     try {
+    //         const res = await api.acceptInvitation(id, pendingInvites[0].id);
+    //         console.log(res);
+    //         setEventHash(res); //saving the res that should be a hash to state
             
-        } catch (error) {
-            console.error("Error accepting invitation", error);
-        }
-        // navigate(`/invitation/${eventHash}`);
-        navigate(`/event/123444`);
+    //     } catch (error) {
+    //         console.error("Error accepting invitation", error);
+    //     }
+        navigate(`/event/${pendingInvites.hash}`);
     }
 
     return (
         <div className='pending-page'>
-            {/* <h2>Pending Invites</h2> */}
-            {pendingInvites ? 
+            <h3>Pending Invitations</h3>
+            {pendingInvites && pendingInvites.invitee ? 
                     <div className='invitation-card'>
-                        <h4>{pendingInvites.userId_1} is waiting for you to accept the invitation</h4>
+                        <p><strong>{pendingInvites.invitee.username}</strong> has invited you to match a date</p>
                         
                         <button onClick={handleAcceptInvitation}>Accept</button>
                     </div>
