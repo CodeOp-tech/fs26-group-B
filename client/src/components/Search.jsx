@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
-import Select from "react-select";
+
 
 // USER FLOW
 
@@ -39,6 +39,7 @@ export default function Search() {
 	};
 
 	const searchUser = async () => {
+		console.log(userSearch)
 		try {
 			const data = await api.getUsername(userSearch);
 			(data && setUser(data)) || setErrorMsg(true);
@@ -48,6 +49,7 @@ export default function Search() {
 		} catch (error) {
 			console.log(error);
 		}
+		console.log(user);
 	};
 
 	const handleInvitation = async () => {

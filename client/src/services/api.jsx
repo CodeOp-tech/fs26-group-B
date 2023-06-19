@@ -22,22 +22,33 @@ export const Api =
 
   //To search for a user by username
   getUsername: async (username) => {
-    await axios.get(`/users/username/${username}`);
+    try {
+    console.log(username);
+      const { data } = await axios.get(`/api/users/username/${username}`, {
+      method: "GET",
+      });
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+
+
   },
 
   //To search for login user pending events
-  getOpenEvents: async (userId) => {
-    await axios.get(`/users/${userId}/events`);
-  },
+  // getOpenEvents: async (userId) => {
+  //   await axios.get(`/events/${userId}`);
+  // },
 
 
   // SELECTIONS & PLANS
   getAllPlans: async () => {
-    await axios.get(`/plans`);
+    await axios.get(`/plan`);
   },
 
   getPlan: async (planId) => {
-    await axios.get(`/plans/${planId}`);
+    await axios.get(`/plan/${planId}`);
   },
 
   addSelection: async (eventId, userId, planId) => {
