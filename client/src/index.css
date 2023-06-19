@@ -3,11 +3,11 @@
   line-height: 1.2;
   background-color: #fefefe;
   color: #000000d0;
-  --primary:#0c2839; /* Rojo */
-  --pink:#f49f9c; /* Verde */
-  --lightPink: #fad2d4e6; /* Verde */
-  --pinkWhite: #f7e9e9; /* Verde */
-  --lightBlue: #6b94adaf; /* Verde */
+  --primary:#0c2839;
+  --pink:#f49f9c; 
+  --lightPink: #fde6e7f5; 
+  --pinkWhite: #fef6f6cf; 
+  --lightBlue: #6b94adaf; 
   
 }
 
@@ -218,7 +218,7 @@ form input {
 .found span {
   font-size: 12px;
   padding: 0 1rem;
-  color: var(--lightBlue);
+  color: var(--pink);
 }
 
 .not-found {
