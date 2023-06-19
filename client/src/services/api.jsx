@@ -94,7 +94,7 @@ export const Api =
   getAllPlans: async () => {
     try {
         const { data } = await axios.get("/api/plans", {
-        method: "GET",
+       
         });
         // send back data to server
         return data;

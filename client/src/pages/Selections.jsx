@@ -5,6 +5,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import api from "../services/data";
 
 export default function Selections() {
+	var user_id = localStorage.getItem("user_id");
 	const [selected, setSelected] = useState(false);
 	const [selectedPlanId, setSelectedPlanId] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,7 +37,8 @@ export default function Selections() {
 
 	useEffect(() => {
         setSelected(selectedPlanId.includes(cardB.id));
-        console.log(finishedCards);
+		console.log(finishedCards);
+		
 	}, [currentIndex]);
 
     const handleInteraction = () => {
