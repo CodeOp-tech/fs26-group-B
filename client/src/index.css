@@ -3,11 +3,11 @@
   line-height: 1.2;
   background-color: #fefefe;
   color: #000000d0;
-  --primary:#0c2839; /* Rojo */
-  --pink:#f49f9c; /* Verde */
-  --lightPink: #fad2d4e6; /* Verde */
-  --pinkWhite: #f7e9e9; /* Verde */
-  --lightBlue: #6b94adaf; /* Verde */
+  --primary:#0c2839;
+  --pink:#f49f9c; 
+  --lightPink: #fad2d4e6; 
+  --pinkWhite: #f7e9e9dc; 
+  --lightBlue: #6b94adaf; 
   
 }
 

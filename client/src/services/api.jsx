@@ -9,24 +9,43 @@ import axios from "axios";
 //   });
 // };
 
-// Users
-
-export const getUser = async (userId) => {
-  await axios.get(`/users/${userId}`);
-};
-
-/* 
-getUser(username)
 
 
+export const Api = 
+{
+
+  // Users
+
+  getUser: async (userId) => {
+    await axios.get(`/users/${userId}`);
+  },
+
+  //To search for a user by username
+  getUsername: async (username) => {
+    await axios.get(`/users/username/${username}`);
+  },
+
+  //To search for login user pending events
+  getOpenEvents: async (userId) => {
+    await axios.get(`/users/${userId}/events`);
+  },
 
 
+  // SELECTIONS & PLANS
+  getAllPlans: async () => {
+    await axios.get(`/plans`);
+  },
 
-// Plans
+  getPlan: async (planId) => {
+    await axios.get(`/plans/${planId}`);
+  },
 
-getAllPlans()
+  addSelection: async (eventId, userId, planId) => {
+    await axios.post(`/events/${eventId}/users/${userId}/plans/${planId}`);
+  },
 
-getPlan(planId)
+/*
+
 
 
 
@@ -41,7 +60,7 @@ getEvent(hash)
 
 getEvent(eventId)
 
-getOpenEvents(userId) search open status event for userid and returns the whole event
+// getOpenEvents(userId) search open status event for userid and returns the whole event
 
 getEvent(inviteeId)
 
@@ -50,7 +69,14 @@ getEvent(inviteeId)
 
 // Selections
 
-addSelection(eventId, userId, planId)
 
 
 */
+
+
+}
+
+
+
+
+export default Api;
