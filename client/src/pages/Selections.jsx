@@ -123,7 +123,7 @@ export default function Selections() {
 						)}
 						{selected && (
 							<a onClick={handleSelection}>
-								<FavoriteIcon />
+									<FavoriteIcon style={{ color: "var(--pink)" }} />
 							</a>
 						)}
 					</>

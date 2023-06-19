@@ -78,9 +78,8 @@ export default function NavBar() {
 				<Link to="/home">
 					<img
 						className="logo"
-						src=" ../assets/its-a-date.png"
+						src="https://i.postimg.cc/PJqyX8p7/its-a-date.png"
 						alt="It’s a date!"
-						width="200px"
 					/>
 				</Link>
 			</div>
