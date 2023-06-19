@@ -5,8 +5,8 @@
   color: #000000d0;
   --primary:#0c2839;
   --pink:#f49f9c; 
-  --lightPink: #fad2d4e6; 
-  --pinkWhite: #f7e9e9dc; 
+  --lightPink: #fde6e7f5; 
+  --pinkWhite: #fef6f6cf; 
   --lightBlue: #6b94adaf; 
   
 }
@@ -218,7 +218,7 @@ form input {
 .found span {
   font-size: 12px;
   padding: 0 1rem;
-  color: var(--lightBlue);
+  color: var(--pink);
 }
 
 .not-found {

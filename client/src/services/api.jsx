@@ -44,7 +44,16 @@ export const Api =
 
   // SELECTIONS & PLANS
   getAllPlans: async () => {
-    await axios.get(`/plan`);
+    try {
+        const { data } = await axios.get("/api/plans", {
+        method: "GET",
+        });
+        // send back data to server
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+  
   },
 
   getPlan: async (planId) => {

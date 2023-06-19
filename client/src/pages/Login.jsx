@@ -30,6 +30,8 @@ function Login() {
         data: credentials,
       });
       localStorage.setItem("token", data.token);
+      localStorage.setItem("username", JSON.stringify(data.username));
+      localStorage.setItem("user_id", JSON.stringify(data.user_id));
       auth.login();
       console.log(auth);
       console.log(data.message, data.token);
