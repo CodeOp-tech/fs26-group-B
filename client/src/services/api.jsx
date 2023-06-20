@@ -42,6 +42,20 @@ export const Api = {
   //   await axios.get(`/events/${userId}`);
   // },
 
+  resetPassword: async (userId, password) => {
+    console.log(userId);
+    try {
+      const { data } = await axios.post(`/register/${userId}`, {
+        password: password,
+      });
+      // send back data to server
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   // Events
 
   getAllEvents: async () => {
