@@ -23,14 +23,17 @@ function App() {
     }
   }, []);
 
-  function login(username, password) {
+  function login(data) {
+    if (data) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("username", data.username);
+    }
     setUser(true);
     console.log("login");
   }
 
   function logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
     localStorage.removeItem("username");
     setUser(false);
     console.log("logout");
@@ -48,11 +51,12 @@ function App() {
         <NavBar />
 
         <Routes>
-          {user ? (
+          {/* {user ? (
             <Route path="/" element={<Home />} />
           ) : (
             <Route path="/" element={<Navigate replace to="/login" />} />
-          )}
+          )} */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route
