@@ -16,29 +16,40 @@ export default function Selections() {
 	const [cardC, setCardC] = useState({});
 	const [showLast, setShowLast] = useState(false);
 	const [finishedCards, setFinishedCards] = useState(false);
-
-	const [hash, setHash] = useState("");
+	const [event, setEvent] = useState({});
+	const {event_id} = useParams();
+	const [showMgs, setShowMgs] = useState("")
 	//get the hash from local storage
 	
-
-	useEffect ( () => {
-		setHash(localStorage.getItem("event_hash"));
-		
-	}, []);
 	useEffect(() => {
 		
-		console.log(hash);
-		if (hash) {
-			console.log("Saved event", hash);
-			fetchData();
+		console.log(event_id);
+		if (event_id) {
+			api.getEventById(event_id).then((data) => {
+				console.log(data);
+				setEvent(data);
+				console.log(event.status);
+				if (event.status === true) {
+					console.log("is open");
+					fetchData();
+				}
+				else {
+					console.log("event is close");
+					setShowMgs("This event is closed")
+
+				}
+			});
+
 		} else {
-			console.log("the is nothing at this hash", hash);
+			console.log("there is no" + event_id);
 		}
 		
-	}, [hash]);
+		
+	}, [event_id]);
 
 
 	const fetchData = async () => {
+
 		try {
 			const plansData = await api.getAllPlans();
 			setPlans(plansData);
@@ -93,13 +104,14 @@ export default function Selections() {
 	};
 
 	const handleSelection = async () => {
+		console.log(event);
 		setSelected(!selected);
 		// adds the focus eventid to the selectedPlanIds array
 		if (!selectedPlanId.includes(cardB.id)) {
 			setSelectedPlanId([...selectedPlanId, cardB.id]);
 		}
 		try {
-			const data = await api.addSelection(3, 2, 1, cardB.id);
+			const data = await api.addSelection(event.id, 2, 1, cardB.id);
 			console.log(data);
 		} catch (error) {
 			console.log(error);
@@ -117,7 +129,7 @@ export default function Selections() {
 
 	return (
 		<div className="event-selection">
-			{hash ?
+			{!showMgs.length ?
 				(<div className="selection-view">
 					{plans && (
 						<div className="cards-group">
@@ -127,7 +139,8 @@ export default function Selections() {
 							<div className="main-card focus selected">
 								<Card planContent={cardB} />
 							</div>
-							<div className="back-card" onClick={handleInteraction}>
+							<div className="next back-card" onClick={handleInteraction}>
+								{ !showLast && <p className="text">Next</p>}
 								<Card planContent={cardC} />
 							</div>
 						</div>
@@ -152,8 +165,8 @@ export default function Selections() {
 					</div>
 				</div>) :
 				(<div className="no-event">
-					
-					<h2>There is no event to show</h2>
+						{showMgs && <h2>{showMgs}</h2>}
+						<h2>There is no event to show</h2>
 						<p>Go to the home page and create a new event</p>
 					
 					<button>Create event</button>

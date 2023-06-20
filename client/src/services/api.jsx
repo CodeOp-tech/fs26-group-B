@@ -99,6 +99,7 @@ export const Api = {
         method: "GET",
       });
       // send back data to server
+      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -153,9 +154,20 @@ export const Api = {
       console.log(error);
     }
   },
+  
 
   addSelection: async (eventId, userId, planId) => {
-    await axios.post(`/events/${eventId}/users/${userId}/plans/${planId}`);
+    try {
+      const { data } = await axios.post("/api/selections", {
+        eventId: eventId,
+        userId: userId,
+        planId: planId,
+      });
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 
