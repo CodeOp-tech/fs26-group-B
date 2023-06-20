@@ -62,7 +62,7 @@ export const Api = {
   },
 
   // getEvent by hash
-  getEvent: async (hash) => {
+  getEventByHash: async (hash) => {
     try {
       const { data } = await axios.get(`/api/events/hash/${hash}`, {
         method: "GET",
@@ -75,7 +75,7 @@ export const Api = {
   },
 
   // getEvent by eventId
-  getEvent: async (eventId) => {
+  getEventById: async (eventId) => {
     try {
       const { data } = await axios.get(`/api/events/eventId/${eventId}`, {
         method: "GET",
