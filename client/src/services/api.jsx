@@ -19,6 +19,18 @@ export const Api = {
     }
   },
 
+  getUser: async (userId) => {
+    console.log(userId);
+    try {
+      const { data } = await axios.get(`/users/${userId}`);
+      // send back data to server
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   //To search for a user by username
   getUsername: async (username) => {
     try {
