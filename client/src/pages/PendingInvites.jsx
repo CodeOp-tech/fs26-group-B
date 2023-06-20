@@ -20,15 +20,16 @@ export default function PendingInvites() {
 	const fetchData = async () => {
 		try {
 			const data = await api.getOpenEvents(user_id);
-			setPendingInvites(data);
+            setPendingInvites(data);
+         
 		} catch (error) {
 			console.error("Error fetching open events", error);
 		}
 	};
     
-    const handleAcceptInvitation = () =>  {
-        console.log(pendingInvites.hash);
-        navigate(`/event/${pendingInvites.hash}`);
+    const handleAcceptInvitation = () => {
+        localStorage.setItem("event_hash", pendingInvites.hash);
+        navigate("/event");
     }
 
     return (

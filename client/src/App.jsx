@@ -67,7 +67,7 @@ function App() {
             }
           />
           <Route
-            path="/invitation/:hash"
+            path="/invitation"
             element={
               <RequireAuth>
                 <Invitation />
@@ -83,7 +83,7 @@ function App() {
             }
           />
           <Route
-            path="/its-a-date/:hash"
+            path="/its-a-date"
             element={
               <RequireAuth>
                 <Match />
@@ -91,7 +91,7 @@ function App() {
             }
           />
           <Route
-            path="/event/:hash"
+            path="/event"
             element={
               <RequireAuth>
                 <Selections />
