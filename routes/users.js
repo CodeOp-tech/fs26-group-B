@@ -51,6 +51,22 @@ router.get("/username/:username", async function (req, res, next) {
   }
 });
 
+// DELETE all users
+// router.delete("/", async (req, res) => {
+//   try {
+//     // Delete all events
+//     await models.User.destroy({
+//       where: {},
+//       truncate: true, // This ensures that the table is truncated, removing all rows
+//     });
+
+//     res.send("All users deleted successfully");
+//   } catch (error) {
+//     console.error(error); // Log the error for debugging purposes
+//     res.status(500).send("Internal server error");
+//   }
+// });
+
 // FAKE POST
 // router.post("/", async function (req, res, next) {
 //   const { name, username, password, email } = req.body;
