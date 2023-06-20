@@ -16,6 +16,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -29,6 +30,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -42,6 +44,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -56,6 +59,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -75,6 +79,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -89,6 +94,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -96,13 +102,12 @@ export const Api = {
     console.log(userId_2);
     try {
       const { data } = await axios.post("/api/events", {
-        method: "POST",
         userId_2: userId_2,
       });
       // send back data to server
       return data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -117,6 +122,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -128,6 +134,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -139,6 +146,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -154,6 +162,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 
@@ -166,6 +175,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
   
@@ -181,6 +191,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data.error);
     }
   },
 };

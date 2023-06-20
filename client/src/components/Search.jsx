@@ -19,32 +19,25 @@ import { useNavigate } from "react-router-dom";
 // 8. user2 press accept and is redirect to selection/event page with the hash of the event
 
 export default function Search() {
-	var user = localStorage.getItem('username');
+	var username = localStorage.getItem('username');
 	const [userSearch, setUserSearch] = useState("");
 	const [invitee, setInvitee] = useState("");
 	const navigate = useNavigate();
-	const [errorMsg, setErrorMsg] = useState(false);
+	const [errorMsg, setErrorMsg] = useState("");
 	const [invitationMsg, setInvitationMsg] = useState("");
 	const [eventId, setEventId] = useState("");
-	const [data, setData] = useState("");
-	const [user, setUser] = useState("");
+	// const [data, setData] = useState("");
+	// const [user, setUser] = useState("");
 	
 
 	useEffect(() => {
 		setInvitee({});
-		fetchUser();
 	}, []);
 
-	const fetchUser = async () => {
-		try {
-		  const user_info = await api.getMyProfile();
-		  console.log("the user is", user);
-		  setUser(user_info);
-		} catch (error) {
-		  console.log(error);
-		  setData(error.message);
-		}
-	};
+	useEffect(() => {
+		console.log(errorMsg);
+	  
+	  }, [errorMsg]);
 	
   const handleSearch = (e) => {
     e.preventDefault();
@@ -54,11 +47,10 @@ export default function Search() {
   };
 
   const searchUser = async () => {
-    console.log(userSearch);
     try {
       const data = await api.getUsername(userSearch);
-      (data && setInvitee(data)) || setErrorMsg(true);
-      data && setErrorMsg(false);
+      (data && setInvitee(data)) || setErrorMsg("Sorry username not found");
+      data && setErrorMsg("");
       console.log(errorMsg);
       console.log(data);
     } catch (error) {
@@ -68,20 +60,21 @@ export default function Search() {
   };
 
 	const handleInvitation = async () => {
-		console.log(invitee);
+		// console.log(invitee);
 		try {
 			const data = await api.createEvent(invitee.id);
 			
 			if (data) {
 				console.log(data);
 				setEventId(data.event.id);
+				setInvitationMsg(`${invitee.username} has been invited!`);
 			}
-			setInvitationMsg(`${invitee.username} has been invited!`);
-		} catch (error) {
-			console.log(error);
 		}
+			catch (error) {
+				console.log(error);
+				setErrorMsg(error.message);
+			  }
 		setInvitee({});
-		
 	};
 
 	const handleStart = () => {
@@ -98,7 +91,7 @@ export default function Search() {
 			<div className="search-box">
 				<form>
 					<div className="search-field">
-						<h1>Hello {user}!</h1>
+						<h1>Hello {username}!</h1>
 						<p>Search for a partner to match on a new date.🌞</p>
 						<label htmlFor="eventTitle">
 							Search by username
@@ -130,9 +123,9 @@ export default function Search() {
 					</div>
 				)}
 
-        {errorMsg === true && (
+        {errorMsg && (
           <div className="msg not-found">
-            <p>Sorry, user not found </p>
+            {errorMsg}
           </div>
         )}
         {invitationMsg && (
