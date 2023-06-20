@@ -7,7 +7,7 @@ import api from "../services/data";
 
 export default function Selections() {
 	var user_id = localStorage.getItem("user_id");
-	const {hash} = useParams();
+	const { hash } = useParams();
 	const [selected, setSelected] = useState(false);
 	const [selectedPlanId, setSelectedPlanId] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,15 +27,15 @@ export default function Selections() {
 	useEffect(() => {
 		//save the hash in local storage
 		const savedContent = localStorage.getItem(hash);
-	
+
 		// if it exists, set the content to the state
 		if (savedContent) {
 			console.log("Contenido guardado:", savedContent);
 			setContent(savedContent);
 		} else {
-		  console.log("the is nothing at this hash", hash);
+			console.log("the is nothing at this hash", hash);
 		}
-	  }, [hash]);
+	}, [hash]);
 
 	const fetchData = async () => {
 		try {
@@ -53,44 +53,43 @@ export default function Selections() {
 	};
 
 	useEffect(() => {
-        setSelected(selectedPlanId.includes(cardB.id));
+		setSelected(selectedPlanId.includes(cardB.id));
 		console.log(finishedCards);
-		
 	}, [currentIndex]);
 
-    const handleInteraction = () => {
-        if (currentIndex === 0 && showLast) {
-          setCardA({ name: null, imageSrc: null });
-          setCardB(plans[currentIndex]);
-          setCardC(plans[currentIndex + 1]);
-          setFinishedCards(true);
-          setShowLast(false);
-          setCurrentIndex(currentIndex + 1);
-          console.log("is 0");
-        } else if (currentIndex + 1 === plans.length) {
-          setCardB({
-            name: "No more options",
-            imageSrc: "https://i.gifer.com/19E6.gif",
-          });
-          setCardC({ name: null, imageSrc: null });
-          setCurrentIndex(0);
-          setShowLast(true);
-          console.log("is last");
-        } else {
-          console.log("is not 0 or last card");
-          setCardA(plans[currentIndex]);
-          setCardB(plans[currentIndex + 1]);
-          setCardC(plans[currentIndex + 2]);
-          setCurrentIndex(currentIndex + 1);
-          setShowLast(false);
-          if (currentIndex + 2 === plans.length) {
-            setCardC({
-              name: "No more options",
-              imageSrc: "https://i.gifer.com/19E6.gif",
-            });
-          }
-        }
-      };
+	const handleInteraction = () => {
+		if (currentIndex === 0 && showLast) {
+			setCardA({ name: null, imageSrc: null });
+			setCardB(plans[currentIndex]);
+			setCardC(plans[currentIndex + 1]);
+			setFinishedCards(true);
+			setShowLast(false);
+			setCurrentIndex(currentIndex + 1);
+			console.log("is 0");
+		} else if (currentIndex + 1 === plans.length) {
+			setCardB({
+				name: "No more options",
+				imageSrc: "https://i.gifer.com/19E6.gif",
+			});
+			setCardC({ name: null, imageSrc: null });
+			setCurrentIndex(0);
+			setShowLast(true);
+			console.log("is last");
+		} else {
+			console.log("is not 0 or last card");
+			setCardA(plans[currentIndex]);
+			setCardB(plans[currentIndex + 1]);
+			setCardC(plans[currentIndex + 2]);
+			setCurrentIndex(currentIndex + 1);
+			setShowLast(false);
+			if (currentIndex + 2 === plans.length) {
+				setCardC({
+					name: "No more options",
+					imageSrc: "https://i.gifer.com/19E6.gif",
+				});
+			}
+		}
+	};
 
 	const handleSelection = async () => {
 		setSelected(!selected);
@@ -111,8 +110,8 @@ export default function Selections() {
 		setCardA({ name: null, imageSrc: null });
 		setCardB(plans[currentIndex]);
 		setCardC(plans[currentIndex + 1]);
-        setCurrentIndex(0);
-        setFinishedCards(true);
+		setCurrentIndex(0);
+		setFinishedCards(true);
 	};
 
 	return (
@@ -142,7 +141,7 @@ export default function Selections() {
 						)}
 						{selected && (
 							<a onClick={handleSelection}>
-									<FavoriteIcon style={{ color: "var(--pink)" }} />
+								<FavoriteIcon style={{ color: "var(--pink)" }} />
 							</a>
 						)}
 					</>

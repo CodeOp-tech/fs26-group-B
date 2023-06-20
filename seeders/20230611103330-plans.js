@@ -352,10 +352,19 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "No more options",
+        searchKeyword: "",
+        shortDescription: "You've ",
+        longDescription: "",
+        imageSrc: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete("Users", null, {});
+    return queryInterface.bulkDelete("Plan", null, {});
   },
 };

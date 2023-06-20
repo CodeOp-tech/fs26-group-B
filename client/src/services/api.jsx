@@ -9,11 +9,7 @@ import axios from "axios";
 //   });
 // };
 
-
-
-export const Api = 
-{
-
+export const Api = {
   // Users
 
   getUser: async (userId) => {
@@ -23,17 +19,15 @@ export const Api =
   //To search for a user by username
   getUsername: async (username) => {
     try {
-    console.log(username);
+      console.log(username);
       const { data } = await axios.get(`/api/users/username/${username}`, {
-      method: "GET",
+        method: "GET",
       });
       // send back data to server
       return data;
     } catch (error) {
       console.log(error);
     }
-
-
   },
 
   //To search for login user pending events
@@ -41,19 +35,16 @@ export const Api =
   //   await axios.get(`/events/${userId}`);
   // },
 
-
   // Events
 
   getAllEvents: async () => {
     try {
-      const { data } = await axios.get("/api/events", {
-      });
+      const { data } = await axios.get("/api/events", {});
       // send back data to server
       return data;
     } catch (error) {
       console.log(error);
     }
-
   },
 
   createEvent: async (userId_1, userId_2) => {
@@ -68,17 +59,13 @@ export const Api =
     } catch (error) {
       console.log(error);
     }
-
   },
 
-// getEvent(hash)
-
-// getEvent(eventId)
-  
-//search open status event for userid and returns the whole event
-  getOpenEvents: async (userId) => {
+  // getEvent by hash
+  getEvent: async (hash) => {
     try {
-      const { data } = await axios.get(`/api/events/${userId}`, {
+      const { data } = await axios.get(`/api/events/hash/${hash}`, {
+        method: "GET",
       });
       // send back data to server
       return data;
@@ -87,34 +74,37 @@ export const Api =
     }
   },
 
-// getEvent(inviteeId)
+  // getEvent by eventId
+  getEvent: async (eventId) => {
+    try {
+      const { data } = await axios.get(`/api/events/eventId/${eventId}`, {
+        method: "GET",
+      });
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 
+  //search open status event for userid and returns the whole event
+  getOpenEvents: async (userId) => {
+    try {
+      const { data } = await axios.get(`/api/events/${userId}`, {});
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  // getEvent(inviteeId)
 
   // SELECTIONS & PLANS
   getAllPlans: async () => {
     try {
-        const { data } = await axios.get("/api/plans", {
-       
-        });
-        // send back data to server
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-  
-  },
-
-  getPlan: async (planId) => {
-    await axios.get(`/plans/${planId}`);
-
-  },
-
-  addSelection: async (eventId, userId, planId) => {
-    try {
-      const { data } = await axios.post(`/selections/${planId}`, {
-        eventId: eventId,
-        userId: userId,
-        planId: planId,
+      const { data } = await axios.get("/api/plans", {
+        method: "GET",
       });
       // send back data to server
       return data;
@@ -123,10 +113,13 @@ export const Api =
     }
   },
 
+  getPlan: async (planId) => {
+    await axios.get(`/plan/${planId}`);
+  },
 
-}
-
-
-
+  addSelection: async (eventId, userId, planId) => {
+    await axios.post(`/events/${eventId}/users/${userId}/plans/${planId}`);
+  },
+};
 
 export default Api;
