@@ -46,7 +46,8 @@ function App() {
         <NavBar />
 
         <Routes>
-          <Route path="/" element={<Navigate replace to="/login" />} />
+          {user ? <Route path="/" element={<Home />} /> :
+            <Route path="/" element={<Navigate replace to="/login" />} />}
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route

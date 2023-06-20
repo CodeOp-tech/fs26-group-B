@@ -14,25 +14,25 @@ const { v4: uuidv4 } = require("uuid");
 
 // if event.status = true and userId_1 and userId_2, you have an open event
 router.post("/", async function (req, res) {
-  const { userId_1, userId_2, userId } = req.body;
+  const { userId_1, userId_2 } = req.body;
   const { chosenPlanId } = models.Selection;
 
   try {
     // Find an event with status true
-    const openEvent = await models.Event.findOne({
-      where: {
-        where: Sequelize.or(
-          { userId_1: [userId_1, userId_2] },
-          { userId_2: [userId_1, userId_2] }
-        ),
-        status: true,
-      },
-    });
+    // const openEvent = await models.Event.findOne({
+    //   where: {
+    //     where: Sequelize.or(
+    //       { userId_1: [userId_1, userId_2] },
+    //       { userId_2: [userId_1, userId_2] }
+    //     ),
+    //     status: true,
+    //   },
+    // });
     // if it exists, send message
-    if (openEvent) {
-      res.send("There's already an open event");
-      //If there is no event with status true, run the post
-    } else {
+    // if (openEvent) {
+    //   res.send("There's already an open event");
+    //   //If there is no event with status true, run the post
+    // } else {
       // Generate a unique identifier for the event
       const hash = uuidv4();
 
@@ -47,8 +47,11 @@ router.post("/", async function (req, res) {
         hash: privateToken,
       });
 
-      res.send(event && "New event created!");
-    }
+    res.send({event, message: "Event created"});
+    // send back a message that the event has been created
+    
+
+    
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
