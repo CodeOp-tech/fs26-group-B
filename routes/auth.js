@@ -23,7 +23,9 @@ router.post("/register", usernameShouldNotExist, async (req, res) => {
       password: hash,
     });
 
-    res.send({ message: "New user created!" });
+    var token = jwt.sign({ user_id: user.id }, supersecret);
+
+    res.send({ message: "New user created!", token, username });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
