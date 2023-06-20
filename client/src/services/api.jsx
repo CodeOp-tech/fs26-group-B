@@ -78,11 +78,11 @@ export const Api = {
     }
   },
 
-  createEvent: async (userId_1, userId_2) => {
-    console.log(userId_1, userId_2);
+  createEvent: async (userId_2) => {
+    console.log(userId_2);
     try {
       const { data } = await axios.post("/api/events", {
-        userId_1: userId_1,
+        method: "POST",
         userId_2: userId_2,
       });
       // send back data to server
