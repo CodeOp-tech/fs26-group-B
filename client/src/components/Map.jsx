@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
 const containerStyle = {
@@ -6,9 +7,10 @@ const containerStyle = {
   height: "400px",
 };
 
+// set center to barcelona for now
 const center = {
-  lat: -3.745,
-  lng: -38.523,
+  lat: 41.390205,
+  lng: 2.154007,
 };
 
 function Map() {

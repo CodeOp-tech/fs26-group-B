@@ -62,7 +62,7 @@ export const Api = {
   },
 
   // getEvent by hash
-  getEvent: async (hash) => {
+  getEventByHash: async (hash) => {
     try {
       const { data } = await axios.get(`/api/events/hash/${hash}`, {
         method: "GET",
@@ -75,7 +75,7 @@ export const Api = {
   },
 
   // getEvent by eventId
-  getEvent: async (eventId) => {
+  getEventById: async (eventId) => {
     try {
       const { data } = await axios.get(`/api/events/eventId/${eventId}`, {
         method: "GET",
@@ -114,7 +114,15 @@ export const Api = {
   },
 
   getPlan: async (planId) => {
-    await axios.get(`/plan/${planId}`);
+    try {
+      const { data } = await axios.get(`/plan/${planId}`, {
+        method: "GET",
+      });
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   addSelection: async (eventId, userId, planId) => {
