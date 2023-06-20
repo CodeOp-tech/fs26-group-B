@@ -8,7 +8,6 @@ import api from '../services/data'
 export default function PendingInvites() {
     var user_id = localStorage.getItem("user_id");
     const [pendingInvites, setPendingInvites] = useState([]);
-   
     const navigate = useNavigate();
 
 
@@ -28,8 +27,9 @@ export default function PendingInvites() {
 	};
     
     const handleAcceptInvitation = () => {
-        localStorage.setItem("event_hash", pendingInvites.hash);
-        navigate("/event");
+        // localStorage.setItem("event_hash", pendingInvites.hash);
+        
+        navigate(`/event/${pendingInvites.id}`) 
     }
 
     return (

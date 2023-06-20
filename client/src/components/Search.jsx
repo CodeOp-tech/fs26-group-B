@@ -21,11 +21,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function Search() {
 	var user_id = localStorage.getItem('user_id');
+	var user = localStorage.getItem('username');
 	const [userSearch, setUserSearch] = useState("");
 	const [invitee, setInvitee] = useState("");
 	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState(false);
 	const [invitationMsg, setInvitationMsg] = useState("");
+	const [eventId, setEventId] = useState("");
 	
 
 	useEffect(() => {
@@ -59,9 +61,11 @@ export default function Search() {
 			console.log(user_id, invitee.id);
 			const data = await api.createEvent(user_id, invitee.id);
 			
-			if (data) console.log(data.event);
-
-			localStorage.setItem("event_hash", data.event.hash); //should receive event hash from api
+			if (data) {
+				console.log(data);
+				setEventId(data.event.id);
+			}
+			// localStorage.setItem("event_hash", data.event.hash); //should receive event hash from api
 			setInvitationMsg(`${invitee.username} has been invited!`);
 		} catch (error) {
 			console.log(error);
@@ -71,7 +75,7 @@ export default function Search() {
 	};
 
 	const handleStart = () => {
-		navigate("/event") 
+	navigate(`/event/${eventId}`) 
 	};
 
 	const handleChange = (e) => {
@@ -83,8 +87,10 @@ export default function Search() {
 			<div className="search-box">
 				<form>
 					<div className="search-field">
+						<h1>Hello {user}!</h1>
+						<p>Search for a partner to match on a new date.🌞</p>
 						<label htmlFor="eventTitle">
-							Search for your partner
+							Search by username
 						</label>
 						<div>
 							<input

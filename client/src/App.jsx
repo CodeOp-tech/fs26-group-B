@@ -46,7 +46,7 @@ function App() {
         <NavBar />
 
         <Routes>
-          {user ? <Route path="/" element={<Home />} /> :
+          {authObject.user ? <Route path="/" element={<Home />} /> :
             <Route path="/" element={<Navigate replace to="/login" />} />}
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
@@ -91,7 +91,7 @@ function App() {
             }
           />
           <Route
-            path="/event"
+            path="/event/:event_id"
             element={
               <RequireAuth>
                 <Selections />

@@ -31,7 +31,7 @@ export default function Card({ planContent }) {
 					<div className="card__info">
 						<h2>{planContent.name}</h2>{" "}
 						{/* Accede al título del plan desde planContent */}
-						<p>short description</p>{" "}
+						<p>{planContent.shortDescription}</p>{" "}
 						{/* Accede a la descripción del plan desde planContent */}
 					</div>
 				</div>

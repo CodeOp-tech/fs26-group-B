@@ -62,12 +62,13 @@ export const Api = {
   },
 
   // getEvent by hash
-  getEvent: async (hash) => {
+  getEventByHash: async (hash) => {
+    console.log(hash);
     try {
-      const { data } = await axios.get(`/api/events/hash/${hash}`, {
-        method: "GET",
+      const { data } = await axios.get(`/api/events/private/${hash}`, {
       });
       // send back data to server
+      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -75,10 +76,10 @@ export const Api = {
   },
 
   // getEvent by eventId
-  getEvent: async (eventId) => {
+  getEventById: async (eventId) => {
     try {
-      const { data } = await axios.get(`/api/events/eventId/${eventId}`, {
-        method: "GET",
+      const { data } = await axios.get(`/api/events/${eventId}`, {
+       
       });
       // send back data to server
       return data;
@@ -114,11 +115,22 @@ export const Api = {
   },
 
   getPlan: async (planId) => {
-    await axios.get(`/plan/${planId}`);
+    await axios.get(`/plan/${planId}`)
   },
+  
 
   addSelection: async (eventId, userId, planId) => {
-    await axios.post(`/events/${eventId}/users/${userId}/plans/${planId}`);
+    try {
+      const { data } = await axios.post("/api/selections", {
+        eventId: eventId,
+        userId: userId,
+        planId: planId,
+      });
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 
