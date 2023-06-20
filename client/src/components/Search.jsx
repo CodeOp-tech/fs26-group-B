@@ -4,7 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 // import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 
-
 // USER FLOW
 
 // 1. user1 search for user2
@@ -20,116 +19,111 @@ import { useNavigate } from "react-router-dom";
 // 8. user2 press accept and is redirect to selection/event page with the hash of the event
 
 export default function Search() {
-	var user_id = localStorage.getItem('user_id');
-	const [userSearch, setUserSearch] = useState("");
-	const [invitee, setInvitee] = useState("");
-	const navigate = useNavigate();
-	const [errorMsg, setErrorMsg] = useState(false);
-	const [invitationMsg, setInvitationMsg] = useState("");
-	
+  var user_id = localStorage.getItem("user_id");
+  const [userSearch, setUserSearch] = useState("");
+  const [invitee, setInvitee] = useState("");
+  const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [invitationMsg, setInvitationMsg] = useState("");
 
-	useEffect(() => {
-		setInvitee({});
-	}, []);
+  useEffect(() => {
+    setInvitee({});
+  }, []);
 
-	const handleSearch = (e) => {
-		e.preventDefault();
-		setInvitationMsg("");
-		searchUser();
-		setUserSearch("");
-	};
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setInvitationMsg("");
+    searchUser();
+    setUserSearch("");
+  };
 
-	const searchUser = async () => {
-		console.log(userSearch)
-		try {
-			const data = await api.getUsername(userSearch);
-			(data && setInvitee(data)) || setErrorMsg(true);
-			data && setErrorMsg(false);
-			console.log(errorMsg);
-			console.log(data);
-			
-		} catch (error) {
-			console.log(error);
-		}
-		console.log(invitee);
-	};
+  const searchUser = async () => {
+    console.log(userSearch);
+    try {
+      const data = await api.getUsername(userSearch);
+      (data && setInvitee(data)) || setErrorMsg(true);
+      data && setErrorMsg(false);
+      console.log(errorMsg);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(invitee);
+  };
 
-	const handleInvitation = async () => {
-		try {
-			console.log(user_id, invitee.id);
-			const data = await api.createEvent(user_id, invitee.id);
-			
-			if (data) console.log(data.event);
+  const handleInvitation = async () => {
+    try {
+      console.log(user_id, invitee.id && "inviteeId1");
+      const data = await api.createEvent(user_id, invitee.id);
+      console.log(user_id && "inviteeId2");
+      if (data) console.log(data.event && "data");
 
-			localStorage.setItem("event_hash", data.event.hash); //should receive event hash from api
-			setInvitationMsg(`${invitee.username} has been invited!`);
-		} catch (error) {
-			console.log(error);
-		}
-		setInvitee({});
-		
-	};
+      localStorage.setItem("event_hash", data.event.hash); //should receive event hash from api
+      setInvitationMsg(`${invitee.username} has been invited!`);
+    } catch (error) {
+      console.log(error);
+    }
+    setInvitee({});
+  };
 
-	const handleStart = () => {
-		navigate("/event") 
-	};
+  const handleStart = () => {
+    navigate("/event");
+  };
 
-	const handleChange = (e) => {
-		setUserSearch(e.target.value);
-	};
+  const handleChange = (e) => {
+    setUserSearch(e.target.value);
+  };
 
-	return (
-		<div>
-			<div className="search-box">
-				<form>
-					<div className="search-field">
-						<label htmlFor="eventTitle">
-							Search for your partner
-						</label>
-						<div>
-							<input
-								type="text"
-								id="eventTitle"
-								name="eventTitle"
-								value={userSearch}
-								onChange={handleChange}
-							/>
-							<button
-								className="submit-button"
-								type="submit"
-								onClick={handleSearch}
-							>
-								<SearchIcon />
-							</button>
-						</div>
-					</div>
-				</form>
-				{invitee.username && (
-					<div className="found msg">
-						<p>
-							{invitee.username} <span>user found!</span>
-						</p>
-						<button onClick={handleInvitation}>Invite</button>
-					</div>
-				)}
+  return (
+    <div>
+      <div className="search-box">
+        <form>
+          <div className="search-field">
+            <label htmlFor="eventTitle">Search for your partner</label>
+            <div>
+              <input
+                type="text"
+                id="eventTitle"
+                name="eventTitle"
+                value={userSearch}
+                onChange={handleChange}
+              />
+              <button
+                className="submit-button"
+                type="submit"
+                onClick={handleSearch}
+              >
+                <SearchIcon />
+              </button>
+            </div>
+          </div>
+        </form>
+        {invitee.username && (
+          <div className="found msg">
+            <p>
+              {invitee.username} <span>user found!</span>
+            </p>
+            <button onClick={handleInvitation}>Invite</button>
+          </div>
+        )}
 
-				{errorMsg === true && (
-					<div className="msg not-found">
-						<p>Sorry, user not found </p>
-					</div>
-				)}
-				{invitationMsg && (
-					<div className="confirmation">
-						{invitationMsg}
-						<p>Press Start to begin your selection.</p>
-						<button onClick={handleStart}>Start</button>
-					</div>
-				)}
-			</div>
+        {errorMsg === true && (
+          <div className="msg not-found">
+            <p>Sorry, user not found </p>
+          </div>
+        )}
+        {invitationMsg && (
+          <div className="confirmation">
+            {invitationMsg}
+            <p>Press Start to begin your selection.</p>
+            <button onClick={handleStart}>Start</button>
+          </div>
+        )}
+      </div>
 
-			{/* <div className="share-link">
+      {/* <div className="share-link">
                 <a>Or send registration Link </a><a><SendIcon /></a>
                 </div> */}
-		</div>
-	);
+    </div>
+  );
 }
