@@ -29,34 +29,15 @@ export default function Profile() {
     setPassword(e.target.value);
   };
 
-  async function resetPassword(userId, password) {
+  async function resetPassword(password) {
     try {
-      await api.resetPassword(userId, password);
+      await api.resetPassword(password);
       console.log("Password has been reset");
     } catch (error) {
       console.log(error);
       setData(error.message);
     }
   }
-
-  // useEffect(() => {
-  //   requestData();
-  // }, []);
-
-  // const requestData = async () => {
-  //   try {
-  //     const { data } = await axios("/api/auth/profile", {
-  //       headers: {
-  //         authorization: "Bearer " + localStorage.getItem("token"),
-  //       },
-  //     });
-  //     setData(data);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setData(error.message);
-  //   }
-  // };
 
   return (
     <div>
