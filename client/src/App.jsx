@@ -30,6 +30,8 @@ function App() {
 
   function logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("username");
     setUser(false);
     console.log("logout");
   }
