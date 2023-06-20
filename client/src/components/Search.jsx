@@ -67,11 +67,11 @@ export default function Search() {
 			console.log(error);
 		}
 		setInvitee({});
-		console.log(eventHash);
+		
 	};
 
 	const handleStart = () => {
-		
+		console.log(eventHash);
 		navigate(`/event/${eventHash}`) 
 	};
 

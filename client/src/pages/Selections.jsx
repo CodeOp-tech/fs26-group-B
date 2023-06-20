@@ -17,11 +17,25 @@ export default function Selections() {
 	const [cardC, setCardC] = useState({});
 	const [showLast, setShowLast] = useState(false);
 	const [finishedCards, setFinishedCards] = useState(false);
+	const [content, setContent] = useState("");
 
 	useEffect(() => {
 		fetchData();
 		console.log(hash);
 	}, []);
+
+	useEffect(() => {
+		//save the hash in local storage
+		const savedContent = localStorage.getItem(hash);
+	
+		// if it exists, set the content to the state
+		if (savedContent) {
+			console.log("Contenido guardado:", savedContent);
+			setContent(savedContent);
+		} else {
+		  console.log("the is nothing at this hash", hash);
+		}
+	  }, [hash]);
 
 	const fetchData = async () => {
 		try {

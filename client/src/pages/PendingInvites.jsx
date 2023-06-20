@@ -13,7 +13,8 @@ export default function PendingInvites() {
 
 
     useEffect(() => {
-		fetchData();
+        fetchData();
+        console.log(pendingInvites);
 	}, []);
 
 	const fetchData = async () => {
