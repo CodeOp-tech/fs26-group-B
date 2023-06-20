@@ -21,8 +21,8 @@ export default function NavBar() {
   //const navigate = useNavigate();
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (auth.user) fetchData();
+  }, [auth.user]);
 
   const fetchData = async () => {
     try {
@@ -51,7 +51,7 @@ export default function NavBar() {
           <img
             className="logo"
             src="https://i.postimg.cc/PJqyX8p7/its-a-date.png"
-            alt="It’s a date!"
+            alt="It's a date!"
           />
         </Link>
       </div>
