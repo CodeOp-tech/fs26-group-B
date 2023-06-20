@@ -19,16 +19,19 @@ import { useNavigate } from "react-router-dom";
 // 8. user2 press accept and is redirect to selection/event page with the hash of the event
 
 export default function Search() {
-  var user_id = localStorage.getItem("user_id");
-  const [userSearch, setUserSearch] = useState("");
-  const [invitee, setInvitee] = useState("");
-  const navigate = useNavigate();
-  const [errorMsg, setErrorMsg] = useState(false);
-  const [invitationMsg, setInvitationMsg] = useState("");
+	var user_id = localStorage.getItem('user_id');
+	var user = localStorage.getItem('username');
+	const [userSearch, setUserSearch] = useState("");
+	const [invitee, setInvitee] = useState("");
+	const navigate = useNavigate();
+	const [errorMsg, setErrorMsg] = useState(false);
+	const [invitationMsg, setInvitationMsg] = useState("");
+	const [eventId, setEventId] = useState("");
+	
 
-  useEffect(() => {
-    setInvitee({});
-  }, []);
+	useEffect(() => {
+		setInvitee({});
+	}, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -51,61 +54,68 @@ export default function Search() {
     console.log(invitee);
   };
 
-  const handleInvitation = async () => {
-    try {
-      console.log(user_id, invitee.id && "inviteeId1");
-      const data = await api.createEvent(user_id, invitee.id);
-      console.log(user_id && "inviteeId2");
-      if (data) console.log(data.event && "data");
+	const handleInvitation = async () => {
+		try {
+			console.log(user_id, invitee.id);
+			const data = await api.createEvent(user_id, invitee.id);
+			
+			if (data) {
+				console.log(data);
+				setEventId(data.event.id);
+			}
+			// localStorage.setItem("event_hash", data.event.hash); //should receive event hash from api
+			setInvitationMsg(`${invitee.username} has been invited!`);
+		} catch (error) {
+			console.log(error);
+		}
+		setInvitee({});
+		
+	};
 
-      localStorage.setItem("event_hash", data.event.hash); //should receive event hash from api
-      setInvitationMsg(`${invitee.username} has been invited!`);
-    } catch (error) {
-      console.log(error);
-    }
-    setInvitee({});
-  };
-
-  const handleStart = () => {
-    navigate("/event");
-  };
+	const handleStart = () => {
+	navigate(`/event/${eventId}`) 
+	};
 
   const handleChange = (e) => {
     setUserSearch(e.target.value);
   };
 
-  return (
-    <div>
-      <div className="search-box">
-        <form>
-          <div className="search-field">
-            <label htmlFor="eventTitle">Search for your partner</label>
-            <div>
-              <input
-                type="text"
-                id="eventTitle"
-                name="eventTitle"
-                value={userSearch}
-                onChange={handleChange}
-              />
-              <button
-                className="submit-button"
-                type="submit"
-                onClick={handleSearch}
-              >
-                <SearchIcon />
-              </button>
-            </div>
-          </div>
-        </form>
-        {invitee.username && (
-          <div className="found msg">
-            <p>
-              {invitee.username} <span>user found!</span>
-            </p>
-            <button onClick={handleInvitation}>Invite</button>
-          </div>
-        )}
+	return (
+		<div>
+			<div className="search-box">
+				<form>
+					<div className="search-field">
+						<h1>Hello {user}!</h1>
+						<p>Search for a partner to match on a new date.🌞</p>
+						<label htmlFor="eventTitle">
+							Search by username
+						</label>
+						<div>
+							<input
+								type="text"
+								id="eventTitle"
+								name="eventTitle"
+								value={userSearch}
+								onChange={handleChange}
+							/>
+							<button
+								className="submit-button"
+								type="submit"
+								onClick={handleSearch}
+							>
+								<SearchIcon />
+							</button>
+						</div>
+					</div>
+				</form>
+				{invitee.username && (
+					<div className="found msg">
+						<p>
+							{invitee.username} <span>user found!</span>
+						</p>
+						<button onClick={handleInvitation}>Invite</button>
+					</div>
+				)}
 
         {errorMsg === true && (
           <div className="msg not-found">

@@ -100,7 +100,7 @@ function App() {
             }
           />
           <Route
-            path="/event"
+            path="/event/:event_id"
             element={
               <RequireAuth>
                 <Selections />
