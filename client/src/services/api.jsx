@@ -1,22 +1,18 @@
 import axios from "axios";
 
-// Auth
-
-// export const login = async (username, password) => {
-//   await axios("/api/auth/login", {
-//     method: "POST",
-//     data: { username, password },
-//   });
-// };
+axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
+  "token"
+)}`;
 
 export const Api = {
   // Users
-  getUser: async (userId) => {
-    console.log(userId);
+
+  // Get the user that is logged in
+  getMyProfile: async () => {
     try {
-      const { data } = await axios.get(`/users/${userId}`);
+      const { data } = await axios.get(`/api/auth/profile`);
       // send back data to server
-      console.log(data);
+      // console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -111,7 +107,7 @@ export const Api = {
   //search open status event for userid and returns the whole event
   getOpenEvents: async (userId) => {
     try {
-      const { data } = await axios.get(`/api/events/${userId}`, {});
+      const { data } = await axios.get(`/api/events/user`);
       // send back data to server
       return data;
     } catch (error) {
