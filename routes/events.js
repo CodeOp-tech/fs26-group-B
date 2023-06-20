@@ -10,7 +10,6 @@ const { v4: uuidv4 } = require("uuid");
 // Create new event
 router.post("/", async function (req, res) {
   const { userId_1, userId_2 } = req.body;
-  // const chosenPlanId = await models.Selection;
 
   try {
     // First we check if there's already an event
@@ -41,7 +40,6 @@ router.post("/", async function (req, res) {
       const event = await models.Event.create({
         userId_1,
         userId_2,
-        // chosenPlanId,
         status: true,
         hash: privateToken,
       });
@@ -54,26 +52,15 @@ router.post("/", async function (req, res) {
   }
 });
 
-// GET events by userid only if it's open/true
-router.get("/user/:userId", async function (req, res, next) {
-  const { userId } = req.params;
-
+// GET ALL EVENTS
+router.get("/", async function (req, res, next) {
   try {
-    const event = await models.Event.findAll({
-      where: {
-        [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
-        status: true,
-      },
+    const events = await models.Event.findAll({
+      include: ["inviter", "invitee"],
     });
-
-    if (event && event.length > 0) {
-      res.send(event);
-    } else {
-      res.status(404).send("Event not found");
-    }
+    res.status(200).send(events);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error");
+    res.status(500).send(error);
   }
 });
 
@@ -94,14 +81,37 @@ router.get("/:id", async function (req, res, next) {
       res.status(404).send("Event not found");
     }
   } catch (error) {
-    console.error(error); // Log the error for debugging purposes
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+// GET events by userid only if it's open/true
+router.get("/user/:userId", async function (req, res, next) {
+  const { userId } = req.params;
+
+  try {
+    const events = await models.Event.findAll({
+      where: {
+        [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
+        status: true,
+      },
+    });
+
+    if (events.length === 0) {
+      res.status(404).send("Event not found");
+    } else {
+      res.send(events);
+    }
+  } catch (error) {
+    console.error(error);
     res.status(500).send("Internal server error");
   }
 });
 
 //GET event by hash (private)
 
-router.get("/eventprivate/:hash", async function (req, res, next) {
+router.get("/private/:hash", async function (req, res, next) {
   const { hash } = req.params;
 
   try {
@@ -122,32 +132,20 @@ router.get("/eventprivate/:hash", async function (req, res, next) {
   }
 });
 
-// GET ALL EVENTS
-router.get("/", async function (req, res, next) {
-  try {
-    const events = await models.Event.findAll({
-      include: ["inviter", "invitee"],
-    });
-    res.status(200).send(events);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
 // DELETE all events
-router.delete("/", async (req, res) => {
-  try {
-    // Delete all events
-    await models.Event.destroy({
-      where: {},
-      truncate: true, // This ensures that the table is truncated, removing all rows
-    });
+// router.delete("/", async (req, res) => {
+//   try {
+//     // Delete all events
+//     await models.Event.destroy({
+//       where: {},
+//       truncate: true, // This ensures that the table is truncated, removing all rows
+//     });
 
-    res.send("All events deleted successfully");
-  } catch (error) {
-    console.error(error); // Log the error for debugging purposes
-    res.status(500).send("Internal server error");
-  }
-});
+//     res.send("All events deleted successfully");
+//   } catch (error) {
+//     console.error(error); // Log the error for debugging purposes
+//     res.status(500).send("Internal server error");
+//   }
+// });
 
 module.exports = router;
