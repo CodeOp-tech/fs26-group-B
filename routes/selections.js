@@ -7,60 +7,81 @@ const { Sequelize } = require("sequelize");
 router.post("/", async function (req, res, next) {
   const { userId, planId, eventId } = req.body;
 
-  try {
-    // Create a new selection
-    await models.Selection.create({
+  const selection = await models.Selection.findOne({
+    where: {
       userId,
       planId,
       eventId,
-    });
-
-    // Find one selection
-    const match = await models.Selection.findOne({
-      // With these values
+    },
+  });
+  // if there is already a selection with this values
+  if (selection) {
+    // delete it
+    await models.Selection.destroy({
       where: {
         userId,
         planId,
         eventId,
       },
     });
+    res.send("Selection deleted.");
+  } else {
+    // start creating a new selection
+    try {
+      // Create a new selection
+      await models.Selection.create({
+        userId,
+        planId,
+        eventId,
+      });
 
-    // If it exists
-    if (match) {
-      // Find the other selection
-      const otherMatch = await models.Selection.findOne({
-        // With the same values
+      // Find one selection
+      const match = await models.Selection.findOne({
+        // With these values
         where: {
-          userId: { [Sequelize.Op.not]: userId },
+          userId,
           planId,
           eventId,
         },
       });
 
-      // If the other selection exists
-      if (otherMatch) {
-        // Update the chosenPlanId in the Event table
-        const eventUpdateResult = await models.Event.update(
-          { chosenPlanId: planId, status: false },
-          { where: { id: eventId } }
-        );
+      // If it exists
+      if (match) {
+        // Find the other selection
+        const otherMatch = await models.Selection.findOne({
+          // With the same values
+          where: {
+            userId: { [Sequelize.Op.not]: userId },
+            planId,
+            eventId,
+          },
+        });
 
-        // If an event with the given ID was found and updated successfully
-        if (eventUpdateResult[0] > 0) {
-          res.send("Match found. Chosen plan updated in the event.");
+        // If the other selection exists
+        if (otherMatch) {
+          // Update the chosenPlanId in the Event table
+          const eventUpdateResult = await models.Event.update(
+            { chosenPlanId: planId, status: false },
+            { where: { id: eventId } }
+          );
+
+          // If an event with the given ID was found and updated successfully
+          if (eventUpdateResult[0] > 0) {
+            res.send("Match found. Chosen plan updated in the event.");
+          } else {
+            res.send("No event found with the given ID.");
+          }
         } else {
-          res.send("No event found with the given ID.");
+          res.send("You made a selection, waiting for the other user.");
         }
+        // If there is no match, just post the selection
       } else {
-        res.send("You made a selection, waiting for the other user.");
+        res.send("You made a selection!");
       }
-      // If there is no match, just post the selection
-    } else {
-      res.send("You made a selection!");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error);
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error);
   }
 });
 
