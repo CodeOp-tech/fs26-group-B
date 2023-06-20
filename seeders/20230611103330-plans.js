@@ -352,15 +352,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      {
-        name: "No more options",
-        searchKeyword: "",
-        shortDescription: "You've ",
-        longDescription: "",
-        imageSrc: "",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+     
     ]);
   },
 
