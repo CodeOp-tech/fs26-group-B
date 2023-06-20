@@ -31,18 +31,23 @@ router.post("/register", usernameShouldNotExist, async (req, res) => {
   }
 });
 
-router.post("/register/:id", async (req, res) => {
-  const { id } = req.params;
+router.post("/password", userShouldBeLoggedIn, async (req, res) => {
   const { password } = req.body;
 
   try {
     const hash = await bcrypt.hash(password, saltRounds);
 
-    const user = await models.User.findOne({ where: { id } });
-
-    await models.User.update({ password: hash });
+    await models.User.update(
+      { password: hash },
+      {
+        where: {
+          token: token,
+        },
+      }
+    );
 
     res.send({ message: "Password updated" });
+    res.send(req.user);
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
