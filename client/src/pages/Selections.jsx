@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Card from "../components/Card";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import api from "../services/data";
 
 export default function Selections() {
+	var user_id = localStorage.getItem("user_id");
 	const [selected, setSelected] = useState(false);
 	const [selectedPlanId, setSelectedPlanId] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,9 +17,26 @@ export default function Selections() {
 	const [showLast, setShowLast] = useState(false);
 	const [finishedCards, setFinishedCards] = useState(false);
 
-	useEffect(() => {
-		fetchData();
+	const [hash, setHash] = useState("");
+	//get the hash from local storage
+	
+
+	useEffect ( () => {
+		setHash(localStorage.getItem("event_hash"));
+		
 	}, []);
+	useEffect(() => {
+		
+		console.log(hash);
+		if (hash) {
+			console.log("Saved event", hash);
+			fetchData();
+		} else {
+			console.log("the is nothing at this hash", hash);
+		}
+		
+	}, [hash]);
+
 
 	const fetchData = async () => {
 		try {
@@ -35,43 +54,43 @@ export default function Selections() {
 	};
 
 	useEffect(() => {
-        setSelected(selectedPlanId.includes(cardB.id));
-        console.log(finishedCards);
+		setSelected(selectedPlanId.includes(cardB.id));
+		console.log(finishedCards);
 	}, [currentIndex]);
 
-    const handleInteraction = () => {
-        if (currentIndex === 0 && showLast) {
-          setCardA({ name: null, imageSrc: null });
-          setCardB(plans[currentIndex]);
-          setCardC(plans[currentIndex + 1]);
-          setFinishedCards(true);
-          setShowLast(false);
-          setCurrentIndex(currentIndex + 1);
-          console.log("is 0");
-        } else if (currentIndex + 1 === plans.length) {
-          setCardB({
-            name: "No more options",
-            imageSrc: "https://i.gifer.com/19E6.gif",
-          });
-          setCardC({ name: null, imageSrc: null });
-          setCurrentIndex(0);
-          setShowLast(true);
-          console.log("is last");
-        } else {
-          console.log("is not 0 or last card");
-          setCardA(plans[currentIndex]);
-          setCardB(plans[currentIndex + 1]);
-          setCardC(plans[currentIndex + 2]);
-          setCurrentIndex(currentIndex + 1);
-          setShowLast(false);
-          if (currentIndex + 2 === plans.length) {
-            setCardC({
-              name: "No more options",
-              imageSrc: "https://i.gifer.com/19E6.gif",
-            });
-          }
-        }
-      };
+	const handleInteraction = () => {
+		if (currentIndex === 0 && showLast) {
+			setCardA({ name: null, imageSrc: null });
+			setCardB(plans[currentIndex]);
+			setCardC(plans[currentIndex + 1]);
+			setFinishedCards(true);
+			setShowLast(false);
+			setCurrentIndex(currentIndex + 1);
+			console.log("is 0");
+		} else if (currentIndex + 1 === plans.length) {
+			setCardB({
+				name: "No more options",
+				imageSrc: "https://i.gifer.com/19E6.gif",
+			});
+			setCardC({ name: null, imageSrc: null });
+			setCurrentIndex(0);
+			setShowLast(true);
+			console.log("is last");
+		} else {
+			console.log("is not 0 or last card");
+			setCardA(plans[currentIndex]);
+			setCardB(plans[currentIndex + 1]);
+			setCardC(plans[currentIndex + 2]);
+			setCurrentIndex(currentIndex + 1);
+			setShowLast(false);
+			if (currentIndex + 2 === plans.length) {
+				setCardC({
+					name: "No more options",
+					imageSrc: "https://i.gifer.com/19E6.gif",
+				});
+			}
+		}
+	};
 
 	const handleSelection = async () => {
 		setSelected(!selected);
@@ -92,43 +111,55 @@ export default function Selections() {
 		setCardA({ name: null, imageSrc: null });
 		setCardB(plans[currentIndex]);
 		setCardC(plans[currentIndex + 1]);
-        setCurrentIndex(0);
-        setFinishedCards(true);
+		setCurrentIndex(0);
+		setFinishedCards(true);
 	};
 
 	return (
-		<div className="selection-view">
-			{plans && (
-				<div className="cards-group">
-					<div className="back-card ">
-						<Card planContent={cardA} />
-					</div>
-					<div className="main-card focus selected">
-						<Card planContent={cardB} />
-					</div>
-					<div className="back-card" onClick={handleInteraction}>
-						<Card planContent={cardC} />
-					</div>
-				</div>
-			)}
-			<div className="select-button">
-				{showLast ? (
-					<button onClick={handleTryAgain}>Try again</button>
-				) : (
-					<>
-						{!selected && (
-							<a onClick={handleSelection}>
-								<FavoriteBorderIcon />
-							</a>
+		<div className="event-selection">
+			{hash ?
+				(<div className="selection-view">
+					{plans && (
+						<div className="cards-group">
+							<div className="back-card ">
+								<Card planContent={cardA} />
+							</div>
+							<div className="main-card focus selected">
+								<Card planContent={cardB} />
+							</div>
+							<div className="back-card" onClick={handleInteraction}>
+								<Card planContent={cardC} />
+							</div>
+						</div>
+					)}
+					<div className="select-button">
+						{showLast ? (
+							<button onClick={handleTryAgain}>Try again</button>
+						) : (
+							<>
+								{!selected && (
+									<a onClick={handleSelection}>
+										<FavoriteBorderIcon />
+									</a>
+								)}
+								{selected && (
+									<a onClick={handleSelection}>
+										<FavoriteIcon style={{ color: "var(--pink)" }} />
+									</a>
+								)}
+							</>
 						)}
-						{selected && (
-							<a onClick={handleSelection}>
-									<FavoriteIcon style={{ color: "var(--pink)" }} />
-							</a>
-						)}
-					</>
-				)}
+					</div>
+				</div>) :
+				(<div className="no-event">
+					
+					<h2>There is no event to show</h2>
+						<p>Go to the home page and create a new event</p>
+					
+					<button>Create event</button>
+				</div>)
+			}
+			
 			</div>
-		</div>
 	);
 }

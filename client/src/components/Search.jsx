@@ -1,7 +1,7 @@
 import api from "../services/data";
 import { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import SendIcon from "@mui/icons-material/Send";
+// import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 
 
@@ -26,7 +26,7 @@ export default function Search() {
 	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState(false);
 	const [invitationMsg, setInvitationMsg] = useState("");
-	const [eventHash, setEventHash] = useState("");
+	
 
 	useEffect(() => {
 		setInvitee({});
@@ -59,20 +59,19 @@ export default function Search() {
 			console.log(user_id, invitee.id);
 			const data = await api.createEvent(user_id, invitee.id);
 			
-			if (data) console.log(data + "Event created");
+			if (data) console.log(data.event);
 
-			setEventHash(data); //should receive event hash from api
+			localStorage.setItem("event_hash", data.event.hash); //should receive event hash from api
 			setInvitationMsg(`${invitee.username} has been invited!`);
 		} catch (error) {
 			console.log(error);
 		}
 		setInvitee({});
-		console.log(eventHash);
+		
 	};
 
 	const handleStart = () => {
-		
-		navigate(`/event/${eventHash}`) 
+		navigate("/event") 
 	};
 
 	const handleChange = (e) => {

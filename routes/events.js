@@ -31,6 +31,7 @@ router.post("/", async function (req, res) {
       res.status(400).send("You already have an open event");
       //otherwise, start creating the new event
     } else {
+ 
       // Generate a unique identifier for the event
       const hash = uuidv4();
 
@@ -46,6 +47,7 @@ router.post("/", async function (req, res) {
 
       res.status(200).send({ event, message: "New event created!" });
     }
+
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");

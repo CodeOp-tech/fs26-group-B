@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert("Plan", [
       {
         name: "Beach",
-        keyword: "beach",
+        searchKeyword: "beach",
         shortDescription:
           "Soak up the sun and enjoy a day at the beach together. Lounge on the sand, take a dip in the water, and maybe even have a beachside picnic.",
         longDescription:
@@ -18,7 +18,7 @@ module.exports = {
       },
       {
         name: "Picnic",
-        keyword: "park",
+        searchKeyword: "park",
         shortDescription:
           "Pack a delicious lunch or dinner, a cozy blanket, and head to a nearby park for a picnic. Enjoy good food, share stories, and bask in the beauty of nature.",
         longDescription:
@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         name: "Dinner",
-        keyword: "restaurant",
+        searchKeyword: "restaurant",
         shortDescription:
           "Treat yourselves to a delicious meal at a cozy restaurant. Enjoy each other's company over candlelight and savor the flavors of a delectable cuisine.",
         longDescription:
@@ -42,7 +42,7 @@ module.exports = {
       },
       {
         name: "Cinema",
-        keyword: "cinema",
+        searchKeyword: "cinema",
         shortDescription:
           "Experience the magic of the big screen by catching a movie together. Sit back, relax, and get lost in a captivating story.",
         longDescription:
@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         name: "Museum",
-        keyword: "museum",
+        searchKeyword: "museum",
         shortDescription:
           "Embark on a cultural adventure by visiting a local museum or gallery. Explore fascinating exhibits, discuss art, history, or science, and ignite your curiosity as you appreciate the wonders of human creativity.",
         longDescription:
@@ -66,7 +66,7 @@ module.exports = {
       },
       {
         name: "Local Bar",
-        keyword: "bar",
+        searchKeyword: "bar",
         shortDescription:
           "Unwind and enjoy each other's company with drinks at a trendy bar. Sip your favorite beverages, engage in conversation, and create lasting memories.",
         longDescription:
@@ -78,7 +78,7 @@ module.exports = {
       },
       {
         name: "Ping pong",
-        keyword: "ping+pong",
+        searchKeyword: "ping+pong",
         shortDescription:
           "Challenge each other to a fun and energetic game of ping pong. Engage in friendly competition, laugh, and showcase your skills on the table.",
         longDescription:
@@ -90,7 +90,7 @@ module.exports = {
       },
       {
         name: "Bowling",
-        keyword: "bowling",
+        searchKeyword: "bowling",
         shortDescription:
           "Lace up your bowling shoes and hit the lanes for a playful and entertaining outing. Bowl a strike, share laughs, and enjoy some friendly rivalry.",
         longDescription:
@@ -102,7 +102,7 @@ module.exports = {
       },
       {
         name: "Karaoke",
-        keyword: "karaoke+bar",
+        searchKeyword: "karaoke+bar",
         shortDescription:
           "Embrace your inner rock star and sing your hearts out at a karaoke night. Take turns serenading each other and have a blast with the lively atmosphere.",
         longDescription:
@@ -114,7 +114,7 @@ module.exports = {
       },
       {
         name: "Concert",
-        keyword: "concerts",
+        searchKeyword: "concerts",
         shortDescription:
           "Immerse yourselves in the electrifying energy of a live concert. Dance, sing along, and enjoy the thrill of a memorable musical performance",
         longDescription:
@@ -126,7 +126,7 @@ module.exports = {
       },
       {
         name: "Theatre play",
-        keyword: "theatre",
+        searchKeyword: "theatre",
         shortDescription:
           "Be captivated by the world of theater and attend a live play. Marvel at the performances, delve into captivating stories, and appreciate the art of stage acting.",
         longDescription:
@@ -138,7 +138,7 @@ module.exports = {
       },
       {
         name: "Escape room",
-        keyword: "escape+room",
+        searchKeyword: "escape+room",
         shortDescription:
           "Test your teamwork and problem-solving skills by participating in an escape room adventure. Work together to solve puzzles and unravel mysteries for an exhilarating experience.",
         longDescription:
@@ -150,7 +150,7 @@ module.exports = {
       },
       {
         name: "Biking",
-        keyword: "bike+rental",
+        searchKeyword: "bike+rental",
         shortDescription:
           "Explore your surroundings on a leisurely bike ride. Rent bicycles and pedal through scenic paths or urban streets, enjoying the fresh air and each other's company.",
         longDescription:
@@ -162,7 +162,7 @@ module.exports = {
       },
       {
         name: "Cafe",
-        keyword: "cafe",
+        searchKeyword: "cafe",
         shortDescription:
           "Find a cozy cafe and spend quality time together over coffee or tea. Engage in heartfelt conversations, indulge in tasty treats, and enjoy the warm ambiance.",
         longDescription:
@@ -174,7 +174,7 @@ module.exports = {
       },
       {
         name: "Bookstore",
-        keyword: "bookstore",
+        searchKeyword: "bookstore",
         shortDescription:
           "Get lost in the aisles of a bookstore, exploring books and sharing recommendations. Engage in intellectual discussions, indulge your curiosity, and foster a shared love for literature.",
         longDescription:
@@ -186,7 +186,7 @@ module.exports = {
       },
       {
         name: "Cooking or Baking",
-        keyword: "supermarket",
+        searchKeyword: "supermarket",
         shortDescription:
           "Choose a new recipe or a favorite dish, and spend the evening cooking or baking together. It can be a fun and interactive way to bond.",
         longDescription:
@@ -198,7 +198,7 @@ module.exports = {
       },
       {
         name: "Beer Tasting",
-        keyword: "beer+tasting",
+        searchKeyword: "beer+tasting",
         shortDescription:
           "Experience the diverse world of craft beer as you sample a variety of flavors, from refreshing lagers to complex ales, in a convivial setting that sparks conversation and discovery.",
         longDescription:
@@ -210,7 +210,7 @@ module.exports = {
       },
       {
         name: "Boardgames",
-        keyword: "boardgame+cafe",
+        searchKeyword: "boardgame+cafe",
         shortDescription:
           "Have a game night at home or in a boardgame cafe, with board games or video games. Compete against each other or team up for some friendly competition.",
         longDescription:
@@ -222,7 +222,7 @@ module.exports = {
       },
       {
         name: "Stand-up Comedy",
-        keyword: "comedy",
+        searchKeyword: "comedy",
         shortDescription:
           "Laugh your hearts out at a stand-up comedy show. Enjoy the comedic talents of performers, giggle together, and create joyful memories.",
         longDescription:
@@ -234,7 +234,7 @@ module.exports = {
       },
       {
         name: "Hiking",
-        keyword: "hiking+trails",
+        searchKeyword: "hiking+trails",
         shortDescription:
           "Enjoy the great outdoors by going on a hike together. Find a scenic trail nearby and spend quality time while enjoying nature.",
         longDescription:
@@ -246,7 +246,7 @@ module.exports = {
       },
       {
         name: "Movie Night",
-        keyword: "",
+        searchKeyword: "",
         shortDescription:
           "Create a cozy atmosphere at home, make some popcorn, and snuggle up together for a fun movie night. Laugh, cry, and enjoy each other's company while watching your favorite films or discovering new ones.",
         longDescription:
@@ -258,7 +258,7 @@ module.exports = {
       },
       {
         name: "Dance Class",
-        keyword: "dance+class",
+        searchKeyword: "dance+class",
         shortDescription:
           "Sign up for a dance class together, whether it's salsa, ballroom, or any other style that interests you. It's a great way to learn something new while having fun.",
         longDescription:
@@ -270,7 +270,7 @@ module.exports = {
       },
       {
         name: "Scenic Drive",
-        keyword: "scenic+drive+near+me",
+        searchKeyword: "scenic+drive+near+me",
         shortDescription:
           "Find a beautiful route nearby and go for a scenic drive. Enjoy the views, play some music, and make occasional stops at interesting locations.",
         longDescription:
@@ -282,7 +282,7 @@ module.exports = {
       },
       {
         name: "Botanical Garden",
-        keyword: "botanical+garden",
+        searchKeyword: "botanical+garden",
         shortDescription:
           "Explore the beauty of nature by visiting a botanical garden or a flower-filled park. It can be a tranquil and visually stunning experience.",
         longDescription:
@@ -294,7 +294,7 @@ module.exports = {
       },
       {
         name: "DIY Project",
-        keyword: "craft+shop",
+        searchKeyword: "craft+shop",
         shortDescription:
           "Choose a DIY project, whether it's crafting, painting, or building something together. Get creative and enjoy the process.",
         longDescription:
@@ -306,7 +306,7 @@ module.exports = {
       },
       {
         name: "Farmers Market",
-        keyword: "farmers+market",
+        searchKeyword: "farmers+market",
         shortDescription:
           "Explore a farmers market together, sample fresh produce, and support local vendors. You can even pick up ingredients to cook a meal together afterward.",
         longDescription:
@@ -318,7 +318,7 @@ module.exports = {
       },
       {
         name: "Wine Tasting",
-        keyword: "wine+tasting",
+        searchKeyword: "wine+tasting",
         shortDescription:
           "Embark on a sophisticated journey of the senses as you savor a selection of wines, from crisp whites to bold reds, learning about their nuances and flavors in a refined and enjoyable atmosphere.",
         longDescription:
@@ -330,7 +330,7 @@ module.exports = {
       },
       {
         name: "Theme Park",
-        keyword: "theme+park",
+        searchKeyword: "theme+park",
         shortDescription:
           "Gear up for an exhilarating adventure at the theme park! Brace yourself for thrilling rides, live entertainment, and endless fun as you immerse yourself in a world of excitement and laughter.",
         longDescription:
@@ -342,7 +342,7 @@ module.exports = {
       },
       {
         name: "Climbing",
-        keyword: "climbing+center",
+        searchKeyword: "climbing+center",
         shortDescription:
           "Embark on an exciting indoor climbing adventure! Conquer challenging walls, test your skills, and experience the thrill of reaching new heights in a safe and controlled environment.",
         longDescription:
@@ -354,7 +354,7 @@ module.exports = {
       },
       {
         name: "No more options",
-        keyword: "",
+        searchKeyword: "",
         shortDescription: "You've ",
         longDescription: "",
         imageSrc: "",
