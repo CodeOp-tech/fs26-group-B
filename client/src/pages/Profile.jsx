@@ -15,12 +15,9 @@ export default function Profile() {
 
   const fetchUser = async () => {
     try {
-      const userId = localStorage.getItem("user_id");
-      console.log(userId);
-      setUserId(userId);
+      const user = await api.getMyProfile();
 
-      const user = await api.getUser(userId);
-      console.log(user);
+      // console.log("the user is", user);
       setUser(user);
     } catch (error) {
       console.log(error);
@@ -29,8 +26,7 @@ export default function Profile() {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setPassword({ [name]: value });
+    setPassword(e.target.value);
   };
 
   async function resetPassword(userId, password) {
