@@ -1,19 +1,34 @@
 import axios from "axios";
 
-// Auth
-
-// export const login = async (username, password) => {
-//   await axios("/api/auth/login", {
-//     method: "POST",
-//     data: { username, password },
-//   });
-// };
+axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
+  "token"
+)}`;
 
 export const Api = {
   // Users
 
+  // Get the user that is logged in
+  getMyProfile: async () => {
+    try {
+      const { data } = await axios.get(`/api/auth/profile`);
+      // send back data to server
+      // console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   getUser: async (userId) => {
-    await axios.get(`/users/${userId}`);
+    console.log(userId);
+    try {
+      const { data } = await axios.get(`/users/${userId}`);
+      // send back data to server
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   //To search for a user by username
@@ -35,11 +50,27 @@ export const Api = {
   //   await axios.get(`/events/${userId}`);
   // },
 
+  resetPassword: async (userId, password) => {
+    console.log(userId);
+    try {
+      const { data } = await axios.post(`/register/${userId}`, {
+        password: password,
+      });
+      // send back data to server
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   // Events
 
   getAllEvents: async () => {
     try {
-      const { data } = await axios.get("/api/events", {});
+      const { data } = await axios.get("/api/events", {
+        method: "GET",
+      });
       // send back data to server
       return data;
     } catch (error) {
@@ -63,9 +94,9 @@ export const Api = {
 
   // getEvent by hash
   getEventByHash: async (hash) => {
-    console.log(hash);
     try {
       const { data } = await axios.get(`/api/events/private/${hash}`, {
+        method: "GET",
       });
       // send back data to server
       console.log(data);
@@ -78,9 +109,7 @@ export const Api = {
   // getEvent by eventId
   getEventById: async (eventId) => {
     try {
-      const { data } = await axios.get(`/api/events/${eventId}`, {
-       
-      });
+      const { data } = await axios.get(`/api/events/${eventId}`, {});
       // send back data to server
       return data;
     } catch (error) {
@@ -91,7 +120,7 @@ export const Api = {
   //search open status event for userid and returns the whole event
   getOpenEvents: async (userId) => {
     try {
-      const { data } = await axios.get(`/api/events/${userId}`, {});
+      const { data } = await axios.get(`/api/events/user`);
       // send back data to server
       return data;
     } catch (error) {
@@ -115,7 +144,15 @@ export const Api = {
   },
 
   getPlan: async (planId) => {
-    await axios.get(`/plan/${planId}`)
+    try {
+      const { data } = await axios.get(`/plan/${planId}`, {
+        method: "GET",
+      });
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   },
   
 

@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Match from "./pages/Match";
-import PendingInvites from "./pages/PendingInvites";
+import PendingInvites from "./components/PendingInvites";
 import Invitation from "./pages/Invitation";
 import NavBar from "./components/NavBar";
 import Selections from "./pages/Selections";
@@ -23,13 +23,18 @@ function App() {
     }
   }, []);
 
-  function login(username, password) {
+  function login(data) {
+    if (data) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("username", data.username);
+    }
     setUser(true);
     console.log("login");
   }
 
   function logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
     setUser(false);
     console.log("logout");
   }
@@ -46,8 +51,12 @@ function App() {
         <NavBar />
 
         <Routes>
-          {authObject.user ? <Route path="/" element={<Home />} /> :
-            <Route path="/" element={<Navigate replace to="/login" />} />}
+          {/* {user ? (
+            <Route path="/" element={<Home />} />
+          ) : (
+            <Route path="/" element={<Navigate replace to="/login" />} />
+          )} */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route
@@ -62,7 +71,7 @@ function App() {
             path="/pending"
             element={
               <RequireAuth>
-                <PendingInvites/>
+                <PendingInvites />
               </RequireAuth>
             }
           />
@@ -98,7 +107,6 @@ function App() {
               </RequireAuth>
             }
           />
-
         </Routes>
       </div>
     </AuthContext.Provider>

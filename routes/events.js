@@ -3,10 +3,9 @@ const router = express.Router();
 const { Sequelize } = require("sequelize");
 const models = require("../models");
 require("dotenv").config();
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
-const { v4: uuidv4 } = require("uuid");
 
+const { v4: uuidv4 } = require("uuid");
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 // Create new event
 router.post("/", async function (req, res) {
   const { userId_1, userId_2 } = req.body;
@@ -31,23 +30,22 @@ router.post("/", async function (req, res) {
       res.status(400).send("You already have an open event");
       //otherwise, start creating the new event
     } else {
- 
       // Generate a unique identifier for the event
       const hash = uuidv4();
 
-      // Hash the event ID to create a secure private token
-      const privateToken = await bcrypt.hash(hash, saltRounds);
+      // Make it URL friendly
+      const encodedToken = encodeURIComponent(hash);
+
       // Create the event with the public ID and private token
       const event = await models.Event.create({
         userId_1,
         userId_2,
         status: true,
-        hash: privateToken,
+        hash: encodedToken,
       });
 
       res.status(200).send({ event, message: "New event created!" });
     }
-
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
@@ -63,6 +61,29 @@ router.get("/", async function (req, res, next) {
     res.status(200).send(events);
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+// GET events by userid only if it's open/true
+router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
+  const { user_id } = req;
+
+  try {
+    const events = await models.Event.findAll({
+      where: {
+        [Sequelize.Op.or]: [{ userId_1: user_id }, { userId_2: user_id }],
+        status: true,
+      },
+    });
+
+    if (events.length === 0) {
+      res.status(404).send("Event not found");
+    } else {
+      res.send(events);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
   }
 });
 
@@ -88,38 +109,18 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-// GET events by userid only if it's open/true
-router.get("/user/:userId", async function (req, res, next) {
-  const { userId } = req.params;
-
-  try {
-    const events = await models.Event.findAll({
-      where: {
-        [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
-        status: true,
-      },
-    });
-
-    if (events.length === 0) {
-      res.status(404).send("Event not found");
-    } else {
-      res.send(events);
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error");
-  }
-});
-
 //GET event by hash (private)
 
 router.get("/private/:hash", async function (req, res, next) {
   const { hash } = req.params;
 
   try {
-    // Find the event using the hashed URL token
+    // Decode the URL-encoded hash
+    const decodedHash = decodeURIComponent(hash);
+
+    // Find the event using the decoded hash
     const event = await models.Event.findOne({
-      where: { hash },
+      where: { hash: decodedHash },
     });
 
     if (event) {

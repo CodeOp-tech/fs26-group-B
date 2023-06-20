@@ -23,7 +23,26 @@ router.post("/register", usernameShouldNotExist, async (req, res) => {
       password: hash,
     });
 
-    res.send({ message: "New user created!" });
+    var token = jwt.sign({ user_id: user.id }, supersecret);
+
+    res.send({ message: "New user created!", token, username });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+router.post("/register/:id", async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  try {
+    const hash = await bcrypt.hash(password, saltRounds);
+
+    const user = await models.User.findOne({ where: { id } });
+
+    await models.User.update({ password: hash });
+
+    res.send({ message: "Password updated" });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
@@ -46,7 +65,7 @@ router.post("/login", async (req, res) => {
       if (!correctPassword) throw new Error("Incorrect password");
 
       var token = jwt.sign({ user_id }, supersecret);
-      res.send({ message: "Login successful!", token, user_id, username});
+      res.send({ message: "Login successful!", token, user_id, username });
     } else {
       throw new Error("User does not exist");
     }

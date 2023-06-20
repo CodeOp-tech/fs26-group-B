@@ -41,9 +41,9 @@ export default function Card({ planContent }) {
 }
 
 Card.propTypes = {
-	planContent: PropTypes.shape({
-		imageSrc: PropTypes.string.isRequired, // Agrega la validación para 'imageSrc'
-		name: PropTypes.string.isRequired,
-		shortDescription: PropTypes.string.isRequired,
-	}).isRequired,
+  planContent: PropTypes.shape({
+    imageSrc: PropTypes.string.isRequired, // Agrega la validación para 'imageSrc'
+    name: PropTypes.string.isRequired,
+    shortDescription: PropTypes.string.isRequired,
+  }).isRequired,
 };

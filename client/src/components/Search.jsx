@@ -4,7 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 // import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 
-
 // USER FLOW
 
 // 1. user1 search for user2
@@ -34,27 +33,26 @@ export default function Search() {
 		setInvitee({});
 	}, []);
 
-	const handleSearch = (e) => {
-		e.preventDefault();
-		setInvitationMsg("");
-		searchUser();
-		setUserSearch("");
-	};
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setInvitationMsg("");
+    searchUser();
+    setUserSearch("");
+  };
 
-	const searchUser = async () => {
-		console.log(userSearch)
-		try {
-			const data = await api.getUsername(userSearch);
-			(data && setInvitee(data)) || setErrorMsg(true);
-			data && setErrorMsg(false);
-			console.log(errorMsg);
-			console.log(data);
-			
-		} catch (error) {
-			console.log(error);
-		}
-		console.log(invitee);
-	};
+  const searchUser = async () => {
+    console.log(userSearch);
+    try {
+      const data = await api.getUsername(userSearch);
+      (data && setInvitee(data)) || setErrorMsg(true);
+      data && setErrorMsg(false);
+      console.log(errorMsg);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(invitee);
+  };
 
 	const handleInvitation = async () => {
 		try {
@@ -78,9 +76,9 @@ export default function Search() {
 	navigate(`/event/${eventId}`) 
 	};
 
-	const handleChange = (e) => {
-		setUserSearch(e.target.value);
-	};
+  const handleChange = (e) => {
+    setUserSearch(e.target.value);
+  };
 
 	return (
 		<div>
@@ -119,23 +117,23 @@ export default function Search() {
 					</div>
 				)}
 
-				{errorMsg === true && (
-					<div className="msg not-found">
-						<p>Sorry, user not found </p>
-					</div>
-				)}
-				{invitationMsg && (
-					<div className="confirmation">
-						{invitationMsg}
-						<p>Press Start to begin your selection.</p>
-						<button onClick={handleStart}>Start</button>
-					</div>
-				)}
-			</div>
+        {errorMsg === true && (
+          <div className="msg not-found">
+            <p>Sorry, user not found </p>
+          </div>
+        )}
+        {invitationMsg && (
+          <div className="confirmation">
+            {invitationMsg}
+            <p>Press Start to begin your selection.</p>
+            <button onClick={handleStart}>Start</button>
+          </div>
+        )}
+      </div>
 
-			{/* <div className="share-link">
+      {/* <div className="share-link">
                 <a>Or send registration Link </a><a><SendIcon /></a>
                 </div> */}
-		</div>
-	);
+    </div>
+  );
 }
