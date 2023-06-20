@@ -3,29 +3,19 @@ var router = express.Router();
 const models = require("../models");
 const { Sequelize } = require("sequelize");
 
-router.get("/", async function (req, res, next) {
-  try {
-    const selections = await models.Selection.findAll();
-    res.send(selections);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-// Post selection (every time both users select the same plan, "it's a date")
-// To know if they select the same, both users will be in the same event id.
-// search for coincidence
-// if it's true, PUT in event table
-
-//check if there is a match
-// if there is, post it in the event table
-
-//PLANID = EVENTID
-
+// POST a selection
 router.post("/", async function (req, res, next) {
   const { userId, planId, eventId } = req.body;
+
   try {
-    // find one selection
+    // Create a new selection
+    await models.Selection.create({
+      userId,
+      planId,
+      eventId,
+    });
+
+    // Find one selection
     const match = await models.Selection.findOne({
       // With these values
       where: {
@@ -34,42 +24,74 @@ router.post("/", async function (req, res, next) {
         eventId,
       },
     });
+
     // If it exists
     if (match) {
-      // Find the another selection
+      // Find the other selection
       const otherMatch = await models.Selection.findOne({
         // With the same values
         where: {
-          //EXCEPT for the userId
           userId: { [Sequelize.Op.not]: userId },
           planId,
           eventId,
         },
       });
-      // If this other selection exists
+
+      // If the other selection exists
       if (otherMatch) {
         // Update the chosenPlanId in the Event table
-        await models.Event.update(
-          // With the planId and turn the status into false
+        const eventUpdateResult = await models.Event.update(
           { chosenPlanId: planId, status: false },
-          {
-            // From that eventId
-            where: { id: eventId },
-          }
+          { where: { id: eventId } }
         );
 
-        res.send(match && "Match found. Chosen plan updated in the event.");
+        // If an event with the given ID was found and updated successfully
+        if (eventUpdateResult[0] > 0) {
+          res.send("Match found. Chosen plan updated in the event.");
+        } else {
+          res.send("No event found with the given ID.");
+        }
       } else {
         res.send("You made a selection, waiting for the other user.");
       }
+      // If there is no match, just post the selection
     } else {
-      res.send(selection && "You made a selection!");
+      res.send("You made a selection!");
     }
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
   }
 });
+
+//GET all selections
+
+router.get("/", async function (req, res, next) {
+  try {
+    const selections = await models.Selection.findAll();
+    res.status(200).send(selections);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+//DELETE ALL SELECTIONS
+router.delete("/", async (req, res) => {
+  try {
+    // Delete all events
+    await models.Selection.destroy({
+      where: {},
+      truncate: true, // This ensures that the table is truncated, removing all rows
+    });
+
+    res.send("All selections deleted successfully");
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).send("Internal server error");
+  }
+});
+
+//SIMPLE POST
 
 // router.post("/", async function (req, res, next) {
 //   const { userId, planId, eventId } = req.body;

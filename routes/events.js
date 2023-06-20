@@ -7,31 +7,30 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { v4: uuidv4 } = require("uuid");
 
-// GET events: inviter/invitee = null ???
-
-// CREATE new event with private ID
-
-
-// if event.status = true and userId_1 and userId_2, you have an open event
+// Create new event
 router.post("/", async function (req, res) {
-  const { userId_1, userId_2, userId } = req.body;
-  const { chosenPlanId } = models.Selection;
+  const { userId_1, userId_2 } = req.body;
+  // const chosenPlanId = await models.Selection;
 
   try {
-    // Find an event with status true
+    // First we check if there's already an event
     const openEvent = await models.Event.findOne({
       where: {
-        where: Sequelize.or(
-          { userId_1: [userId_1, userId_2] },
-          { userId_2: [userId_1, userId_2] }
-        ),
+        // With either of the users
+        [Sequelize.Op.or]: [
+          { userId_1: userId_1 },
+          { userId_1: userId_2 },
+          { userId_2: userId_1 },
+          { userId_2: userId_2 },
+        ],
+        // That is open
         status: true,
       },
     });
-    // if it exists, send message
+    // if there is, then you can't create a new one
     if (openEvent) {
-      res.send("There's already an open event");
-      //If there is no event with status true, run the post
+      res.status(400).send("You already have an open event");
+      //otherwise, start creating the new event
     } else {
       // Generate a unique identifier for the event
       const hash = uuidv4();
@@ -42,12 +41,12 @@ router.post("/", async function (req, res) {
       const event = await models.Event.create({
         userId_1,
         userId_2,
-        chosenPlanId,
+        // chosenPlanId,
         status: true,
         hash: privateToken,
       });
 
-      res.send(event && "New event created!");
+      res.status(200).send({ event, message: "New event created!" });
     }
   } catch (error) {
     console.error(error);
@@ -65,7 +64,6 @@ router.get("/user/:userId", async function (req, res, next) {
         [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
         status: true,
       },
-
     });
 
     if (event && event.length > 0) {
@@ -130,14 +128,11 @@ router.get("/", async function (req, res, next) {
     const events = await models.Event.findAll({
       include: ["inviter", "invitee"],
     });
-    res.send(events);
+    res.status(200).send(events);
   } catch (error) {
     res.status(500).send(error);
   }
 });
-
-// PUT to add chosenPlanId (planId from selections)
-//returns the planId
 
 // DELETE all events
 router.delete("/", async (req, res) => {
