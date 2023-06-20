@@ -39,7 +39,9 @@ export const Api = {
 
   getAllEvents: async () => {
     try {
-      const { data } = await axios.get("/api/events", {});
+      const { data } = await axios.get("/api/events", {
+        method: "GET",
+      });
       // send back data to server
       return data;
     } catch (error) {
@@ -64,7 +66,7 @@ export const Api = {
   // getEvent by hash
   getEventByHash: async (hash) => {
     try {
-      const { data } = await axios.get(`/api/events/hash/${hash}`, {
+      const { data } = await axios.get(`/api/events/private/${hash}`, {
         method: "GET",
       });
       // send back data to server
@@ -77,9 +79,7 @@ export const Api = {
   // getEvent by eventId
   getEventById: async (eventId) => {
     try {
-      const { data } = await axios.get(`/api/events/eventId/${eventId}`, {
-        method: "GET",
-      });
+      const { data } = await axios.get(`/api/events/${eventId}`, {});
       // send back data to server
       return data;
     } catch (error) {
