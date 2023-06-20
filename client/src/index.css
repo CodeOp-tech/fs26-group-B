@@ -230,7 +230,7 @@ form input {
 .not-found {
   margin-top: 2rem;
   font-size: 1.2em;
-  color: #5b4e4e;
+  color: var(--pink);
 }
 .confirmation {
   width: 20rem;

@@ -49,12 +49,13 @@ export default function Search() {
   const searchUser = async () => {
     try {
       const data = await api.getUsername(userSearch);
-      (data && setInvitee(data)) || setErrorMsg("Sorry username not found");
+		data && setInvitee(data);
       data && setErrorMsg("");
       console.log(errorMsg);
       console.log(data);
     } catch (error) {
-      console.log(error);
+		console.log(error);
+	setErrorMsg(error.message + "  😞") ;
     }
    
   };
@@ -72,7 +73,7 @@ export default function Search() {
 		}
 			catch (error) {
 				console.log(error);
-				setErrorMsg(error.message);
+				setErrorMsg(error.message + ". Check your notifications 👀");
 			  }
 		setInvitee({});
 	};

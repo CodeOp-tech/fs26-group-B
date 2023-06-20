@@ -16,7 +16,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -30,7 +30,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -44,7 +44,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -59,7 +59,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -79,7 +79,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -94,7 +94,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -122,7 +122,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -134,7 +134,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -146,7 +146,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -162,7 +162,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -175,7 +175,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
   
@@ -191,7 +191,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data);
     }
   },
 };
