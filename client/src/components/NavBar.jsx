@@ -31,7 +31,7 @@ export default function NavBar() {
     } catch (error) {
       console.error("Error fetching open events", error);
     }
-    setIsNotification(true);
+    pendingInvites.length > 0 ? setIsNotification(true) : setIsNotification(false);
   };
 
   const handleSelectSignUp = () => {
