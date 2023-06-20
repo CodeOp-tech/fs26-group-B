@@ -2,18 +2,32 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import api from "../services/data.js";
 import Map from "../components/Map";
+import { useNavigate } from "react-router-dom";
 
 export default function Match() {
+  const navigate = useNavigate();
   const scrollReference = useRef(null);
   const [plan, setPlan] = useState({});
   const [hash, setHash] = useState("");
 
   //get the hash from local storage
-  setHash(localStorage.getItem("event_hash"));
+  useEffect(() => {
+    setHash(localStorage.getItem("event_hash"));
+  }, []);
+
+  useEffect(() => {
+    console.log(hash);
+    if (hash) {
+      console.log("Saved event", hash);
+      fetchData();
+    } else {
+      console.log("there is nothing at this hash", hash);
+    }
+  }, [hash]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const event = await api.getEvent(hash);
+      const event = await api.getEventByID(hash);
       const planID = event.chosenPlanId;
 
       const plan = await api.getPlan(planID);
@@ -23,6 +37,10 @@ export default function Match() {
   }, []);
   // console.log(plan);
   // console.log(plan.longDescription);
+
+  function goHome() {
+    navigate("/home");
+  }
 
   // function to scroll the page down to the map
   function readMore() {
@@ -74,7 +92,7 @@ export default function Match() {
         <div className="no-event">
           <h2>There is no event to show</h2>
           <p>Go to the home page and create a new event</p>
-          <button>Create event</button>
+          <button onClick={goHome}>Create event</button>
         </div>
       )}
     </div>
