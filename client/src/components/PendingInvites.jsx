@@ -11,7 +11,7 @@ export default function PendingInvites() {
 
   useEffect(() => {
     fetchData();
-    console.log(pendingInvites);
+    console.log(`The pending invites are ${pendingInvites}`);
   }, []);
 
   const fetchData = async () => {
