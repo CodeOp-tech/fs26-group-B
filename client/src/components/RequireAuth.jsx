@@ -3,7 +3,7 @@ import AuthContext from "../contexts/AuthContext";
 import { Navigate } from "react-router-dom";
 
 export default function RequireAuth({ children }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const auth = useContext(AuthContext);
 
@@ -16,7 +16,7 @@ export default function RequireAuth({ children }) {
     }
 
     setLoading(false);
-  });
+  }, []);
 
   if (!auth.user && !loading) {
     return (
