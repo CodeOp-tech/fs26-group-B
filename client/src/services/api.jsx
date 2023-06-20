@@ -114,7 +114,15 @@ export const Api = {
   },
 
   getPlan: async (planId) => {
-    await axios.get(`/plan/${planId}`);
+    try {
+      const { data } = await axios.get(`/plan/${planId}`, {
+        method: "GET",
+      });
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   addSelection: async (eventId, userId, planId) => {
