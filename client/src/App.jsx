@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Match from "./pages/Match";
-import PendingInvites from "./pages/PendingInvites";
+import PendingInvites from "./components/PendingInvites";
 import Invitation from "./pages/Invitation";
 import NavBar from "./components/NavBar";
 import Selections from "./pages/Selections";
