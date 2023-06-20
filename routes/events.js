@@ -3,8 +3,7 @@ const router = express.Router();
 const { Sequelize } = require("sequelize");
 const models = require("../models");
 require("dotenv").config();
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
+
 const { v4: uuidv4 } = require("uuid");
 
 // Create new event
@@ -35,14 +34,15 @@ router.post("/", async function (req, res) {
       // Generate a unique identifier for the event
       const hash = uuidv4();
 
-      // Hash the event ID to create a secure private token
-      const privateToken = await bcrypt.hash(hash, saltRounds);
+      // Make it URL friendly
+      const encodedToken = encodeURIComponent(hash);
+
       // Create the event with the public ID and private token
       const event = await models.Event.create({
         userId_1,
         userId_2,
         status: true,
-        hash: privateToken,
+        hash: encodedToken,
       });
 
       res.status(200).send({ event, message: "New event created!" });
@@ -117,9 +117,12 @@ router.get("/private/:hash", async function (req, res, next) {
   const { hash } = req.params;
 
   try {
-    // Find the event using the hashed URL token
+    // Decode the URL-encoded hash
+    const decodedHash = decodeURIComponent(hash);
+
+    // Find the event using the decoded hash
     const event = await models.Event.findOne({
-      where: { hash },
+      where: { hash: decodedHash },
     });
 
     if (event) {
@@ -135,19 +138,19 @@ router.get("/private/:hash", async function (req, res, next) {
 });
 
 // DELETE all events
-// router.delete("/", async (req, res) => {
-//   try {
-//     // Delete all events
-//     await models.Event.destroy({
-//       where: {},
-//       truncate: true, // This ensures that the table is truncated, removing all rows
-//     });
+router.delete("/", async (req, res) => {
+  try {
+    // Delete all events
+    await models.Event.destroy({
+      where: {},
+      truncate: true, // This ensures that the table is truncated, removing all rows
+    });
 
-//     res.send("All events deleted successfully");
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging purposes
-//     res.status(500).send("Internal server error");
-//   }
-// });
+    res.send("All events deleted successfully");
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;
