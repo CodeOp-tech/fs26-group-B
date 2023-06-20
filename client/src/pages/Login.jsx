@@ -29,12 +29,10 @@ function Login() {
         method: "POST",
         data: credentials,
       });
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("username", JSON.stringify(data.username));
-      localStorage.setItem("user_id", JSON.stringify(data.user_id));
-      auth.login();
-      console.log(auth);
-      console.log(data.message, data.token);
+      // console.log("about to login");
+      auth.login(data);
+      // console.log(auth);
+      // console.log(data);
       setData(data.message);
       navigate("/home");
     } catch (error) {

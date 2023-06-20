@@ -5,7 +5,7 @@ const models = require("../models");
 require("dotenv").config();
 
 const { v4: uuidv4 } = require("uuid");
-
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 // Create new event
 router.post("/", async function (req, res) {
   const { userId_1, userId_2 } = req.body;
@@ -30,7 +30,6 @@ router.post("/", async function (req, res) {
       res.status(400).send("You already have an open event");
       //otherwise, start creating the new event
     } else {
- 
       // Generate a unique identifier for the event
       const hash = uuidv4();
 
@@ -47,7 +46,6 @@ router.post("/", async function (req, res) {
 
       res.status(200).send({ event, message: "New event created!" });
     }
-
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
@@ -66,6 +64,29 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+// GET events by userid only if it's open/true
+router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
+  const { user_id } = req;
+
+  try {
+    const events = await models.Event.findAll({
+      where: {
+        [Sequelize.Op.or]: [{ userId_1: user_id }, { userId_2: user_id }],
+        status: true,
+      },
+    });
+
+    if (events.length === 0) {
+      res.status(404).send("Event not found");
+    } else {
+      res.send(events);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 // GET event with ID NUMBER (public)
 router.get("/:id", async function (req, res, next) {
   const { id } = req.params;
@@ -81,29 +102,6 @@ router.get("/:id", async function (req, res, next) {
       res.send(event);
     } else {
       res.status(404).send("Event not found");
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error");
-  }
-});
-
-// GET events by userid only if it's open/true
-router.get("/user/:userId", async function (req, res, next) {
-  const { userId } = req.params;
-
-  try {
-    const events = await models.Event.findAll({
-      where: {
-        [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
-        status: true,
-      },
-    });
-
-    if (events.length === 0) {
-      res.status(404).send("Event not found");
-    } else {
-      res.send(events);
     }
   } catch (error) {
     console.error(error);

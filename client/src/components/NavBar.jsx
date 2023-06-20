@@ -10,83 +10,82 @@ import AuthContext from "../contexts/AuthContext";
 // need endpoint to get open events for user
 
 export default function NavBar() {
-	const auth = useContext(AuthContext);
-	var user_id = localStorage.getItem("user_id");
+  const auth = useContext(AuthContext);
+  var user_id = localStorage.getItem("user_id");
 
-	const [selectSignUp, setSelectSignUp] = useState(false);
-	// const [selectHomePage, setSelectHomePage] = useState(false);
-	const navigate = useNavigate();
-	const [pendingInvites, setPendingInvites] = useState([]);
-	const [isNotification, setIsNotification] = useState(false);
-	//const navigate = useNavigate();
+  const [selectSignUp, setSelectSignUp] = useState(false);
+  // const [selectHomePage, setSelectHomePage] = useState(false);
+  const navigate = useNavigate();
+  const [pendingInvites, setPendingInvites] = useState([]);
+  const [isNotification, setIsNotification] = useState(false);
+  //const navigate = useNavigate();
 
-	useEffect(() => {
-		fetchData();
-	}, []);
+  useEffect(() => {
+    if (auth.user) fetchData();
+  }, [auth.user]);
 
-	const fetchData = async () => {
-		try {
-			const data = await api.getOpenEvents(user_id);
-			setPendingInvites(data);
-		} catch (error) {
-			console.error("Error fetching open events", error);
-		}
-		setIsNotification(true);
-	};
+  const fetchData = async () => {
+    try {
+      const data = await api.getOpenEvents(user_id);
+      setPendingInvites(data);
+    } catch (error) {
+      console.error("Error fetching open events", error);
+    }
+    setIsNotification(true);
+  };
 
-	const handleSelectSignUp = () => {
-		setSelectSignUp(true);
-	};
+  const handleSelectSignUp = () => {
+    setSelectSignUp(true);
+  };
 
+  const handleNotification = () => {
+    navigate("/profile");
+    setIsNotification(false);
+    // console.log(pendingInvites)
+  };
 
-	const handleNotification = () => {
-		navigate("/pending");
-		setIsNotification(false);
-		// console.log(pendingInvites)
-	};
+  return (
+    <div className="navbar">
+      <div className="navBar__logo">
+        <Link to="/home">
+          <img
+            className="logo"
+            src="https://i.postimg.cc/PJqyX8p7/its-a-date.png"
+            alt="It's a date!"
+          />
+        </Link>
+      </div>
 
-	return (
-		<div className="navbar">
-			<div className="navBar__logo">
-				<Link to="/home">
-					<img
-						className="logo"
-						src="https://i.postimg.cc/PJqyX8p7/its-a-date.png"
-						alt="It’s a date!"
-					/>
-				</Link>
-			</div>
+      <div className="nav-links">
+        {!auth.user && selectSignUp === false && (
+          <Link to="/register" onClick={handleSelectSignUp}>
+            Sign Up
+          </Link>
+        )}
+        {!auth.user && selectSignUp === true && (
+          <Link to="/login" onClick={() => setSelectSignUp(false)}>
+            Login
+          </Link>
+        )}
+        {auth.user && (
+          <div className="auth-links">
+            {isNotification ? (
+              <a onClick={handleNotification}>
+                <NotificationsActiveRoundedIcon />
+              </a>
+            ) : (
+              <a>
+                <NotificationsNoneRoundedIcon />
+              </a>
+            )}
+            <a onClick={auth.logout}>Logout</a>
+          </div>
+        )}
 
-			<div className="nav-links">
-				{!auth.user && selectSignUp === false && (
-					<Link to="/register" onClick={handleSelectSignUp}>
-						Sign Up
-					</Link>
-				)}
-				{!auth.user && selectSignUp === true && (
-					<Link to="/login" onClick={() => setSelectSignUp(false)}>
-						Login
-					</Link>
-				)}
-				{auth.user && (
-					<div className="auth-links">
-						{isNotification? (
-							<a onClick={handleNotification}>
-								<NotificationsActiveRoundedIcon />
-							</a>
-						) : (
-							<a>
-								<NotificationsNoneRoundedIcon />
-							</a>
-						)}
-						<a onClick={auth.logout}>Logout</a>
-					</div>
-				)}
-
-				<a>
-					<MenuRoundedIcon />
-				</a>
-			</div>
-		</div>
-	);
+        <a>
+          <MenuRoundedIcon />
+        </a>
+      </div>
+    </div>
+  );
 }
