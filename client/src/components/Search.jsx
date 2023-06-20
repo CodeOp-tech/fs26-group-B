@@ -26,7 +26,7 @@ export default function Search() {
 	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState(false);
 	const [invitationMsg, setInvitationMsg] = useState("");
-	const [eventHash, setEventHash] = useState("");
+	
 
 	useEffect(() => {
 		setInvitee({});
@@ -61,7 +61,7 @@ export default function Search() {
 			
 			if (data) console.log(data.event);
 
-			setEventHash(data.event.hash); //should receive event hash from api
+			localStorage.setItem("event_hash", data.event.hash); //should receive event hash from api
 			setInvitationMsg(`${invitee.username} has been invited!`);
 		} catch (error) {
 			console.log(error);
@@ -71,8 +71,7 @@ export default function Search() {
 	};
 
 	const handleStart = () => {
-		console.log(eventHash);
-		navigate(`/event/${eventHash}`) 
+		navigate("/event") 
 	};
 
 	const handleChange = (e) => {

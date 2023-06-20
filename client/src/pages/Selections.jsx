@@ -7,7 +7,6 @@ import api from "../services/data";
 
 export default function Selections() {
 	var user_id = localStorage.getItem("user_id");
-	const { hash } = useParams();
 	const [selected, setSelected] = useState(false);
 	const [selectedPlanId, setSelectedPlanId] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,25 +16,27 @@ export default function Selections() {
 	const [cardC, setCardC] = useState({});
 	const [showLast, setShowLast] = useState(false);
 	const [finishedCards, setFinishedCards] = useState(false);
-	const [content, setContent] = useState("");
 
-	useEffect(() => {
-		fetchData();
-		console.log(hash);
+	const [hash, setHash] = useState("");
+	//get the hash from local storage
+	
+
+	useEffect ( () => {
+		setHash(localStorage.getItem("event_hash"));
+		
 	}, []);
-
 	useEffect(() => {
-		//save the hash in local storage
-		const savedContent = localStorage.getItem(hash);
-
-		// if it exists, set the content to the state
-		if (savedContent) {
-			console.log("Contenido guardado:", savedContent);
-			setContent(savedContent);
+		
+		console.log(hash);
+		if (hash) {
+			console.log("Saved event", hash);
+			fetchData();
 		} else {
 			console.log("the is nothing at this hash", hash);
 		}
+		
 	}, [hash]);
+
 
 	const fetchData = async () => {
 		try {
@@ -115,38 +116,50 @@ export default function Selections() {
 	};
 
 	return (
-		<div className="selection-view">
-			{plans && (
-				<div className="cards-group">
-					<div className="back-card ">
-						<Card planContent={cardA} />
-					</div>
-					<div className="main-card focus selected">
-						<Card planContent={cardB} />
-					</div>
-					<div className="back-card" onClick={handleInteraction}>
-						<Card planContent={cardC} />
-					</div>
-				</div>
-			)}
-			<div className="select-button">
-				{showLast ? (
-					<button onClick={handleTryAgain}>Try again</button>
-				) : (
-					<>
-						{!selected && (
-							<a onClick={handleSelection}>
-								<FavoriteBorderIcon />
-							</a>
+		<div className="event-selection">
+			{hash ?
+				(<div className="selection-view">
+					{plans && (
+						<div className="cards-group">
+							<div className="back-card ">
+								<Card planContent={cardA} />
+							</div>
+							<div className="main-card focus selected">
+								<Card planContent={cardB} />
+							</div>
+							<div className="back-card" onClick={handleInteraction}>
+								<Card planContent={cardC} />
+							</div>
+						</div>
+					)}
+					<div className="select-button">
+						{showLast ? (
+							<button onClick={handleTryAgain}>Try again</button>
+						) : (
+							<>
+								{!selected && (
+									<a onClick={handleSelection}>
+										<FavoriteBorderIcon />
+									</a>
+								)}
+								{selected && (
+									<a onClick={handleSelection}>
+										<FavoriteIcon style={{ color: "var(--pink)" }} />
+									</a>
+								)}
+							</>
 						)}
-						{selected && (
-							<a onClick={handleSelection}>
-								<FavoriteIcon style={{ color: "var(--pink)" }} />
-							</a>
-						)}
-					</>
-				)}
+					</div>
+				</div>) :
+				(<div className="no-event">
+					
+					<h2>There is no event to show</h2>
+						<p>Go to the home page and create a new event</p>
+					
+					<button>Create event</button>
+				</div>)
+			}
+			
 			</div>
-		</div>
 	);
 }
