@@ -5,7 +5,7 @@ axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
 )}`;
 
 export const Api = {
-  // Users
+  // Auth
 
   // Get the user that is logged in
   getMyProfile: async () => {
@@ -19,6 +19,20 @@ export const Api = {
     }
   },
 
+  updatePassword: async (password) => {
+    try {
+      const { data } = await axios.post(`/api/auth/password`, {
+        password: password,
+      });
+      // send back data to server
+      // console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  // Users
   getUser: async (userId) => {
     console.log(userId);
     try {
