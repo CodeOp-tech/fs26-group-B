@@ -46,8 +46,11 @@ function App() {
         <NavBar />
 
         <Routes>
-          {user ? <Route path="/" element={<Home />} /> :
-            <Route path="/" element={<Navigate replace to="/login" />} />}
+          {user ? (
+            <Route path="/" element={<Home />} />
+          ) : (
+            <Route path="/" element={<Navigate replace to="/login" />} />
+          )}
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route
@@ -62,12 +65,12 @@ function App() {
             path="/pending"
             element={
               <RequireAuth>
-                <PendingInvites/>
+                <PendingInvites />
               </RequireAuth>
             }
           />
           <Route
-            path="/invitation/:hash"
+            path="/invitation"
             element={
               <RequireAuth>
                 <Invitation />
@@ -83,7 +86,7 @@ function App() {
             }
           />
           <Route
-            path="/its-a-date/:hash"
+            path="/its-a-date"
             element={
               <RequireAuth>
                 <Match />
@@ -91,14 +94,13 @@ function App() {
             }
           />
           <Route
-            path="/event/:hash"
+            path="/event"
             element={
               <RequireAuth>
                 <Selections />
               </RequireAuth>
             }
           />
-
         </Routes>
       </div>
     </AuthContext.Provider>
