@@ -38,7 +38,7 @@ export default function NavBar() {
   };
 
   const handleNotification = () => {
-    navigate("/profile");
+    navigate("/notifications");
     setIsNotification(false);
     // console.log(pendingInvites)
   };
