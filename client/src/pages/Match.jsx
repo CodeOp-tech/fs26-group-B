@@ -68,7 +68,7 @@ export default function Match() {
             {plan.searchKeyword ? (
               <div>
                 <h2>Check out some useful places for your date</h2>
-                <img className="match-image" src={plan.imageSrc} />
+                {/* <img className="match-image" src={plan.imageSrc} /> */}
                 <Map />
               </div>
             ) : null}
