@@ -247,33 +247,6 @@ form input {
   margin-top: 2rem;
 }
 
-/********************* Pending invitations *********************/
-.pending-page {
-  display: flex;
-  flex-direction: column;
-  margin-top: 2rem;
-}
-
-.invitation-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 3rem auto;
-  width: 90%;
-  height: 4rem;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.382);
-  border-radius: 8px;
-  padding: 12px 18px;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.invitation-card span {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--primary);
-}
-
 /********************* Card *********************/
 
 .empty-card {
@@ -320,14 +293,11 @@ img {
   text-align: center;
 }
 
-
 /********************* Selections *********************/
 
 .event-selection {
-
   min-height: 400px;
   height: 100vh;
-
 }
 
 .selection-view {
@@ -344,7 +314,6 @@ img {
   gap: 1rem;
 }
 
-
 .back-card {
   background-color: #ffffff;
   transform: scale(0.8);
@@ -359,11 +328,10 @@ img {
   z-index: 9999;
 }
 
- .next {
+.next {
   cursor: pointer;
   position: relative;
 }
-
 
 .next .text {
   position: absolute;
@@ -380,9 +348,7 @@ img {
 .next:hover .text {
   opacity: 2;
   color: var(--primary);
-
 }
-
 
 .select-button {
   display: flex;
@@ -450,11 +416,68 @@ img {
 }
 
 .profile {
-  column-count: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px; /* Adjust this value as needed */
 }
 
-/* .profile-details {
+.profile-details {
+  grid-row-start: 1;
+  width: 80%;
+  border-color: rgba(97, 97, 97, 0.3);
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+.profile-details h3 {
+  margin-bottom: 10px;
+}
+
+.profile-details p {
+  margin-bottom: 10px;
+  /* text-align: left; */
+}
+
+.profile-details input {
+  width: 80%;
+  margin-bottom: 10px;
 }
 
 .profile-invites {
-} */
+  grid-row-start: 1;
+}
+
+/********************* Pending invitations *********************/
+.pending-page {
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 2rem; */
+}
+
+.invitation-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem auto;
+  width: 90%;
+  height: 4rem;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.382);
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.invitation-card span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.no-invites h3 {
+  margin-bottom: 20px;
+}
+
+.no-invites button {
+  margin-top: 20px;
+}
