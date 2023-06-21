@@ -34,7 +34,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: var(--lightBlue)
+  color: var(--lightBlue);
 }
 
 button {
@@ -247,10 +247,6 @@ form input {
   color: var(--pink);
 }
 
-
-
-
-
 .not-found {
   margin-top: 2rem;
   font-size: 1.2em;
@@ -393,20 +389,19 @@ img {
 }
 
 /********************* Match Page *********************/
-.top-window {
+/* .top-window {
   height: 100vh;
-}
+} */
 
 .match-title {
-  width: 50%;
+  width: 40em;
   height: 100px;
 }
 
 .featured-date {
-  column-count: 2;
-  margin-top: 4vh;
-  margin-bottom: 40px;
-  height: 25em;
+  margin-top: 2vh;
+  height: 23em;
+  margin-bottom: 3vh;
 }
 
 .image-card {
@@ -414,27 +409,29 @@ img {
   justify-items: center;
   align-items: center;
   margin: 0 auto;
-  width: 100%;
-  height: 400px;
+  width: 75%;
+  height: 100%;
 }
 
-img {
+.match-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .featured-text {
+  margin-top: 40px;
   column-span: 1;
 }
 
 .match-longDesc {
-  width: 80%;
+  width: 60%;
   display: flex;
   justify-content: center;
   text-align: justify;
   margin: 0 auto;
   margin-top: 5px;
+  margin-bottom: 20px;
 }
 
 .btn-readMore {
@@ -454,6 +451,13 @@ img {
 }
 
 /********************* Map *********************/
+
+.map-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
 .map-div h2 {
   margin-bottom: 4vh;
