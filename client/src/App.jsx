@@ -67,22 +67,14 @@ function App() {
               </RequireAuth>
             }
           ></Route>
-          {/* <Route
-            path="/pending"
+          <Route
+            path="/notifications"
             element={
               <RequireAuth>
                 <PendingInvites />
               </RequireAuth>
             }
           />
-          <Route
-            path="/invitation"
-            element={
-              <RequireAuth>
-                <Invitation />
-              </RequireAuth>
-            }
-          /> */}
           <Route
             path="/profile"
             element={
