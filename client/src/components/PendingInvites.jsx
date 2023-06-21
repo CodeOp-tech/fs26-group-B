@@ -47,8 +47,9 @@ export default function PendingInvites() {
           </div>
         </>
       ) : (
-        <div>
-          <h3>No pending invites</h3>
+        <div className="no-invites">
+          <h3>Pending Invitations</h3>
+          <h5>You have no pending invitations</h5>
           <button onClick={goHome}>Send an invite</button>
         </div>
       )}
