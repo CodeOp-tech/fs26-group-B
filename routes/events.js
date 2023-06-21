@@ -86,7 +86,6 @@ router.post("/notification/:userId", (req, res) => {
   new_event_notification.trigger("my-profile", "notification", {
     userId,
     text,
-    message: "hello world",
   });
 
   res.send({ msg: "Sent" });
