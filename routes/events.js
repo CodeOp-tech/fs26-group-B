@@ -5,7 +5,17 @@ const models = require("../models");
 require("dotenv").config();
 const eventMustExist = require("../guards/eventMustExist");
 const { v4: uuidv4 } = require("uuid");
+const Pusher = require("pusher");
+
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+
+const new_event_notification = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_KEY,
+  secret: process.env.PUSHER_SECRET,
+  cluster: "eu",
+  useTLS: true,
+});
 
 // Create new event
 router.post("/", userShouldBeLoggedIn, async function (req, res) {
@@ -19,9 +29,19 @@ router.post("/", userShouldBeLoggedIn, async function (req, res) {
       where: {
         // With either of the users
         [Sequelize.Op.or]: [
-          { [Sequelize.Op.and]: [{ userId_1: userId_1 }, { userId_2: userId_2 }] },
-        { [Sequelize.Op.and]: [{ userId_1: userId_2 }, { userId_2: userId_1 }] },
-      ],
+          {
+            [Sequelize.Op.and]: [
+              { userId_1: userId_1 },
+              { userId_2: userId_2 },
+            ],
+          },
+          {
+            [Sequelize.Op.and]: [
+              { userId_1: userId_2 },
+              { userId_2: userId_1 },
+            ],
+          },
+        ],
 
         // That is open
         status: true,
@@ -56,6 +76,21 @@ router.post("/", userShouldBeLoggedIn, async function (req, res) {
   }
 });
 
+// SEND push notification
+
+router.post("/notification/:userId", (req, res) => {
+  let { userId } = req.params;
+  let text = req.body.data.message;
+
+  // talk to pusher
+  new_event_notification.trigger("my-profile", "notification", {
+    userId,
+    text,
+  });
+
+  res.send({ msg: "Sent" });
+});
+
 // GET ALL EVENTS
 router.get("/", async function (req, res, next) {
   try {
@@ -85,7 +120,6 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
       res.status(404).send("Event not found");
     } else {
       res.send(events);
-
     }
   } catch (error) {
     console.error(error);
