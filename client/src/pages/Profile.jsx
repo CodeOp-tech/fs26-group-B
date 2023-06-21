@@ -5,7 +5,6 @@ import PendingInvites from "../components/PendingInvites.jsx";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
-  const [userId, setUserId] = useState("");
   const [data, setData] = useState(null);
   const [password, setPassword] = useState("");
 
@@ -17,7 +16,7 @@ export default function Profile() {
     try {
       const user = await api.getMyProfile();
 
-      // console.log("the user is", user);
+      console.log("the user is", user);
       setUser(user);
     } catch (error) {
       console.log(error);

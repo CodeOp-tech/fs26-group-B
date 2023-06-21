@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const models = require("../models");
 const { Sequelize } = require("sequelize");
-const eventShouldBelongToUser = require("../guards/eventShouldBelongToUser");
+// const eventShouldBelongToUser = require("../guards/eventShouldBelongToUser");
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 // ADD GUARDS
 // user should be logged in
 // user should exist
@@ -11,8 +12,9 @@ const eventShouldBelongToUser = require("../guards/eventShouldBelongToUser");
 // event should belong to user
 
 // POST a selection
-router.post("/", eventShouldBelongToUser, async function (req, res, next) {
-  const { userId, planId, eventId } = req.body;
+router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
+  const { eventId, planId } = req.body;
+  const userId = req.user_id;
 
   const selection = await models.Selection.findOne({
     where: {
@@ -21,6 +23,7 @@ router.post("/", eventShouldBelongToUser, async function (req, res, next) {
       eventId,
     },
   });
+  console.log("hello");
   // if there is already a selection with this values
   if (selection) {
     // delete it

@@ -33,6 +33,8 @@ router.post("/register", usernameShouldNotExist, async (req, res) => {
 
 router.post("/password", userShouldBeLoggedIn, async (req, res) => {
   const { password } = req.body;
+  const authorization = req.headers["authorization"] || "";
+  const token = authorization.replace(/^Bearer\s/, "");
 
   try {
     const hash = await bcrypt.hash(password, saltRounds);

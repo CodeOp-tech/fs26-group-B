@@ -28,6 +28,10 @@ export default function PendingInvites() {
     navigate("/event");
   };
 
+  const goHome = () => {
+    navigate("/home");
+  };
+
   return (
     <div className="pending-page">
       {pendingInvites && pendingInvites.invitee ? (
@@ -43,7 +47,11 @@ export default function PendingInvites() {
           </div>
         </>
       ) : (
-        <h3>No pending invites</h3>
+        <div className="no-invites">
+          <h3>Pending Invitations</h3>
+          <h5>You have no pending invitations</h5>
+          <button onClick={goHome}>Send an invite</button>
+        </div>
       )}
     </div>
   );
