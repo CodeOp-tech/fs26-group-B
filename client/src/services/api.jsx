@@ -178,13 +178,11 @@ export const Api = {
       throw new Error(error.response.data);
     }
   },
-  
 
-  addSelection: async (eventId, userId, planId) => {
+  addSelection: async (eventId, planId) => {
     try {
       const { data } = await axios.post("/api/selections", {
         eventId: eventId,
-        userId: userId,
         planId: planId,
       });
       // send back data to server
