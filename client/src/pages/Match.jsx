@@ -70,20 +70,15 @@ export default function Match() {
         <div>
           <div className="top-window">
             <img src={header} alt="It's a Date!" className="match-title" />
-            {/* <h1>It's a Date!</h1> */}
+
+            <h2>
+              You and {userIsInviter ? event.invitee.name : event.inviter.name}{" "}
+              both chose: {plan.name}
+            </h2>
 
             <div className="featured-date">
               <div className="image-card">
                 <img className="match-image" src={plan.imageSrc} />
-              </div>
-
-              <div className="featured-text">
-                <h2>
-                  You and{" "}
-                  {userIsInviter ? event.invitee.name : event.inviter.name}{" "}
-                  chose: {plan.name}
-                </h2>
-                <p className="match-longDesc">{plan.longDescription}</p>
               </div>
             </div>
 
@@ -93,10 +88,14 @@ export default function Match() {
           </div>
 
           <div ref={scrollReference}>
+            <div className="featured-text">
+              <h2>Read a little more about your date</h2>
+              <p className="match-longDesc">{plan.longDescription}</p>
+            </div>
+
             {plan.searchKeyword ? (
               <div className="map-div">
-                <h2>Check out some useful places for your date</h2>
-                {/* <img className="match-image" src={plan.imageSrc} /> */}
+                <h2>Here are some useful places for your date</h2>
                 <Map />
               </div>
             ) : null}
