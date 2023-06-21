@@ -20,7 +20,6 @@ export default function Selections() {
   const [event, setEvent] = useState({});
   const { event_id } = useParams();
   const [showMgs, setShowMgs] = useState("");
-  //get the hash from local storage
 
   useEffect(() => {
     fetchDataEvent();
