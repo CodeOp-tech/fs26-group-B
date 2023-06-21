@@ -170,7 +170,7 @@ export const Api = {
 
   getPlan: async (planId) => {
     try {
-      const { data } = await axios.get(`/plan/${planId}`, {
+      const { data } = await axios.get(`/api/plans/${planId}`, {
         method: "GET",
       });
       // send back data to server
