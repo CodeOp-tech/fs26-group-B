@@ -505,11 +505,10 @@ img {
 .pending-page {
   display: flex;
   flex-wrap: wrap;
-  max-width: 40vw;
+  justify-content: center;
+  gap: 1vw;
   margin: 0 auto;
-  gap: 2vw;
-  margin-top: 6em;
-  /* margin-top: 2rem; */
+  margin-top: 4rem;
 }
 
 .pending-page h3 {
@@ -522,11 +521,13 @@ img {
 }
 
 .pending-page > div {
-  padding: 1.8em 6px;
-  width: 100%;
-  min-width: 380px; 
+  padding: 1em 6px;
+  /* max-width: 800px;
+  min-width: 380px;  */
+  width: 38vw;
+  min-width: 370px;
   height: 100%;
-  border-radius: 1em;
+  border-radius: 12px;
   box-shadow: 0 0 6px 1px rgba(98, 100, 114, 0.177);
 }
 
@@ -534,11 +535,11 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2rem auto;
-  width: 90%;
-  
+  margin: auto;
+  width: 92%;
   height: 4rem;
-  box-shadow: 0 0 1px 1px var(--lightBlue);
+  box-shadow: 0 0 1px 1px var(--lightPink);
+  background-color: var(--pinkWhite);
   border-radius: 8px;
   padding: 12px 18px;
   margin-bottom: 1rem;
@@ -547,6 +548,7 @@ img {
 
 .invitation-card p {
   font-size: 14px;
+  margin-right: 11px;
   color: var(--primary);
 }
 

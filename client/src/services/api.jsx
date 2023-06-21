@@ -38,7 +38,7 @@ export const Api = {
   getUser: async (userId) => {
     console.log(userId);
     try {
-      const { data } = await axios.get(`/users/${userId}`);
+      const { data } = await axios.get(`api/users/${userId}`);
       // send back data to server
       console.log(data);
       return data;
@@ -141,10 +141,9 @@ export const Api = {
 
   //search open status event for userid and returns the whole event
   getOpenEvents: async (role) => {
+    console.log(role);
     try {
-      const { data } = await axios.get(`/api/events/user`, {
-        role: role,
-      });
+      const { data } = await axios.get(`/api/events/user?role=${role}`);
       data && console.log(data);
       // send back data to server
       return data;
@@ -196,6 +195,21 @@ export const Api = {
       throw new Error(error.response.data);
     }
   },
-};
+
+
+  getChosenPlanId: async (eventId) => {
+    try {
+      const { data } = await axios.get(`/api/events/${eventId}`, {
+      });
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.response.data);
+    }
+  },
+  
+}
+
 
 export default Api;

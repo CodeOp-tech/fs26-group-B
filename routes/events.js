@@ -17,6 +17,8 @@ const new_event_notification = new Pusher({
   useTLS: true,
 });
 
+
+
 // Create new event
 router.post("/", userShouldBeLoggedIn, async function (req, res) {
   const { userId_2 } = req.body;
@@ -103,54 +105,50 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-// GET all events by userid only if it's open/true as an invitee or an inviter
+// GET all events by userid only if it's open/true as an invitee or an invitee
+
 router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
-  const { role } = req.body;
+  const { role } = req.query;
   const user_id = req.user_id;
-  console.log(role);
-
   
-  try {
-    
-    const events = await models.Event.findAll({
-      where: {
-        [Sequelize.Op.or]: [{ userId_1: user_id }, { userId_2: user_id }],
-        status: true,
-      },
-      include: ["inviter", "invitee"],
-    });
-
-    if (events.length === 0) {
-      res.status(404).send("Event not found");
-    } else {
-      // if (role) {
-      //   const roleEvents = events.filter((event) => {
-      //     event.role.id === user_id
-      //   })
+  console.log(role);
+  if (role === "inviter" || role === "invitee") {
+    try {
+      let events;
       if (role === "inviter") {
-        const inviterEvents = events.filter((event) => {
-          console.log(event[role]?.id, user_id);
-          return event[inviter].id === user_id;
+        events = await models.Event.findAll({
+          where: {
+            userId_1: user_id,
+            status: true,
+          },
+          include: ["inviter", "invitee"],
+        });
+      } else if (role === "invitee") {
+        events = await models.Event.findAll({
+          where: {
+            userId_2: user_id,
+            status: true,
+          },
+          include: ["inviter", "invitee"],
         });
       }
-       else if (role === "invitee") {
-          const inviterEvents = events.filter((event) => {
-            console.log( event[role]?.id, user_id);
-             return event[invitee].id === user_id;
-          });
-        res.send(inviterEvents);
-      }
-      else {
+      
+      if (events.length === 0) {
+        res.status(404).send("Event not found");
+      } else {
+
         res.send(events);
       }
-
+    
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error");
   }
+
 });
 
+//Get the given event ChosenPlanId if it is not null 
 // GET event with ID NUMBER (public)
 router.get("/:id", eventMustExist, async function (req, res, next) {
   const { id } = req.params;
@@ -173,7 +171,9 @@ router.get("/:id", eventMustExist, async function (req, res, next) {
   }
 });
 
-//GET event by hash (private)
+
+
+// //GET event by hash (private)
 
 router.get("/private/:hash", async function (req, res, next) {
   const { hash } = req.params;

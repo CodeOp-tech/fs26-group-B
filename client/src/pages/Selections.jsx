@@ -23,23 +23,23 @@ export default function Selections() {
 
   useEffect(() => {
     fetchDataEvent();
-    checkMatch();
+   
   }, []);
 
   useEffect(() => {
-    console.log(event && event.status === true ? "Abierto" : "Cerrado");
+    console.log(event && event.status === true ? "Open event" : "Close event");
     if (event && event.status === true) {
-      console.log("Está abierto");
+      
       fetchPlansData();
     } else {
-      console.log("El evento está cerrado");
-      setShowMgs("Este evento está cerrado");
+      setShowMgs("This event is closed");
     }
   }, [event]);
 
   useEffect(() => {
     setSelected(selectedPlanId.includes(cardB.id));
     console.log(finishedCards);
+    checkMatch();
   }, [currentIndex]);
 
   const fetchDataEvent = async () => {

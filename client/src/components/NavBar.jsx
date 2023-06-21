@@ -22,7 +22,7 @@ export default function NavBar() {
     auth.user && fetchData();
     pendingInvites ? setIsNotification(true) : setIsNotification(false);
     
-  }, []);
+  }, [auth.user]);
 
   const fetchData = async () => {
     try {
