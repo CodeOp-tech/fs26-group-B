@@ -60,6 +60,16 @@ button:hover {
   transition: border 0.15s;
 }
 
+#cta-btn {
+  background-color: var(--pink);
+  box-shadow: inset 0 0 0px 2px white;
+  color: #ffffff;
+}
+
+#cta-btn:hover {
+  box-shadow: inset 0 0 0px 2px var(--pink);
+}
+
 /********************* NavBar *********************/
 .navbar {
   width: 100%;
@@ -237,9 +247,9 @@ form input {
   color: var(--pink);
 }
 
-.found .invite-btn {
-  box-shadow: inset 0 0 0 1px var(--primary);
-}
+
+
+
 
 .not-found {
   margin-top: 2rem;

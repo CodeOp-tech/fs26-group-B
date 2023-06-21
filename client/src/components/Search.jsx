@@ -117,7 +117,7 @@ export default function Search() {
 						<p>
 							{invitee.username} <span>user found!</span>
 						</p>
-						<button className="invite-btn" onClick={handleInvitation}>Invite</button>
+						<button id="cta-btn" onClick={handleInvitation}>Invite</button>
 					</div>
 				)}
 
