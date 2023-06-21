@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "400px",
+  width: "80%",
   height: "400px",
 };
 
@@ -37,7 +37,7 @@ function Map() {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={10}
+      zoom={12}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
