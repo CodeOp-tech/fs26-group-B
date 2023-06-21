@@ -1,25 +1,21 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const models = require("../models");
 const { Sequelize } = require("sequelize");
-var userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
-var userShouldExist = require("../guards/userShouldExist");
-
-// ADD GUARDS
-// user should be logged in
-// user should exist
-// plan must exist
-// event must exist
-// event should belong to user
+// const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+// const userShouldExist = require("../guards/userShouldExist");
+// const eventMustExist = require("../guards/eventMustExist");
+// const planMustExist = require("../guards/planMustExist");
 
 // POST a selection
 router.post(
   "/",
-  userShouldBeLoggedIn,
-  userShouldExist,
+  // userShouldBeLoggedIn,
+  // userShouldExist,
+  // eventMustExist,
+  // planMustExist,
   async function (req, res, next) {
-    const { planId, eventId } = req.body;
-    // const {userId} =
+    const { userId, planId, eventId } = req.body;
 
     const selection = await models.Selection.findOne({
       where: {
@@ -83,7 +79,7 @@ router.post(
             if (eventUpdateResult[0] > 0) {
               res.send("Match found. Chosen plan updated in the event.");
             } else {
-              res.send("No event found with the given ID.");
+              res.status(404).send("No event found with the given ID.");
             }
           } else {
             res.send("You made a selection, waiting for the other user.");
@@ -112,35 +108,19 @@ router.get("/", async function (req, res, next) {
 });
 
 //DELETE ALL SELECTIONS
-// router.delete("/", async (req, res) => {
-//   try {
-//     // Delete all events
-//     await models.Selection.destroy({
-//       where: {},
-//       truncate: true, // This ensures that the table is truncated, removing all rows
-//     });
+router.delete("/", async (req, res) => {
+  try {
+    // Delete all events
+    await models.Selection.destroy({
+      where: {},
+      truncate: true, // This ensures that the table is truncated, removing all rows
+    });
 
-//     res.send("All selections deleted successfully");
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging purposes
-//     res.status(500).send("Internal server error");
-//   }
-// });
-
-//SIMPLE POST
-
-// router.post("/", async function (req, res, next) {
-//   const { userId, planId, eventId } = req.body;
-//   try {
-//     const selection = await models.Selection.create({
-//       userId,
-//       planId,
-//       eventId,
-//     });
-//     res.send(selection);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+    res.send("All selections deleted successfully");
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;
