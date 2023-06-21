@@ -20,10 +20,10 @@ export default function Selections() {
   const [event, setEvent] = useState({});
   const { event_id } = useParams();
   const [showMgs, setShowMgs] = useState("");
-  //get the hash from local storage
 
   useEffect(() => {
     fetchDataEvent();
+    checkMatch();
   }, []);
 
   useEffect(() => {
@@ -46,14 +46,31 @@ export default function Selections() {
     console.log(event_id);
     if (event_id) {
       try {
-        const data = await api.getEventById(event_id);
-        console.log(data);
-        setEvent(data);
+        const event = await api.getEventById(event_id);
+        console.log(event);
+        setEvent(event);
+        if (event.chosenPlanId) {
+          navigate(`/its-a-date/${event_id}`);
+        }
       } catch (error) {
         console.log("Error al obtener el evento:", error);
       }
     } else {
       console.log("No hay un event_id definido.");
+    }
+  };
+
+  const checkMatch = async () => {
+    if (event) {
+      try {
+        const chosenPlanId = await api.getChosenPlanId(event_id);
+        console.log(chosenPlanId);
+        if (chosenPlanId) {
+          navigate(`/its-a-date/${event_id}`);
+        }
+      } catch (error) {
+        console.log("Error al obtener el evento:", error);
+      }
     }
   };
 
