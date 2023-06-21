@@ -44,7 +44,7 @@ button {
   font-size: 0.9em;
   cursor: pointer;
   /* border: 1px solid var(--pinkWhite); */
-  transition: background-color 0.20s;
+  transition: background-color 0.2s;
   text-align: center;
   background-color: var(--pinkWhite);
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.222);
@@ -65,7 +65,7 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5.2vw;
+  margin-bottom: 5.2vh;
 }
 
 .nav-links {
@@ -222,7 +222,7 @@ form input {
   box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.212);
   background-color: var(--pinkWhite);
   border-radius: 4px;
-  padding: 8px ;
+  padding: 8px;
   width: 71vw;
   max-width: 89%;
   margin-top: 0;
@@ -245,7 +245,6 @@ form input {
   font-size: 1.2em;
   color: var(--pink);
   white-space: pre-line;
-
 }
 .confirmation {
   width: 20rem;
@@ -383,9 +382,18 @@ img {
 }
 
 /********************* Match Page *********************/
+.top-window {
+  height: 100vh;
+}
+
+.match-title {
+  width: 50%;
+  height: 100px;
+}
+
 .featured-date {
   column-count: 2;
-  margin-top: 40px;
+  margin-top: 4vh;
   margin-bottom: 40px;
   height: 25em;
 }
@@ -419,10 +427,26 @@ img {
 }
 
 .btn-readMore {
-  margin-bottom: 40px;
+  margin-bottom: 4vh;
+}
+
+.no-event h2 {
+  margin-bottom: 20px;
+}
+
+.no-event p {
+  margin-bottom: 20px;
+}
+
+.btn-home {
+  margin-right: 10px;
 }
 
 /********************* Map *********************/
+
+.map-div h2 {
+  margin-bottom: 4vh;
+}
 
 /********************* Profile *********************/
 
