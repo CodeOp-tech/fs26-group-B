@@ -11,8 +11,6 @@ import AuthContext from "../contexts/AuthContext";
 
 export default function NavBar() {
   const auth = useContext(AuthContext);
-  var user_id = localStorage.getItem("user_id");
-
   const [selectSignUp, setSelectSignUp] = useState(false);
   // const [selectHomePage, setSelectHomePage] = useState(false);
   const navigate = useNavigate();
@@ -21,17 +19,18 @@ export default function NavBar() {
   //const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.user) fetchData();
+    auth.user && fetchData();
   }, [auth.user]);
 
   const fetchData = async () => {
     try {
-      const data = await api.getOpenEvents(user_id);
-      setPendingInvites(data);
+      const data = await api.getOpenEvents();
+      data && setPendingInvites(data);
     } catch (error) {
       console.error("Error fetching open events", error);
     }
-    pendingInvites.length > 0 ? setIsNotification(true) : setIsNotification(false);
+    pendingInvites ? setIsNotification(true) : setIsNotification(false);
+    console.log(pendingInvites);
   };
 
   const handleSelectSignUp = () => {
@@ -39,7 +38,7 @@ export default function NavBar() {
   };
 
   const handleNotification = () => {
-    navigate("/profile");
+    navigate("/notifications");
     setIsNotification(false);
     // console.log(pendingInvites)
   };

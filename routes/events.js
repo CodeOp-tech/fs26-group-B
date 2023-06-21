@@ -70,7 +70,7 @@ router.get("/", async function (req, res, next) {
 
 // GET all events by userid only if it's open/true
 router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
-  const { user_id } = req;
+  const user_id = req.user_id;
 
   try {
     const events = await models.Event.findAll({
@@ -78,12 +78,14 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
         [Sequelize.Op.or]: [{ userId_1: user_id }, { userId_2: user_id }],
         status: true,
       },
+      include: ["inviter", "invitee"],
     });
 
     if (events.length === 0) {
       res.status(404).send("Event not found");
     } else {
       res.send(events);
+
     }
   } catch (error) {
     console.error(error);
