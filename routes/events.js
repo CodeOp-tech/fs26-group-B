@@ -8,8 +8,10 @@ const { v4: uuidv4 } = require("uuid");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 // Create new event
-router.post("/", async function (req, res) {
-  const { userId_1, userId_2 } = req.body;
+router.post("/", userShouldBeLoggedIn, async function (req, res) {
+  const { userId_2 } = req.body;
+  const userId_1 = req.user_id;
+  console.log(userId_1, userId_2);
 
   try {
     // First we check if there's already an event
@@ -17,18 +19,19 @@ router.post("/", async function (req, res) {
       where: {
         // With either of the users
         [Sequelize.Op.or]: [
-          { userId_1: userId_1 },
-          { userId_1: userId_2 },
-          { userId_2: userId_1 },
-          { userId_2: userId_2 },
-        ],
+          { [Sequelize.Op.and]: [{ userId_1: userId_1 }, { userId_2: userId_2 }] },
+        { [Sequelize.Op.and]: [{ userId_1: userId_2 }, { userId_2: userId_1 }] },
+      ],
+
         // That is open
         status: true,
       },
     });
     // if there is, then you can't create a new one
     if (openEvent) {
+      console.log("Error message:", "You already have an open event");
       res.status(400).send("You already have an open event");
+      return;
       //otherwise, start creating the new event
     } else {
       // Generate a unique identifier for the event
@@ -65,7 +68,7 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-// GET events by userid only if it's open/true
+// GET all events by userid only if it's open/true
 router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
   const { user_id } = req;
 
