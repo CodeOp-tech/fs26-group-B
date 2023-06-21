@@ -4,33 +4,55 @@ import api from "../services/data";
 // import AuthContext from "../contexts/AuthContext";
 
 export default function PendingInvites() {
-	const [pendingInvites, setPendingInvites] = useState([]);
+  const [pendingInvites, setPendingInvites] = useState([]);
+  const [unfinishedMatch, setUnfinishedMatch] = useState([]);
 	const { username } = localStorage.getItem("username");
 	const [msg, setMsg] = useState("");
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetchData();
-		pendingInvites && console.log(`The pending invites are ${pendingInvites}`);
+    fetchInvitations("invitee");
+    fetchUnfinishedMatched("inviter");
+    console.log(
+      "Invitations",
+      pendingInvites,
+      "match unfinished",
+      unfinishedMatch
+    );
 	}, []);
 
-	const fetchData = async () => {
+	const fetchInvitations = async (role) => {
 		try {
-			const data = await api.getOpenEvents();
+			const data = await api.getOpenEvents(role);
 			data && setPendingInvites(data);
 			data && console.log(data);
 		} catch (error) {
 			console.error("Error fetching open events", error);
 		}
-		pendingInvites &&
-			console.log(
-				`The pending invites are ${pendingInvites}`
-      );
+		
     if (pendingInvites.length === 0) {
       setMsg("You have no pending invitations");
     }
+   
+  };
+  
+  const fetchUnfinishedMatched = async (role) => {
+		try {
+			const data = await api.getOpenEvents(role);
+			data && setUnfinishedMatch(data);
+			data && console.log(data);
+		} catch (error) {
+			console.error("Error fetching open events", error);
+		}
+		
+    if (unfinishedMatch.length === 0) {
+      setMsg("You have no pending invitations");
+    }
+    unfinishedMatch && console.log("this are your infinished" + unfinishedMatch);
 	};
+
+
 
   const handleAcceptInvitation = (id) => {
     
@@ -50,7 +72,6 @@ export default function PendingInvites() {
 					{pendingInvites.length > 0 ? (
 						pendingInvites.map((invite, i) => (
 							<>
-                {invite.inviter.username === username ? (
                   <div key={i} className="invitation-card">
                     <p>
                       You have a pending invitation with{" "}
@@ -61,9 +82,7 @@ export default function PendingInvites() {
                       Accept
                     </button>
                   </div>
-                ) : null
-									// setMsg("You have no pending invitations")
-								}
+                
 							</>
 						))
 					) : (
@@ -72,15 +91,15 @@ export default function PendingInvites() {
 							<button onClick={goHome}>Send an invite</button>
 						</div>
 					)}
-					{ msg }
+				
 				</div>
 
-				<div className="unfinished">
-					<h3>Unfinished Matches</h3>
-					{pendingInvites.length > 0 ? (
-						pendingInvites.map((invite, i) => (
+				<div className="unfinishedMatched">
+          <h3>Unfinished Matches</h3>
+					{unfinishedMatch.length > 0 ? (
+						unfinishedMatch.map((invite, i) => (
 							<>
-								{invite.inviter.username !== username && (
+								
 									<div key={i} className="invitation-card">
 										<p>
 											Continue to find a match with{" "}
@@ -91,7 +110,7 @@ export default function PendingInvites() {
 											Continue
 										</button>
 									</div>
-								)}
+								
 							</>
 						))
 					) : (

@@ -107,6 +107,7 @@ export const Api = {
       // send back data to server
       return data;
     } catch (error) {
+      console.log(error);
       throw new Error(error.response.data);
     }
   },
@@ -139,10 +140,11 @@ export const Api = {
   },
 
   //search open status event for userid and returns the whole event
-  getOpenEvents: async () => {
+  getOpenEvents: async (role) => {
     try {
-      const { data } = await axios.get(`/api/events/user`);
-
+      const { data } = await axios.get(`/api/events/user`, {
+        role: role,
+      });
       data && console.log(data);
       // send back data to server
       return data;

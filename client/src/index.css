@@ -504,10 +504,11 @@ img {
 /********************* Pending invitations *********************/
 .pending-page {
   display: flex;
-  max-width: 70vw;
+  flex-wrap: wrap;
+  max-width: 40vw;
   margin: 0 auto;
-  gap: 2rem;
-  margin-top: 4em;
+  gap: 2vw;
+  margin-top: 6em;
   /* margin-top: 2rem; */
 }
 
@@ -523,6 +524,7 @@ img {
 .pending-page > div {
   padding: 1.8em 6px;
   width: 100%;
+  min-width: 380px; 
   height: 100%;
   border-radius: 1em;
   box-shadow: 0 0 6px 1px rgba(98, 100, 114, 0.177);
@@ -534,6 +536,7 @@ img {
   align-items: center;
   margin: 2rem auto;
   width: 90%;
+  
   height: 4rem;
   box-shadow: 0 0 1px 1px var(--lightBlue);
   border-radius: 8px;

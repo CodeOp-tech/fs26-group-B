@@ -103,11 +103,15 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-// GET all events by userid only if it's open/true
+// GET all events by userid only if it's open/true as an invitee or an inviter
 router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
+  const { role } = req.body;
   const user_id = req.user_id;
+  console.log(role);
 
+  
   try {
+    
     const events = await models.Event.findAll({
       where: {
         [Sequelize.Op.or]: [{ userId_1: user_id }, { userId_2: user_id }],
@@ -119,7 +123,27 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
     if (events.length === 0) {
       res.status(404).send("Event not found");
     } else {
-      res.send(events);
+      // if (role) {
+      //   const roleEvents = events.filter((event) => {
+      //     event.role.id === user_id
+      //   })
+      if (role === "inviter") {
+        const inviterEvents = events.filter((event) => {
+          console.log(event[role]?.id, user_id);
+          return event[inviter].id === user_id;
+        });
+      }
+       else if (role === "invitee") {
+          const inviterEvents = events.filter((event) => {
+            console.log( event[role]?.id, user_id);
+             return event[invitee].id === user_id;
+          });
+        res.send(inviterEvents);
+      }
+      else {
+        res.send(events);
+      }
+
     }
   } catch (error) {
     console.error(error);
