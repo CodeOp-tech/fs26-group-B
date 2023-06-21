@@ -68,18 +68,10 @@ function App() {
             }
           ></Route>
           <Route
-            path="/pending"
+            path="/notifications"
             element={
               <RequireAuth>
                 <PendingInvites />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/invitation"
-            element={
-              <RequireAuth>
-                <Invitation />
               </RequireAuth>
             }
           />
@@ -92,7 +84,7 @@ function App() {
             }
           />
           <Route
-            path="/its-a-date"
+            path="/its-a-date/:event_id"
             element={
               <RequireAuth>
                 <Match />
