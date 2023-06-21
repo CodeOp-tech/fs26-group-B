@@ -6,6 +6,7 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
 import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsActiveRounded";
 import AuthContext from "../contexts/AuthContext";
+import Menu from "../components/Menu";
 
 // need endpoint to get open events for user
 
@@ -19,10 +20,15 @@ export default function NavBar() {
   const [pendingInvites, setPendingInvites] = useState([]);
   const [isNotification, setIsNotification] = useState(false);
   //const navigate = useNavigate();
+  const [menu, setMenu] = useState(false);
 
   useEffect(() => {
     if (auth.user) fetchData();
   }, [auth.user]);
+
+  useEffect(() => {
+    setMenu(false);
+  }, [location.pathname]);
 
   const fetchData = async () => {
     try {
@@ -31,7 +37,9 @@ export default function NavBar() {
     } catch (error) {
       console.error("Error fetching open events", error);
     }
-    pendingInvites.length > 0 ? setIsNotification(true) : setIsNotification(false);
+    pendingInvites.length > 0
+      ? setIsNotification(true)
+      : setIsNotification(false);
   };
 
   const handleSelectSignUp = () => {
@@ -42,6 +50,9 @@ export default function NavBar() {
     navigate("/profile");
     setIsNotification(false);
     // console.log(pendingInvites)
+  };
+  const handleMenu = () => {
+    setMenu(!menu);
   };
 
   return (
@@ -82,9 +93,10 @@ export default function NavBar() {
           </div>
         )}
 
-        <a>
+        <a onClick={handleMenu}>
           <MenuRoundedIcon />
         </a>
+        {menu && <Menu />}
       </div>
     </div>
   );
