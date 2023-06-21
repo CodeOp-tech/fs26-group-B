@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import api from "../services/data.js";
 import Map from "../components/Map";
+import header from "../assets/match-title.png";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function Match() {
@@ -68,12 +69,8 @@ export default function Match() {
       {eventShouldBeDisplayed ? (
         <div>
           <div className="top-window">
-            <img
-              src="./assets/match-title.png"
-              alt="It's a Date!"
-              className="match-title"
-            />
-            <h1>It's a Date!</h1>
+            <img src={header} alt="It's a Date!" className="match-title" />
+            {/* <h1>It's a Date!</h1> */}
 
             <div className="featured-date">
               <div className="image-card">
