@@ -6,7 +6,7 @@
   --primary: #10354b;
   --pink: #f49f9c;
   --lightPink: #fde6e7f5;
-  --pinkWhite: #fef6f6cf;
+  --pinkWhite: #fef6f6de;
   --lightBlue: #6b94add0;
 }
 
@@ -38,23 +38,24 @@ h1 {
 
 button {
   border-radius: 6px;
-  padding: 4px 14px;
+  padding: 8px 18px;
   border: none;
-  font-weight: 600;
+  font-weight: 560;
   font-size: 0.9em;
   cursor: pointer;
-  border: 1px solid var(--primary);
-  transition: background-color 0.25s;
+  /* border: 1px solid var(--pinkWhite); */
+  transition: background-color 0.20s;
   text-align: center;
   background-color: var(--pinkWhite);
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.222);
   color: var(--primary);
   letter-spacing: 1px;
 }
 button:hover {
-  /* border: none; */
   color: var(--primary);
-  /* border: 1px solid var(--lightPink); */
+  /* border: 1px solid var(--primary); */
   background-color: var(--lightPink);
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.272);
   transition: border 0.15s;
 }
 
@@ -140,6 +141,7 @@ button:hover {
 
 .signup-btn {
   margin-bottom: 30px;
+  /* width: 25%; */
 }
 
 .error-message {
@@ -188,12 +190,17 @@ button:hover {
 form input {
   color: #000000;
   width: 100%;
-  padding: 0.5em 1em;
+  padding: 0.7em 1em;
   border-radius: 4px;
   border: 1px solid var(--lightBlue);
   text-align: left;
   font-size: 1em;
   justify-content: center;
+}
+
+.submit-button {
+  display: block;
+  padding: 11px 12px 6px 12px;
 }
 
 .share-link {
@@ -215,10 +222,12 @@ form input {
   box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.212);
   background-color: var(--pinkWhite);
   border-radius: 4px;
-  padding: 8px;
-  width: 88%;
+  padding: 8px ;
+  width: 71vw;
+  max-width: 89%;
   margin-top: 0;
   justify-content: space-between;
+  align-items: center;
 }
 
 .found span {
@@ -227,10 +236,16 @@ form input {
   color: var(--pink);
 }
 
+.found .invite-btn {
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
 .not-found {
   margin-top: 2rem;
   font-size: 1.2em;
   color: var(--pink);
+  white-space: pre-line;
+
 }
 .confirmation {
   width: 20rem;
@@ -259,7 +274,7 @@ form input {
   width: 360px;
   height: 58vh;
   min-height: 320px;
-  box-shadow: 0 0 19px 2px rgba(97, 97, 97, 0.3);
+  box-shadow: 0 0 19px 2px rgba(98, 100, 114, 0.3);
 }
 
 .card__image {
@@ -280,9 +295,9 @@ img {
 .card__info {
   display: flex;
   flex-direction: column;
-  padding: 4px 10px;
-  font-size: 13px;
-  text-align: left;
+  padding: 4px 18px;
+  font-size: 12px;
+  text-align: justify;
   color: var(--lightBlue);
 }
 

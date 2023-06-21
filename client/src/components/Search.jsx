@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 // 8. user2 press accept and is redirect to selection/event page with the hash of the event
 
 export default function Search() {
-	var username = localStorage.getItem('username');
+	var username = localStorage.getItem("username");
 	const [userSearch, setUserSearch] = useState("");
 	const [invitee, setInvitee] = useState("");
 	const navigate = useNavigate();
@@ -28,7 +28,6 @@ export default function Search() {
 	const [eventId, setEventId] = useState("");
 	// const [data, setData] = useState("");
 	// const [user, setUser] = useState("");
-	
 
 	useEffect(() => {
 		setInvitee({});
@@ -36,56 +35,56 @@ export default function Search() {
 
 	useEffect(() => {
 		console.log(errorMsg);
-	  
-	  }, [errorMsg]);
-	
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setInvitationMsg("");
-    searchUser();
-    setUserSearch("");
-  };
+	}, [errorMsg]);
 
-  const searchUser = async () => {
-    try {
-      const data = await api.getUsername(userSearch);
-		data && setInvitee(data);
-      data && setErrorMsg("");
-      console.log(errorMsg);
-      console.log(data);
-    } catch (error) {
-		console.log(error);
-	setErrorMsg(error.message + "  😞") ;
-    }
-   
-  };
+	const handleSearch = (e) => {
+		e.preventDefault();
+		setInvitationMsg("");
+		searchUser();
+		setUserSearch("");
+	};
+
+	const searchUser = async () => {
+		try {
+			const data = await api.getUsername(userSearch);
+			data && setInvitee(data);
+			data && setErrorMsg("");
+			console.log(errorMsg);
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+			setErrorMsg(error.message + "  😞");
+		}
+	};
 
 	const handleInvitation = async () => {
 		// console.log(invitee);
 		try {
 			const data = await api.createEvent(invitee.id);
-			
+
 			if (data) {
 				console.log(data);
 				setEventId(data.event.id);
 				setInvitationMsg(`${invitee.username} has been invited!`);
 			}
+		} catch (error) {
+			console.log(error);
+			setErrorMsg(error.message);
+			error.message.includes("open") ?
+				setErrorMsg(`${error.message} with ${invitee.username}. \n Check your notifications 👀`
+				) : setErrorMsg(error.message);
 		}
-			catch (error) {
-				console.log(error);
-				setErrorMsg(error.message + ". Check your notifications 👀");
-			  }
 		setInvitee({});
 	};
 
 	const handleStart = () => {
 		console.log("event id" + eventId);
-	navigate(`/event/${eventId}`) 
+		navigate(`/event/${eventId}`);
 	};
 
-  const handleChange = (e) => {
-    setUserSearch(e.target.value);
-  };
+	const handleChange = (e) => {
+		setUserSearch(e.target.value);
+	};
 
 	return (
 		<div>
@@ -94,9 +93,7 @@ export default function Search() {
 					<div className="search-field">
 						<h1>Hello {username}!</h1>
 						<p>Search for a partner to match on a new date.🌞</p>
-						<label htmlFor="eventTitle">
-							Search by username
-						</label>
+						<label htmlFor="eventTitle">Search by username</label>
 						<div>
 							<input
 								type="text"
@@ -120,27 +117,23 @@ export default function Search() {
 						<p>
 							{invitee.username} <span>user found!</span>
 						</p>
-						<button onClick={handleInvitation}>Invite</button>
+						<button className="invite-btn" onClick={handleInvitation}>Invite</button>
 					</div>
 				)}
 
-        {errorMsg && (
-          <div className="msg not-found">
-            {errorMsg}
-          </div>
-        )}
-        {invitationMsg && (
-          <div className="confirmation">
-            {invitationMsg}
-            <p>Press Start to begin your selection.</p>
-            <button onClick={handleStart}>Start</button>
-          </div>
-        )}
-      </div>
+				{errorMsg && <div className="msg not-found">{errorMsg}</div>}
+				{invitationMsg && (
+					<div className="confirmation">
+						{invitationMsg}
+						<p>Press Start to begin your selection.</p>
+						<button onClick={handleStart}>Start</button>
+					</div>
+				)}
+			</div>
 
-      {/* <div className="share-link">
+			{/* <div className="share-link">
                 <a>Or send registration Link </a><a><SendIcon /></a>
                 </div> */}
-    </div>
-  );
+		</div>
+	);
 }
