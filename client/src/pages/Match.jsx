@@ -2,41 +2,27 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import api from "../services/data.js";
 import Map from "../components/Map";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Match() {
   const navigate = useNavigate();
   const scrollReference = useRef(null);
   const [plan, setPlan] = useState({});
-  const [hash, setHash] = useState("");
 
-  //get the hash from local storage
-  useEffect(() => {
-    setHash(localStorage.getItem("event_hash"));
-  }, []);
-
-  useEffect(() => {
-    console.log(hash);
-    if (hash) {
-      console.log("Saved event", hash);
-      fetchData();
-    } else {
-      console.log("there is nothing at this hash", hash);
-    }
-  }, [hash]);
+  //get the eventId from url params
+  const { event_id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      const event = await api.getEventByID(hash);
+      const event = await api.getEventById(event_id);
       const planID = event.chosenPlanId;
+      // console.log(planID);
 
       const plan = await api.getPlan(planID);
       setPlan(plan);
     };
     fetchData();
   }, []);
-  // console.log(plan);
-  // console.log(plan.longDescription);
 
   function goHome() {
     navigate("/home");
@@ -56,10 +42,10 @@ export default function Match() {
 
   return (
     <div>
-      {hash ? (
+      {event_id ? (
         <div>
           <div>
-            <img src="../assets/match-title.png" alt="It's a Date!" />
+            {/* <img src="../assets/match-title.png" alt="It's a Date!" /> */}
             <h1>It's a Date!</h1>
 
             <div className="featured-date">
