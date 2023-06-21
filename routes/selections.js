@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const models = require("../models");
 const { Sequelize } = require("sequelize");
+const eventShouldBelongToUser = require("../guards/eventShouldBelongToUser");
 // ADD GUARDS
 // user should be logged in
 // user should exist
@@ -10,7 +11,7 @@ const { Sequelize } = require("sequelize");
 // event should belong to user
 
 // POST a selection
-router.post("/", async function (req, res, next) {
+router.post("/", eventShouldBelongToUser, async function (req, res, next) {
   const { userId, planId, eventId } = req.body;
 
   const selection = await models.Selection.findOne({
