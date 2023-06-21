@@ -1,49 +1,92 @@
-import { useState } from 'react'
-import { Link  } from 'react-router-dom'
+import { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 // import Menu from './Menu'
-// import Api from '../Api'
-import { ThemeProvider } from '@mui/material/styles';
-import Container from '@mui/material/Container';
-import {theme, nav_bar} from '../styles'
+import api from "../services/data";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
+import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsActiveRounded";
+import AuthContext from "../contexts/AuthContext";
 
-
+// need endpoint to get open events for user
 
 export default function NavBar() {
-    // const auth = useContext(AuthContext);
-  
-    const auth = true;
-    const [selectSignUp, setSelectSignUp] = useState(false)
+  const auth = useContext(AuthContext);
+  const [selectSignUp, setSelectSignUp] = useState(false);
+  // const [selectHomePage, setSelectHomePage] = useState(false);
+  const navigate = useNavigate();
+  const [pendingInvites, setPendingInvites] = useState([]);
+  const [isNotification, setIsNotification] = useState(false);
+  //const navigate = useNavigate();
 
-    // useEffect(() => {
-    // }, [selectSignUp, auth]);
-
-    const handleSelectSignUp = () => {
-        setSelectSignUp(true)
-    }
-
-
+  useEffect(() => {
+    auth.user && fetchData();
+    pendingInvites ? setIsNotification(true) : setIsNotification(false);
     
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const data = await api.getOpenEvents();
+      data && setPendingInvites(data);
+    } catch (error) {
+      console.error("Error fetching open events", error);
+    }
+    console.log(pendingInvites);
+   
+  };
+
+  const handleSelectSignUp = () => {
+    setSelectSignUp(true);
+  };
+
+  const handleNotification = () => {
+    navigate("/notifications");
+    setIsNotification(false);
+    // console.log(pendingInvites)
+  };
+
   return (
-    <div>
+    <div className="navbar">
       <div className="navBar__logo">
-        <h1>Logo</h1>
+        <Link to="/home">
+          <img
+            className="logo"
+            src="https://i.postimg.cc/PJqyX8p7/its-a-date.png"
+            alt="It's a date!"
+          />
+        </Link>
       </div>
-      <ThemeProvider theme={theme}>
-        <Container sx={nav_bar}>
-          {!auth && selectSignUp === false && (
-            <Link to="/register" onClick={handleSelectSignUp}>
-              Sign Up
-            </Link>
-          )}
-          {!auth && selectSignUp === true && (
-            <Link to="/login" onClick={() => setSelectSignUp(false)}>
-              Login
-            </Link>
-          )}
-          <button>Logout</button>
-          <button>menu</button>
-        </Container>
-      </ThemeProvider>
+
+      <div className="nav-links">
+        {!auth.user && selectSignUp === false && (
+          <Link to="/register" onClick={handleSelectSignUp}>
+            Sign Up
+          </Link>
+        )}
+        {!auth.user && selectSignUp === true && (
+          <Link to="/login" onClick={() => setSelectSignUp(false)}>
+            Login
+          </Link>
+        )}
+        {auth.user && (
+          <div className="auth-links">
+            {isNotification ? (
+              <a onClick={handleNotification}>
+                <NotificationsActiveRoundedIcon />
+              </a>
+            ) : (
+              <a>
+                <NotificationsNoneRoundedIcon />
+              </a>
+            )}
+            <a onClick={auth.logout}>Logout</a>
+          </div>
+        )}
+
+        <a>
+          <MenuRoundedIcon />
+        </a>
+      </div>
     </div>
   );
 }

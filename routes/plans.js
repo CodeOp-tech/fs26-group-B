@@ -1,19 +1,11 @@
 var express = require("express");
 var router = express.Router();
 const models = require("../models");
+const planMustExist = require("../guards/planMustExist");
 
-// Get all plans
+//GET ALL PLANS
 
-// Post selection (every time you click YES the userID and planID goes to selection)
-
-// Get selection by planID where planID count is 2(twice)  << do this every time the user says yes
-
-// Delete all from selections (happens when you click cancel or when you match)
-
-// Get all users
 router.get("/", async function (req, res, next) {
-  console.log("PLANS!");
-
   try {
     const plans = await models.Plan.findAll();
     res.send(plans);
@@ -22,6 +14,21 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-//Get user by username
+//GET PLAN BY ID
+
+router.get("/:id", planMustExist, async function (req, res, next) {
+  try {
+    const { id } = req.params;
+    const plan = await models.Plan.findOne({ where: { id } });
+
+    if (plan) {
+      res.send(plan);
+    } else {
+      res.status(404).send("This plan doesn't exist!");
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 module.exports = router;

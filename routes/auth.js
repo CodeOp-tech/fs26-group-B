@@ -11,18 +11,45 @@ const saltRounds = 10;
 const supersecret = process.env.SUPER_SECRET;
 
 router.post("/register", usernameShouldNotExist, async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, username, email, password } = req.body;
 
   try {
     const hash = await bcrypt.hash(password, saltRounds);
 
     const user = await models.User.create({
+      name,
       username,
       email,
       password: hash,
     });
 
-    res.send({ message: "New user created!" });
+    var token = jwt.sign({ user_id: user.id }, supersecret);
+
+    res.send({ message: "New user created!", token, username });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+router.post("/password", userShouldBeLoggedIn, async (req, res) => {
+  const { password } = req.body;
+  const authorization = req.headers["authorization"] || "";
+  const token = authorization.replace(/^Bearer\s/, "");
+
+  try {
+    const hash = await bcrypt.hash(password, saltRounds);
+
+    await models.User.update(
+      { password: hash },
+      {
+        where: {
+          token: token,
+        },
+      }
+    );
+
+    res.send({ message: "Password updated" });
+    res.send(req.user);
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
@@ -45,7 +72,7 @@ router.post("/login", async (req, res) => {
       if (!correctPassword) throw new Error("Incorrect password");
 
       var token = jwt.sign({ user_id }, supersecret);
-      res.send({ message: "Login successful!", token });
+      res.send({ message: "Login successful!", token, user_id, username });
     } else {
       throw new Error("User does not exist");
     }
@@ -55,10 +82,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/profile", userShouldBeLoggedIn, (req, res) => {
-  res.send({
-    message:
-      "You are logged in. Here is the PROTECTED data for user " + req.user_id,
-  });
+  res.send(req.user);
 });
 
 module.exports = router;

@@ -16,7 +16,7 @@ export default function RequireAuth({ children }) {
     }
 
     setLoading(false);
-  });
+  }, []);
 
   if (!auth.user && !loading) {
     return (
