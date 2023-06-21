@@ -5,7 +5,7 @@ axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
 )}`;
 
 export const Api = {
-  // Users
+  // Auth
 
   // Get the user that is logged in
   getMyProfile: async () => {
@@ -16,9 +16,25 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
+  updatePassword: async (password) => {
+    try {
+      const { data } = await axios.post(`/api/auth/password`, {
+        password: password,
+      });
+      // send back data to server
+      // console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.response.data);
+    }
+  },
+
+  // Users
   getUser: async (userId) => {
     console.log(userId);
     try {
@@ -28,6 +44,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -42,6 +59,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -61,6 +79,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -75,20 +94,20 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
-  createEvent: async (userId_1, userId_2) => {
-    console.log(userId_1, userId_2);
+  createEvent: async (userId_2) => {
+    console.log(userId_2);
     try {
       const { data } = await axios.post("/api/events", {
-        userId_1: userId_1,
         userId_2: userId_2,
       });
       // send back data to server
       return data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -103,6 +122,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -114,6 +134,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -125,6 +146,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -140,6 +162,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 
@@ -152,6 +175,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
   
@@ -167,6 +191,7 @@ export const Api = {
       return data;
     } catch (error) {
       console.log(error);
+      throw new Error(error.response.data);
     }
   },
 };

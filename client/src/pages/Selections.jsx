@@ -6,7 +6,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import api from "../services/data";
 
 export default function Selections() {
-	var user_id = localStorage.getItem("user_id");
 	const [selected, setSelected] = useState(false);
 	const [selectedPlanId, setSelectedPlanId] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,33 +21,44 @@ export default function Selections() {
 	//get the hash from local storage
 	
 	useEffect(() => {
-		
+		fetchDataEvent();
+	}, []);
+
+	useEffect(() => {
+		console.log(event && event.status === true ? "Abierto" : "Cerrado");
+		if (event && event.status === true) {
+		  console.log("Está abierto");
+		  fetchPlansData();
+		} else {
+		  console.log("El evento está cerrado");
+		  setShowMgs("Este evento está cerrado");
+		}
+	}, [event]);
+
+
+	useEffect(() => {
+		setSelected(selectedPlanId.includes(cardB.id));
+		console.log(finishedCards);
+	}, [currentIndex]);
+
+	const fetchDataEvent = async () => {
 		console.log(event_id);
 		if (event_id) {
-			api.getEventById(event_id).then((data) => {
-				console.log(data);
-				setEvent(data);
-				console.log(event.status);
-				if (event.status === true) {
-					console.log("is open");
-					fetchData();
-				}
-				else {
-					console.log("event is close");
-					setShowMgs("This event is closed")
-
-				}
-			});
-
+		  try {
+			const data = await api.getEventById(event_id);
+			console.log(data);
+			setEvent(data);
+		  } catch (error) {
+			console.log("Error al obtener el evento:", error);
+		  }
 		} else {
-			console.log("there is no" + event_id);
+		  console.log("No hay un event_id definido.");
 		}
+	
 		
-		
-	}, [event_id]);
+	};
 
-
-	const fetchData = async () => {
+	const fetchPlansData = async () => {
 
 		try {
 			const plansData = await api.getAllPlans();
@@ -64,10 +74,6 @@ export default function Selections() {
 		}
 	};
 
-	useEffect(() => {
-		setSelected(selectedPlanId.includes(cardB.id));
-		console.log(finishedCards);
-	}, [currentIndex]);
 
 	const handleInteraction = () => {
 		if (currentIndex === 0 && showLast) {
@@ -129,7 +135,7 @@ export default function Selections() {
 
 	return (
 		<div className="event-selection">
-			{!showMgs.length ?
+			{setEvent ?
 				(<div className="selection-view">
 					{plans && (
 						<div className="cards-group">

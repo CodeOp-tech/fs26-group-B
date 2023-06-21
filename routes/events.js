@@ -3,9 +3,10 @@ const router = express.Router();
 const { Sequelize } = require("sequelize");
 const models = require("../models");
 require("dotenv").config();
-
+const eventMustExist = require("../guards/eventMustExist");
 const { v4: uuidv4 } = require("uuid");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+
 // Create new event
 router.post("/", async function (req, res) {
   const { userId_1, userId_2 } = req.body;
@@ -88,7 +89,7 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 // GET event with ID NUMBER (public)
-router.get("/:id", async function (req, res, next) {
+router.get("/:id", eventMustExist, async function (req, res, next) {
   const { id } = req.params;
 
   try {
