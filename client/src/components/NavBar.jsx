@@ -7,6 +7,9 @@ import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsAct
 import AuthContext from "../contexts/AuthContext";
 import Pusher from "pusher-js";
 import Menu from "../components/Menu";
+import Noty from "noty";
+import "noty/src/noty.scss";
+import "noty/src/themes/bootstrap-v4.scss";
 
 // need endpoint to get open events for user
 
@@ -23,6 +26,15 @@ export default function NavBar() {
   //const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const noty = new Noty({
+    type: "info",
+    layout: "topCenter",
+    theme: "bootstrap-v4",
+    closeWith: ["click"],
+    timeout: 4000,
+    text: "You have a new invitation!",
+  });
+
   useEffect(() => {
     auth.user && fetchData();
 
@@ -33,23 +45,29 @@ export default function NavBar() {
       forceTLS: true,
     });
 
-    if (user?.id && channel !== "invitation") {
+    if (user?.id && !channel) {
       channel = pusher.subscribe(`user-${user.id}`);
       channel.bind("invitation", function (data) {
         console.log(data);
-        alert(JSON.stringify(data));
+        // alert(JSON.stringify(data));
         setIsNotification(true);
+        noty.show();
       });
+      // channel.bind("match", function (data) {
+      //   // console.log(data);
+      //   // alert(JSON.stringify(data));
+      //   // setIsNotification(true);
+      // });
     }
 
-    if (user?.id && channel !== "match") {
-      channel = pusher.subscribe(`user-${user.id}`);
-      channel.bind("match", function (data) {
-        console.log(data);
-        alert(JSON.stringify(data));
-        setIsNotification(true);
-      });
-    }
+    // if (user?.id && channel !== "match") {
+    //   channel = pusher.subscribe(`user-${user.id}`);
+    //   channel.bind("match", function (data) {
+    //     console.log(data);
+    //     alert(JSON.stringify(data));
+    //     setIsNotification(true);
+    //   });
+    // }
   }, [auth.user, user]);
 
   const fetchData = async () => {
