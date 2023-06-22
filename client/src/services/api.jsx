@@ -107,6 +107,7 @@ export const Api = {
       // send back data to server
       return data;
     } catch (error) {
+      console.log(error);
       throw new Error(error.response.data);
     }
   },
