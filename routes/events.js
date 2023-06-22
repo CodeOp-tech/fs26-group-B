@@ -5,6 +5,8 @@ const models = require("../models");
 require("dotenv").config();
 const eventMustExist = require("../guards/eventMustExist");
 const { v4: uuidv4 } = require("uuid");
+const Pusher = require("pusher");
+
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 // Create new event
@@ -19,9 +21,19 @@ router.post("/", userShouldBeLoggedIn, async function (req, res) {
       where: {
         // With either of the users
         [Sequelize.Op.or]: [
-          { [Sequelize.Op.and]: [{ userId_1: userId_1 }, { userId_2: userId_2 }] },
-        { [Sequelize.Op.and]: [{ userId_1: userId_2 }, { userId_2: userId_1 }] },
-      ],
+          {
+            [Sequelize.Op.and]: [
+              { userId_1: userId_1 },
+              { userId_2: userId_2 },
+            ],
+          },
+          {
+            [Sequelize.Op.and]: [
+              { userId_1: userId_2 },
+              { userId_2: userId_1 },
+            ],
+          },
+        ],
 
         // That is open
         status: true,
@@ -73,7 +85,7 @@ router.get("/", async function (req, res, next) {
 router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
   const { role } = req.query;
   const user_id = req.user_id;
-  
+
   console.log(role);
   if (role === "inviter" || role === "invitee") {
     try {
@@ -95,14 +107,12 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
           include: ["inviter", "invitee"],
         });
       }
-      
+
       if (events.length === 0) {
         res.status(404).send("Event not found");
       } else {
-
         res.send(events);
       }
-    
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal server error");
@@ -111,35 +121,36 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //Get the user from the given eventId where the user is not the logged in user
-router.get("/user/:eventId", userShouldBeLoggedIn, async function (req, res, next) {
-  const { eventId } = req.params;
-  const user_id = req.user_id;
-  console.log(eventId);
-  try {
-    const event = await models.Event.findOne({
-      where: {
-        id: eventId,
-        [Sequelize.Op.or]: [
-          { userId_1: user_id },
-          { userId_2: user_id },
-        ],
-      },
-      include: ["inviter", "invitee"],
-    });
-    if (event) {
-      if (event.userId_1 === user_id) {
-        res.send(event.invitee);
+router.get(
+  "/user/:eventId",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    const { eventId } = req.params;
+    const user_id = req.user_id;
+    console.log(eventId);
+    try {
+      const event = await models.Event.findOne({
+        where: {
+          id: eventId,
+          [Sequelize.Op.or]: [{ userId_1: user_id }, { userId_2: user_id }],
+        },
+        include: ["inviter", "invitee"],
+      });
+      if (event) {
+        if (event.userId_1 === user_id) {
+          res.send(event.invitee);
+        } else {
+          res.send(event.inviter);
+        }
       } else {
-        res.send(event.inviter);
+        res.status(404).send("Event not found");
       }
-    } else {
-      res.status(404).send("Event not found");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error");
   }
-});
+);
 
 // GET event with ID NUMBER (public)
 router.get("/:id", eventMustExist, async function (req, res, next) {
@@ -188,8 +199,6 @@ router.get("/private/:hash", async function (req, res, next) {
     res.status(500).send("Internal server error");
   }
 });
-
-
 
 // DELETE all events
 router.delete("/", async (req, res) => {

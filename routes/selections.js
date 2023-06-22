@@ -4,6 +4,7 @@ const models = require("../models");
 const { Sequelize } = require("sequelize");
 // const eventShouldBelongToUser = require("../guards/eventShouldBelongToUser");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+const notifications = require("../utils/notifications");
 // ADD GUARDS
 // user should be logged in
 // user should exist
@@ -77,6 +78,31 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 
           // If an event with the given ID was found and updated successfully
           if (eventUpdateResult[0] > 0) {
+            // find the event with this userId
+            const event = await models.Event.findOne({
+              where: {
+                id: eventId,
+                [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
+              },
+            });
+
+            // if the current user is userId_1
+            if (event.userId_1 === userId) {
+              // then send pusher to userId_2
+              notifications.sendMatch(
+                event.userId_2,
+                eventId,
+                "You have a new date!"
+              );
+            } else {
+              // otherwise send pusher to userId_1
+              notifications.sendMatch(
+                event.userId_1,
+                eventId,
+                "You have a new date!"
+              );
+            }
+
             res.send("Match found. Chosen plan updated in the event.");
           } else {
             res.send("No event found with the given ID.");

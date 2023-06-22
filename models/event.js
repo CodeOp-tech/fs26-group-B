@@ -1,4 +1,5 @@
 "use strict";
+const notifications = require("../utils/notifications");
 
 const { Model, DataTypes } = require("sequelize");
 
@@ -23,6 +24,14 @@ module.exports = (sequelize) => {
       sequelize,
       modelName: "Event",
       freezeTableName: true,
+      hooks: {
+        afterCreate: (event, options) => {
+          notifications.sendInvitation(event.userId_2, event.id);
+        },
+        // afterUpdate: (event, options) => {
+        //   notifications.sendMatch(event.userId_2, event.id);
+        // },
+      },
     }
   );
 

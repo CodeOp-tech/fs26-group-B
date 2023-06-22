@@ -245,8 +245,6 @@ img {
   text-align: center;
 }
 
-
-
 .card__info {
   display: flex;
   flex-direction: column;
@@ -254,7 +252,6 @@ img {
   font-size: 12px;
   text-align: justify;
   color: var(--lightBlue);
-
 }
 
 .card__info h2 {
@@ -266,9 +263,7 @@ img {
 
 .last {
   background-color: var(--pinkWhite);
-  
 }
-
 
 /********************* Selections *********************/
 
@@ -281,7 +276,6 @@ img {
   display: flex;
   flex-direction: column;
   padding-top: 16vh;
- 
 }
 
 .cards-group {
@@ -447,7 +441,6 @@ img {
   margin: 0 auto;
   gap: 3rem;
   margin-bottom: 20px;
- 
 }
 
 .profile {
@@ -456,7 +449,6 @@ img {
   grid-gap: 20px; /* Adjust this value as needed */
   box-shadow: 0 0 6px 1px rgba(98, 100, 114, 0.177);
   border-radius: 8px;
-
 }
 
 .profile-details {
@@ -491,8 +483,7 @@ img {
   grid-row-start: 1;
 }
 
-.extra-profile{
-  
+.extra-profile {
   display: flex;
   width: 100%;
   justify-content: space-around;
@@ -561,3 +552,28 @@ img {
   margin-top: 20px;
 }
 
+/********************* Noty Notifications *********************/
+
+.noty_effects_open {
+  opacity: 0;
+  transform: translate(50%);
+  animation: noty_anim_in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.noty_effects_close {
+  animation: noty_anim_out 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes noty_anim_in {
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes noty_anim_out {
+  100% {
+    transform: translate(50%);
+    opacity: 0;
+  }
+}
