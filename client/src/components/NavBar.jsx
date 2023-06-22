@@ -32,9 +32,18 @@ export default function NavBar() {
       forceTLS: true,
     });
 
-    if (user?.id && !channel) {
+    if (user?.id && channel !== "invitation") {
       channel = pusher.subscribe(`user-${user.id}`);
       channel.bind("invitation", function (data) {
+        console.log(data);
+        alert(JSON.stringify(data));
+        setIsNotification(true);
+      });
+    }
+
+    if (user?.id && channel !== "match") {
+      channel = pusher.subscribe(`user-${user.id}`);
+      channel.bind("match", function (data) {
         console.log(data);
         alert(JSON.stringify(data));
         setIsNotification(true);
