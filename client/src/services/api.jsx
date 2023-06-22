@@ -107,6 +107,7 @@ export const Api = {
       // send back data to server
       return data;
     } catch (error) {
+      console.log(error);
       throw new Error(error.response.data);
     }
   },
@@ -139,9 +140,12 @@ export const Api = {
   },
 
   //search open status event for userid and returns the whole event
-  getOpenEvents: async (userId) => {
+  getOpenEvents: async (role) => {
     try {
-      const { data } = await axios.get(`/api/events/user`);
+      const { data } = await axios.get(`/api/events/user`, {
+        role: role,
+      });
+      data && console.log(data);
       // send back data to server
       return data;
     } catch (error) {
@@ -168,7 +172,7 @@ export const Api = {
 
   getPlan: async (planId) => {
     try {
-      const { data } = await axios.get(`/plan/${planId}`, {
+      const { data } = await axios.get(`/api/plans/${planId}`, {
         method: "GET",
       });
       // send back data to server

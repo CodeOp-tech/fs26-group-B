@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useState, useEffect } from "react";
 import api from "../services/data.js";
 import PendingInvites from "../components/PendingInvites.jsx";
@@ -40,7 +40,7 @@ export default function Profile() {
 
   return (
     <div>
-      <h1 className="profile-heading">My Profile</h1>
+      <h1 className="profile-heading">Profile</h1>
 
       <div className="profile">
         <div className="profile-details">
@@ -59,8 +59,12 @@ export default function Profile() {
           <button onClick={resetPassword}>Reset Password</button>
         </div>
 
-        <PendingInvites className="profile-invites" />
+       
+        {/* <PendingInvites className="profile-invites" /> */}
       </div>
+      <button onClick={api.logout}>
+          Notifications
+        </button>
     </div>
   );
 }

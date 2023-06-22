@@ -34,6 +34,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: var(--lightBlue);
 }
 
 button {
@@ -59,13 +60,23 @@ button:hover {
   transition: border 0.15s;
 }
 
+#cta-btn {
+  background-color: var(--pink);
+  box-shadow: inset 0 0 0px 2px white;
+  color: #ffffff;
+}
+
+#cta-btn:hover {
+  box-shadow: inset 0 0 0px 2px var(--pink);
+}
+
 /********************* NavBar *********************/
 .navbar {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5.2vw;
+  margin-bottom: 5.2vh;
 }
 
 .nav-links {
@@ -236,10 +247,6 @@ form input {
   color: var(--pink);
 }
 
-.found .invite-btn {
-  box-shadow: inset 0 0 0 1px var(--primary);
-}
-
 .not-found {
   margin-top: 2rem;
   font-size: 1.2em;
@@ -382,11 +389,19 @@ img {
 }
 
 /********************* Match Page *********************/
+/* .top-window {
+  height: 100vh;
+} */
+
+.match-title {
+  width: 40em;
+  height: 100px;
+}
+
 .featured-date {
-  column-count: 2;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  height: 25em;
+  margin-top: 2vh;
+  height: 23em;
+  margin-bottom: 3vh;
 }
 
 .image-card {
@@ -394,34 +409,59 @@ img {
   justify-items: center;
   align-items: center;
   margin: 0 auto;
-  width: 100%;
-  height: 400px;
+  width: 75%;
+  height: 100%;
 }
 
-img {
+.match-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .featured-text {
+  margin-top: 40px;
   column-span: 1;
 }
 
 .match-longDesc {
-  width: 80%;
+  width: 60%;
   display: flex;
   justify-content: center;
   text-align: justify;
   margin: 0 auto;
   margin-top: 5px;
+  margin-bottom: 20px;
 }
 
 .btn-readMore {
-  margin-bottom: 40px;
+  margin-bottom: 4vh;
+}
+
+.no-event h2 {
+  margin-bottom: 20px;
+}
+
+.no-event p {
+  margin-bottom: 20px;
+}
+
+.btn-home {
+  margin-right: 10px;
 }
 
 /********************* Map *********************/
+
+.map-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.map-div h2 {
+  margin-bottom: 4vh;
+}
 
 /********************* Profile *********************/
 
@@ -464,22 +504,50 @@ img {
 /********************* Pending invitations *********************/
 .pending-page {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 40vw;
+  margin: 0 auto;
+  gap: 2vw;
+  margin-top: 6em;
   /* margin-top: 2rem; */
+}
+
+.pending-page h3 {
+  color: var(--primary);
+  margin-bottom: 3rem;
+}
+
+.pending-page p {
+  color: var(--lightBlue);
+}
+
+.pending-page > div {
+  padding: 1.8em 6px;
+  width: 100%;
+  min-width: 380px; 
+  height: 100%;
+  border-radius: 1em;
+  box-shadow: 0 0 6px 1px rgba(98, 100, 114, 0.177);
 }
 
 .invitation-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 3rem auto;
+  margin: 2rem auto;
   width: 90%;
+  
   height: 4rem;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.382);
+  box-shadow: 0 0 1px 1px var(--lightBlue);
   border-radius: 8px;
   padding: 12px 18px;
   margin-bottom: 1rem;
   font-weight: 500;
+}
+
+.invitation-card p {
+  font-size: 14px;
+  color: var(--primary);
 }
 
 .invitation-card span {
