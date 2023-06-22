@@ -4,16 +4,17 @@ export default function Card({ planContent }) {
 	return (
 		<div className="card-box">
 			{planContent.name === "No more options" ? (
-				<div className="card">
-					<div className="card__image last">
+				<div className="card last">
+					<div className="card__image ">
 						<img
 							src={planContent.imageSrc} // Accede a la imagen del plan desde planContent
 							alt=""
 						/>
 					</div>
-					<div className="card__info">
+					<div className="card__info last-card">
 						<h2>{planContent.name}</h2>{" "}
 						{/* Accede al título del plan desde planContent */}
+						<p className="last-msg">{planContent.shortDescription}</p>{" "}
 					</div>
 				</div>
 			) : (
@@ -31,7 +32,7 @@ export default function Card({ planContent }) {
 					<div className="card__info">
 						<h2>{planContent.name}</h2>{" "}
 						{/* Accede al título del plan desde planContent */}
-						<p>{planContent.shortDescription}</p>{" "}
+						<p >{planContent.shortDescription}</p>{" "}
 						{/* Accede a la descripción del plan desde planContent */}
 					</div>
 				</div>

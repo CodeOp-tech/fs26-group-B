@@ -23,10 +23,10 @@ export default function Selections() {
   const [showMgs, setShowMgs] = useState("");
   const [endMsg, setEndMsg] = useState("");
   const [otherUser, setOtherUser] = useState({});
+  const [unable, setUnable] = useState(false);
 
   useEffect(() => {
     fetchDataEvent();
-    
     fetchOtherUser();
   }, []);
 
@@ -34,6 +34,7 @@ export default function Selections() {
     if (showLast) {
       fetchOtherSelections();
     }
+    console.log(endMsg);
   }, [showLast]);
 
   useEffect(() => {
@@ -50,22 +51,25 @@ export default function Selections() {
     setSelected(selectedPlanId.includes(cardB.id));
     console.log(finishedCards);
     checkMatch();
+    fetchOtherSelections();
   }, [currentIndex]);
 
 
   const fetchOtherSelections = async () => {
     try {
-      const otherHasStarted = await api.getOtherSelections(otherUser.id);
+      const otherHasStarted = await api.getOtherSelections(otherUser.id, event.id);
       console.log(otherHasStarted);
       if (otherHasStarted) {
-        setEndMsg("Wait for ${otherUser.username} to start the selection");
+        setEndMsg(`Wait for ${otherUser.username} to start the selection`);
+        setUnable(true);
       }
       else {
-        setEndMsg("You haven`t match yet. <br> Try selecting different plans");
+        setEndMsg(`You and ${otherUser.username} haven't match yet. <br> Try selecting different plans`);
       }
     } catch (error) {
       console.log("Error al obtener el evento:", error);
     }
+    console.log(endMsg);
   };
 
 
@@ -135,6 +139,7 @@ export default function Selections() {
 
   const handleInteraction = () => {
     if (currentIndex === 0 && showLast) {
+      
       setCardA({ name: null, imageSrc: null, shortDescription: endMsg });
       setCardB(plans[currentIndex]);
       setCardC(plans[currentIndex + 1]);
@@ -146,6 +151,7 @@ export default function Selections() {
       setCardB({
         name: "No more options",
         imageSrc: "https://i.gifer.com/19E6.gif",
+        shortDescription: endMsg,
       });
       setCardC({ name: null, imageSrc: null });
       setCurrentIndex(0);

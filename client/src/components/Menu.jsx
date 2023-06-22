@@ -1,5 +1,5 @@
 import {
-  Box,
+
   List,
   ListItem,
   ListItemButton,
@@ -11,6 +11,7 @@ import {
 } from "../muiImports";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
 
 export default function Menu({ open, onClose }) {
   const [menu, setMenu] = useState(open);
@@ -26,10 +27,10 @@ export default function Menu({ open, onClose }) {
 
   return (
     <div>
-      <Drawer anchor="right" open={menu} onClose={toggleMenu}>
+      <Drawer anchor="right" open={menu} onClose={toggleMenu} >
         {menu && (
           <nav aria-label="main mailbox folders">
-            <List>
+            <List sx={{ width: 220 }}>
               <ListItem className="nav-links" disablePadding>
                 <Link to="/home">
                   <ListItemButton>
@@ -47,6 +48,16 @@ export default function Menu({ open, onClose }) {
                       <AccountBoxIcon />
                     </ListItemIcon>
                     <ListItemText primary="My Profile" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+              <ListItem className="nav-links" disablePadding>
+                <Link to="/notifications">
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <NotificationsNoneRoundedIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary="Notifications" />
                   </ListItemButton>
                 </Link>
               </ListItem>
