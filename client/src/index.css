@@ -578,3 +578,9 @@ img {
 .no-invites button {
   margin-top: 20px;
 }
+
+
+.Drawer {
+
+  transition: transform 0.3s ease-in-out;
+}
