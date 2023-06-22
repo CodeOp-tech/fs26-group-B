@@ -78,7 +78,31 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 
           // If an event with the given ID was found and updated successfully
           if (eventUpdateResult[0] > 0) {
-            notifications.sendMatch(userId, eventId, "You have a new date!");
+            // find the event with this userId
+            const event = await models.Event.findOne({
+              where: {
+                id: eventId,
+                [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
+              },
+              include: ["inviter", "invitee"],
+            });
+
+            // if the current user is userId_1
+            if (event.userId_1 === userId) {
+              // then send pusher to userId_2
+              notifications.sendMatch(
+                event.userId_2,
+                eventId,
+                "You have a new date!"
+              );
+            } else {
+              // otherwise send pusher to userId_1
+              notifications.sendMatch(
+                event.userId_1,
+                eventId,
+                "You have a new date!"
+              );
+            }
 
             res.send("Match found. Chosen plan updated in the event.");
           } else {

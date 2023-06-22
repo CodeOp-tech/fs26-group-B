@@ -37,10 +37,10 @@ export default function Selections() {
       forceTLS: true,
     });
 
-    if (user?.id && !channel) {
+    if (otherUser?.id && !channel) {
       channel = pusher.subscribe(`user-${user.id}`);
       channel.bind("match", function (data) {
-        console.log(data);
+        console.log("pusher data is", data);
         alert(JSON.stringify(data));
         navigate(`/its-a-date/${event_id}`);
       });
