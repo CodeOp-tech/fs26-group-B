@@ -16,11 +16,13 @@
     "@mui/material": "^5.13.5",
     "@react-google-maps/api": "^2.18.1",
     "axios": "^1.4.0",
+    "noty": "^3.2.0-beta-deprecated",
     "pusher-js": "^8.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.13.0",
     "react-select": "^5.7.3",
+    "sass": "^1.63.6",
     "styled-components": "^5.3.11"
   },
   "devDependencies": {
