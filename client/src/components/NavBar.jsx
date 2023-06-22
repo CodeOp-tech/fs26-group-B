@@ -93,11 +93,12 @@ export default function NavBar() {
             <a onClick={auth.logout}>Logout</a>
           </div>
         )}
-
-        <a onClick={handleMenuOpen}>
-          <MenuRoundedIcon />
-        </a>
-        <Menu open={menuOpen} onClose={handleMenuClose} />
+        <div>
+          <a onClick={handleMenuOpen}>
+            <MenuRoundedIcon />
+          </a>
+          <Menu open={menuOpen} onClose={handleMenuClose} />
+        </div>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ export default function Menu({ open, onClose }) {
         {menu && (
           <nav aria-label="main mailbox folders">
             <List>
-              <ListItem disablePadding>
+              <ListItem className="nav-links" disablePadding>
                 <Link to="/home">
                   <ListItemButton>
                     <ListItemIcon>
@@ -40,7 +40,7 @@ export default function Menu({ open, onClose }) {
                   </ListItemButton>
                 </Link>
               </ListItem>
-              <ListItem disablePadding>
+              <ListItem className="nav-links" disablePadding>
                 <Link to="/profile">
                   <ListItemButton>
                     <ListItemIcon>
