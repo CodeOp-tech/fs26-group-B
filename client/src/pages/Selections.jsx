@@ -46,7 +46,7 @@ export default function Selections() {
       channel = pusher.subscribe(`user-${user.id}`);
       console.log("subscribed to channel in selections page");
       channel.bind("match", function (data) {
-        console.log("match pusher data is", data);
+        // console.log("match pusher data is", data);
 
         if (+data.eventId === +event_id) {
           navigate(`/its-a-date/${event_id}`);
@@ -108,12 +108,12 @@ export default function Selections() {
         event.id
       );
       console.log(otherHasStarted);
-      if (otherHasStarted) {
-        setEndMsg(`Wait for ${otherUser.username} to start the selection`);
+      if (otherHasStarted.length > 0) {
+        setEndMsg(`You and ${otherUser.username} haven't match yet.  Try selecting different plans`);
         setUnable(true);
       } else {
         setEndMsg(
-          `You and ${otherUser.username} haven't match yet. <br> Try selecting different plans`
+          `Wait for ${otherUser.username} to start the selection`
         );
       }
     } catch (error) {

@@ -211,13 +211,13 @@ form input {
 .empty-card {
   visibility: hidden;
   width: 20em;
-  height: 47vh;
+  height: 48vh;
   min-height: 320px;
 }
 
 .card {
   width: 20em;
-  height: 47vh;
+  height: 48vh;
   min-height: 320px;
   border-radius: 8px;
   box-shadow: 0 0 19px 2px rgba(98, 100, 114, 0.3);
@@ -241,8 +241,8 @@ img {
 .card .last-msg {
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  margin-top: 1rem;
+  font-size: 15px;
+  margin-top: 8px;
   text-align: center;
 }
 
@@ -262,9 +262,7 @@ img {
   text-align: center;
 }
 
-.last {
-  background-color: var(--pinkWhite);
-}
+
 
 /********************* Selections *********************/
 
