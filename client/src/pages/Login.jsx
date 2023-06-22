@@ -42,7 +42,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="sign-log">
       <div>
         <h2>Log in to get started</h2>
         <div className="input-div">

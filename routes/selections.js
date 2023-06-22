@@ -1,5 +1,5 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const models = require("../models");
 const { Sequelize } = require("sequelize");
 // const eventShouldBelongToUser = require("../guards/eventShouldBelongToUser");
@@ -110,35 +110,19 @@ router.get("/", async function (req, res, next) {
 });
 
 //DELETE ALL SELECTIONS
-// router.delete("/", async (req, res) => {
-//   try {
-//     // Delete all events
-//     await models.Selection.destroy({
-//       where: {},
-//       truncate: true, // This ensures that the table is truncated, removing all rows
-//     });
+router.delete("/", async (req, res) => {
+  try {
+    // Delete all events
+    await models.Selection.destroy({
+      where: {},
+      truncate: true, // This ensures that the table is truncated, removing all rows
+    });
 
-//     res.send("All selections deleted successfully");
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging purposes
-//     res.status(500).send("Internal server error");
-//   }
-// });
-
-//SIMPLE POST
-
-// router.post("/", async function (req, res, next) {
-//   const { userId, planId, eventId } = req.body;
-//   try {
-//     const selection = await models.Selection.create({
-//       userId,
-//       planId,
-//       eventId,
-//     });
-//     res.send(selection);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+    res.send("All selections deleted successfully");
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;

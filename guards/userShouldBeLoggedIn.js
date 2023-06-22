@@ -12,6 +12,7 @@ function userShouldBeLoggedIn(req, res, next) {
   } else {
     jwt.verify(token, supersecret, async function (err, decoded) {
       if (err) res.status(401).send({ message: err.message });
+
       else {
         //everything is awesome
         const user = await models.User.findByPk(decoded.user_id);

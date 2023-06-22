@@ -42,7 +42,7 @@ function Register() {
   };
 
   return (
-    <div>
+    <div className="sign-log">
       <div>
         <h2>Sign up to get started</h2>
         <div className="register-box">
@@ -86,10 +86,8 @@ function Register() {
               className="register-input"
             />
           </div>
-          <div>
-            <button className="signup-btn" id="cta-btn" onClick={register}>
-              Sign Up
-            </button>
+          <div className="signup-btn" id="cta-btn">
+            <button onClick={register}>Sign Up</button>
           </div>
 
           <p>
