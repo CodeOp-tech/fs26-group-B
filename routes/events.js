@@ -69,23 +69,71 @@ router.get("/", async function (req, res, next) {
 });
 
 // GET all events by userid only if it's open/true
-router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
-  const user_id = req.user_id;
 
+router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
+  const { role } = req.query;
+  const user_id = req.user_id;
+  
+  console.log(role);
+  if (role === "inviter" || role === "invitee") {
+    try {
+      let events;
+      if (role === "inviter") {
+        events = await models.Event.findAll({
+          where: {
+            userId_1: user_id,
+            status: true,
+          },
+          include: ["inviter", "invitee"],
+        });
+      } else if (role === "invitee") {
+        events = await models.Event.findAll({
+          where: {
+            userId_2: user_id,
+            status: true,
+          },
+          include: ["inviter", "invitee"],
+        });
+      }
+      
+      if (events.length === 0) {
+        res.status(404).send("Event not found");
+      } else {
+
+        res.send(events);
+      }
+    
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
+    }
+  }
+});
+
+//Get the user from the given eventId where the user is not the logged in user
+router.get("/user/:eventId", userShouldBeLoggedIn, async function (req, res, next) {
+  const { eventId } = req.params;
+  const user_id = req.user_id;
+  console.log(eventId);
   try {
-    const events = await models.Event.findAll({
+    const event = await models.Event.findOne({
       where: {
-        [Sequelize.Op.or]: [{ userId_1: user_id }, { userId_2: user_id }],
-        status: true,
+        id: eventId,
+        [Sequelize.Op.or]: [
+          { userId_1: user_id },
+          { userId_2: user_id },
+        ],
       },
       include: ["inviter", "invitee"],
     });
-
-    if (events.length === 0) {
-      res.status(404).send("Event not found");
+    if (event) {
+      if (event.userId_1 === user_id) {
+        res.send(event.invitee);
+      } else {
+        res.send(event.inviter);
+      }
     } else {
-      res.send(events);
-
+      res.status(404).send("Event not found");
     }
   } catch (error) {
     console.error(error);
@@ -140,6 +188,8 @@ router.get("/private/:hash", async function (req, res, next) {
     res.status(500).send("Internal server error");
   }
 });
+
+
 
 // DELETE all events
 router.delete("/", async (req, res) => {

@@ -139,10 +139,10 @@ export const Api = {
   },
 
   //search open status event for userid and returns the whole event
-  getOpenEvents: async () => {
+  getOpenEvents: async (role) => {
+    console.log(role);
     try {
-      const { data } = await axios.get(`/api/events/user`);
-
+      const { data } = await axios.get(`/api/events/user?role=${role}`);
       data && console.log(data);
       // send back data to server
       return data;
@@ -152,7 +152,18 @@ export const Api = {
     }
   },
 
-  // getEvent(inviteeId)
+  // search for the open event and return the user that is not the user logging in
+  getUserToMatch: async (eventId) => {
+    try {
+      const { data } = await axios.get(`/api/events/user/${eventId}`);
+      data && console.log(data);
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.response.data);
+    }
+  },
 
   // SELECTIONS & PLANS
   getAllPlans: async () => {

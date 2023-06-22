@@ -20,6 +20,8 @@ export default function NavBar() {
 
   useEffect(() => {
     auth.user && fetchData();
+    pendingInvites ? setIsNotification(true) : setIsNotification(false);
+    
   }, [auth.user]);
 
   const fetchData = async () => {
@@ -29,8 +31,8 @@ export default function NavBar() {
     } catch (error) {
       console.error("Error fetching open events", error);
     }
-    pendingInvites ? setIsNotification(true) : setIsNotification(false);
     console.log(pendingInvites);
+   
   };
 
   const handleSelectSignUp = () => {

@@ -42,7 +42,7 @@ function Register() {
 	};
 
 	return (
-		<div>
+		<div className="sign-log">
 			<div>
 				<h2>Sign up to get started</h2>
 				<div className="register-box">
