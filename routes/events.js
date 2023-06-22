@@ -5,17 +5,7 @@ const models = require("../models");
 require("dotenv").config();
 const eventMustExist = require("../guards/eventMustExist");
 const { v4: uuidv4 } = require("uuid");
-const Pusher = require("pusher");
-
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
-
-const new_event_notification = new Pusher({
-  appId: process.env.PUSHER_APP_ID,
-  key: process.env.PUSHER_KEY,
-  secret: process.env.PUSHER_SECRET,
-  cluster: "eu",
-  useTLS: true,
-});
 
 // Create new event
 router.post("/", userShouldBeLoggedIn, async function (req, res) {
@@ -29,19 +19,9 @@ router.post("/", userShouldBeLoggedIn, async function (req, res) {
       where: {
         // With either of the users
         [Sequelize.Op.or]: [
-          {
-            [Sequelize.Op.and]: [
-              { userId_1: userId_1 },
-              { userId_2: userId_2 },
-            ],
-          },
-          {
-            [Sequelize.Op.and]: [
-              { userId_1: userId_2 },
-              { userId_2: userId_1 },
-            ],
-          },
-        ],
+          { [Sequelize.Op.and]: [{ userId_1: userId_1 }, { userId_2: userId_2 }] },
+        { [Sequelize.Op.and]: [{ userId_1: userId_2 }, { userId_2: userId_1 }] },
+      ],
 
         // That is open
         status: true,
@@ -76,21 +56,6 @@ router.post("/", userShouldBeLoggedIn, async function (req, res) {
   }
 });
 
-// SEND push notification
-
-router.post("/notification/:userId", (req, res) => {
-  let { userId } = req.params;
-  let text = req.body.data.message;
-
-  // talk to pusher
-  new_event_notification.trigger("my-profile", "notification", {
-    userId,
-    text,
-  });
-
-  res.send({ msg: "Sent" });
-});
-
 // GET ALL EVENTS
 router.get("/", async function (req, res, next) {
   try {
@@ -103,47 +68,72 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-// GET all events by userid only if it's open/true as an invitee or an inviter
-router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
-  const { role } = req.body;
-  const user_id = req.user_id;
-  console.log(role);
+// GET all events by userid only if it's open/true
 
+router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
+  const { role } = req.query;
+  const user_id = req.user_id;
   
-  try {
+  console.log(role);
+  if (role === "inviter" || role === "invitee") {
+    try {
+      let events;
+      if (role === "inviter") {
+        events = await models.Event.findAll({
+          where: {
+            userId_1: user_id,
+            status: true,
+          },
+          include: ["inviter", "invitee"],
+        });
+      } else if (role === "invitee") {
+        events = await models.Event.findAll({
+          where: {
+            userId_2: user_id,
+            status: true,
+          },
+          include: ["inviter", "invitee"],
+        });
+      }
+      
+      if (events.length === 0) {
+        res.status(404).send("Event not found");
+      } else {
+
+        res.send(events);
+      }
     
-    const events = await models.Event.findAll({
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
+    }
+  }
+});
+
+//Get the user from the given eventId where the user is not the logged in user
+router.get("/user/:eventId", userShouldBeLoggedIn, async function (req, res, next) {
+  const { eventId } = req.params;
+  const user_id = req.user_id;
+  console.log(eventId);
+  try {
+    const event = await models.Event.findOne({
       where: {
-        [Sequelize.Op.or]: [{ userId_1: user_id }, { userId_2: user_id }],
-        status: true,
+        id: eventId,
+        [Sequelize.Op.or]: [
+          { userId_1: user_id },
+          { userId_2: user_id },
+        ],
       },
       include: ["inviter", "invitee"],
     });
-
-    if (events.length === 0) {
-      res.status(404).send("Event not found");
+    if (event) {
+      if (event.userId_1 === user_id) {
+        res.send(event.invitee);
+      } else {
+        res.send(event.inviter);
+      }
     } else {
-      // if (role) {
-      //   const roleEvents = events.filter((event) => {
-      //     event.role.id === user_id
-      //   })
-      if (role === "inviter") {
-        const inviterEvents = events.filter((event) => {
-          console.log(event[role]?.id, user_id);
-          return event[inviter].id === user_id;
-        });
-      }
-       else if (role === "invitee") {
-          const inviterEvents = events.filter((event) => {
-            console.log( event[role]?.id, user_id);
-             return event[invitee].id === user_id;
-          });
-        res.send(inviterEvents);
-      }
-      else {
-        res.send(events);
-      }
-
+      res.status(404).send("Event not found");
     }
   } catch (error) {
     console.error(error);
@@ -198,6 +188,8 @@ router.get("/private/:hash", async function (req, res, next) {
     res.status(500).send("Internal server error");
   }
 });
+
+
 
 // DELETE all events
 router.delete("/", async (req, res) => {

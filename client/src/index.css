@@ -32,8 +32,16 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 3em;
   line-height: 1.1;
+  margin-bottom: 1rem;
+  color: var(--lightBlue);
+}
+
+h2 {
+  font-size: 1.6em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
   color: var(--lightBlue);
 }
 
@@ -76,7 +84,7 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5.2vh;
+  margin-bottom: 4.4vh;
 }
 
 .nav-links {
@@ -114,6 +122,10 @@ button:hover {
 
 /********************* Sign Up & Login *********************/
 
+.sign-log {
+  margin-top: 8rem;
+}
+
 .register-box {
   width: auto;
   border-color: var(--lightBlue);
@@ -124,7 +136,7 @@ button:hover {
 .input-div {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .input-div-bottom {
@@ -164,9 +176,8 @@ button:hover {
 .search-box {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
   max-width: 38rem;
-  margin: 0 auto;
+  margin: 6rem auto;
 }
 
 .search-field {
@@ -272,20 +283,22 @@ form input {
 
 .empty-card {
   visibility: hidden;
-  width: 360px;
-  height: 58vh;
+  width: 22vw;
+  height: 47vh;
+  min-height: 320px;
 }
 
 .card {
-  width: 360px;
-  height: 58vh;
+  width: 22vw;
+  height: 47vh;
   min-height: 320px;
+  border-radius: 8px;
   box-shadow: 0 0 19px 2px rgba(98, 100, 114, 0.3);
 }
 
 .card__image {
   width: 100%;
-  height: 74%;
+  height: 72%;
 }
 
 img {
@@ -318,21 +331,21 @@ img {
 
 .event-selection {
   min-height: 400px;
-  height: 100vh;
+  height: 10vh;
 }
 
 .selection-view {
   display: flex;
   flex-direction: column;
-  padding-top: 5vh;
-  height: 80vh;
+  padding-top: 16vh;
+ 
 }
 
 .cards-group {
   display: flex;
   justify-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 1vw;
 }
 
 .back-card {
@@ -346,7 +359,7 @@ img {
 .main-card {
   background-color: #ffffff;
   transform: scale(1.2);
-  z-index: 9999;
+  z-index: 999;
 }
 
 .next {
@@ -360,8 +373,8 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--lightBlue);
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 500;
   transition: opacity 0.3s ease;
   z-index: 99999;
   filter: none;
@@ -374,18 +387,20 @@ img {
 .select-button {
   display: flex;
   justify-content: center;
-  margin-top: 1.6rem;
+  margin-top: 1rem;
 }
 
 .select-button a * {
   width: 3.3rem;
   height: auto;
-  margin-top: 2.8rem;
+  margin-top: 4vh;
   cursor: pointer;
 }
 
 .select-button button {
-  margin-top: 3rem;
+  margin-top: 6vh;
+  display: flex;
+  gap: 6px;
 }
 
 /********************* Match Page *********************/
@@ -505,11 +520,10 @@ img {
 .pending-page {
   display: flex;
   flex-wrap: wrap;
-  max-width: 40vw;
+  justify-content: center;
+  gap: 1vw;
   margin: 0 auto;
-  gap: 2vw;
-  margin-top: 6em;
-  /* margin-top: 2rem; */
+  margin-top: 4rem;
 }
 
 .pending-page h3 {
@@ -522,11 +536,11 @@ img {
 }
 
 .pending-page > div {
-  padding: 1.8em 6px;
-  width: 100%;
-  min-width: 380px; 
+  padding: 1em 6px;
+  width: 30vw;
+  min-width: 360px;
   height: 100%;
-  border-radius: 1em;
+  border-radius: 12px;
   box-shadow: 0 0 6px 1px rgba(98, 100, 114, 0.177);
 }
 
@@ -534,11 +548,11 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2rem auto;
-  width: 90%;
-  
+  margin: auto;
+  width: 92%;
   height: 4rem;
-  box-shadow: 0 0 1px 1px var(--lightBlue);
+  box-shadow: 0 0 1px 1px var(--lightPink);
+  background-color: var(--pinkWhite);
   border-radius: 8px;
   padding: 12px 18px;
   margin-bottom: 1rem;
@@ -547,6 +561,7 @@ img {
 
 .invitation-card p {
   font-size: 14px;
+  margin-right: 11px;
   color: var(--primary);
 }
 

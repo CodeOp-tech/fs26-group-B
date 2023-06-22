@@ -5,6 +5,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import api from "../services/data";
 import { useNavigate } from "react-router-dom";
+import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
 
 export default function Selections() {
   const navigate = useNavigate();
@@ -20,27 +21,54 @@ export default function Selections() {
   const [event, setEvent] = useState({});
   const { event_id } = useParams();
   const [showMgs, setShowMgs] = useState("");
+  const [endMsg, setEndMsg] = useState("");
+  const [otherUser, setOtherUser] = useState({});
 
   useEffect(() => {
     fetchDataEvent();
-    checkMatch();
+    
+    fetchOtherUser();
   }, []);
 
   useEffect(() => {
-    console.log(event && event.status === true ? "Abierto" : "Cerrado");
+    if (showLast) {
+      fetchOtherSelections();
+    }
+  }, [showLast]);
+
+  useEffect(() => {
+    console.log(event && event.status === true ? "Open event" : "Close event");
     if (event && event.status === true) {
-      console.log("Está abierto");
+      
       fetchPlansData();
     } else {
-      console.log("El evento está cerrado");
-      setShowMgs("Este evento está cerrado");
+      setShowMgs("This event is closed");
     }
   }, [event]);
 
   useEffect(() => {
     setSelected(selectedPlanId.includes(cardB.id));
     console.log(finishedCards);
+    checkMatch();
   }, [currentIndex]);
+
+
+  const fetchOtherSelections = async () => {
+    try {
+      const otherHasStarted = await api.getOtherSelections(otherUser.id);
+      console.log(otherHasStarted);
+      if (otherHasStarted) {
+        setEndMsg("Wait for ${otherUser.username} to start the selection");
+      }
+      else {
+        setEndMsg("You haven`t match yet. <br> Try selecting different plans");
+      }
+    } catch (error) {
+      console.log("Error al obtener el evento:", error);
+    }
+  };
+
+
 
   const fetchDataEvent = async () => {
     console.log(event_id);
@@ -58,6 +86,22 @@ export default function Selections() {
     } else {
       console.log("No hay un event_id definido.");
     }
+  };
+
+  const fetchOtherUser = async () => {
+   if (event)
+   {
+    try {
+      const otherUser = await api.getUserToMatch(event_id);
+      console.log(otherUser);
+      if (otherUser) {
+        setOtherUser(otherUser);
+      }
+    } catch (error) {
+      console.log("Error al obtener el evento:", error);
+     
+     } 
+   }
   };
 
   const checkMatch = async () => {
@@ -91,7 +135,7 @@ export default function Selections() {
 
   const handleInteraction = () => {
     if (currentIndex === 0 && showLast) {
-      setCardA({ name: null, imageSrc: null });
+      setCardA({ name: null, imageSrc: null, shortDescription: endMsg });
       setCardB(plans[currentIndex]);
       setCardC(plans[currentIndex + 1]);
       setFinishedCards(true);
@@ -152,6 +196,7 @@ export default function Selections() {
 
   return (
     <div className="event-selection">
+      <h2>Selections to match with {otherUser.username}</h2>
       {setEvent ? (
         <div className="selection-view">
           {plans && (
@@ -170,7 +215,7 @@ export default function Selections() {
           )}
           <div className="select-button">
             {showLast ? (
-              <button onClick={handleTryAgain}>Try again</button>
+              <button onClick={handleTryAgain}><ReplayRoundedIcon/> <p>Try again</p></button>
             ) : (
               <>
                 {!selected && (
