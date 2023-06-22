@@ -44,7 +44,7 @@ button {
   font-size: 0.9em;
   cursor: pointer;
   /* border: 1px solid var(--pinkWhite); */
-  transition: background-color 0.20s;
+  transition: background-color 0.2s;
   text-align: center;
   background-color: var(--pinkWhite);
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.222);
@@ -100,6 +100,17 @@ button:hover {
   height: 100%;
   object-fit: cover;
 }
+
+/* .menu-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.menu-icon.active {
+  width: 24px;
+} */
 
 /********************* Sign Up & Login *********************/
 
@@ -222,7 +233,7 @@ form input {
   box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.212);
   background-color: var(--pinkWhite);
   border-radius: 4px;
-  padding: 8px ;
+  padding: 8px;
   width: 71vw;
   max-width: 89%;
   margin-top: 0;
@@ -245,7 +256,6 @@ form input {
   font-size: 1.2em;
   color: var(--pink);
   white-space: pre-line;
-
 }
 .confirmation {
   width: 20rem;

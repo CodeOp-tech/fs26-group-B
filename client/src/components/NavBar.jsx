@@ -20,15 +20,11 @@ export default function NavBar() {
   const [pendingInvites, setPendingInvites] = useState([]);
   const [isNotification, setIsNotification] = useState(false);
   //const navigate = useNavigate();
-  const [menu, setMenu] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (auth.user) fetchData();
   }, [auth.user]);
-
-  useEffect(() => {
-    setMenu(false);
-  }, [location.pathname]);
 
   const fetchData = async () => {
     try {
@@ -51,8 +47,13 @@ export default function NavBar() {
     setIsNotification(false);
     // console.log(pendingInvites)
   };
-  const handleMenu = () => {
-    setMenu(!menu);
+
+  const handleMenuOpen = () => {
+    setMenuOpen(true);
+  };
+
+  const handleMenuClose = () => {
+    setMenuOpen(false);
   };
 
   return (
@@ -93,10 +94,10 @@ export default function NavBar() {
           </div>
         )}
 
-        <a onClick={handleMenu}>
+        <a onClick={handleMenuOpen}>
           <MenuRoundedIcon />
         </a>
-        {menu && <Menu />}
+        <Menu open={menuOpen} onClose={handleMenuClose} />
       </div>
     </div>
   );

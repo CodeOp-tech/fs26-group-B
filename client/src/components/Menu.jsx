@@ -7,24 +7,26 @@ import {
   ListItemText,
   HomeIcon,
   AccountBoxIcon,
+  Drawer,
 } from "../muiImports";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export default function Menu() {
-  const [menu, setMenu] = useState();
+export default function Menu({ open, onClose }) {
+  const [menu, setMenu] = useState(open);
 
   useEffect(() => {
-    setMenu(true);
+    setMenu(open);
+  }, [open]);
 
-    return () => {
-      setMenu(false);
-    };
-  }, []);
+  const toggleMenu = () => {
+    setMenu(!menu);
+    onClose();
+  };
 
   return (
     <div>
-      <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+      <Drawer anchor="right" open={menu} onClose={toggleMenu}>
         {menu && (
           <nav aria-label="main mailbox folders">
             <List>
@@ -51,7 +53,7 @@ export default function Menu() {
             </List>
           </nav>
         )}
-      </Box>
+      </Drawer>
     </div>
   );
 }
