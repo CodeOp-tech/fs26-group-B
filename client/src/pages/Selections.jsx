@@ -7,6 +7,9 @@ import api from "../services/data";
 import { useNavigate } from "react-router-dom";
 import Pusher from "pusher-js";
 import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
+import Noty from "noty";
+import "noty/src/noty.scss";
+import "noty/src/themes/bootstrap-v4.scss";
 
 const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY;
 let channel;
@@ -37,15 +40,28 @@ export default function Selections() {
       forceTLS: true,
     });
 
-    if (otherUser?.id && !channel) {
+    console.log("user id and channel", user.id, channel);
+    if (user.id && !channel) {
       channel = pusher.subscribe(`user-${user.id}`);
+      console.log("subscribed to channel in selections page");
       channel.bind("match", function (data) {
-        console.log("pusher data is", data);
-        alert(JSON.stringify(data));
-        navigate(`/its-a-date/${event_id}`);
+        console.log("match pusher data is", data);
+
+        if (+data.eventId === +event_id) {
+          navigate(`/its-a-date/${event_id}`);
+
+          new Noty({
+            type: "info",
+            layout: "topCenter",
+            theme: "bootstrap-v4",
+            closeWith: ["click"],
+            timeout: 4000,
+            text: "You have a new date!",
+          }).show();
+        }
       });
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     getProfile();
