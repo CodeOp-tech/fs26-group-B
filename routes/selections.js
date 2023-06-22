@@ -4,21 +4,13 @@ const models = require("../models");
 const { Sequelize } = require("sequelize");
 // const eventShouldBelongToUser = require("../guards/eventShouldBelongToUser");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
-const Pusher = require("pusher");
+const notifications = require("../utils/notifications");
 // ADD GUARDS
 // user should be logged in
 // user should exist
 // plan must exist
 // event must exist
 // event should belong to user
-
-const service = new Pusher({
-  appId: process.env.PUSHER_APP_ID,
-  key: process.env.PUSHER_KEY,
-  secret: process.env.PUSHER_SECRET,
-  cluster: "eu",
-  useTLS: true,
-});
 
 // POST a selection
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
@@ -86,10 +78,7 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 
           // If an event with the given ID was found and updated successfully
           if (eventUpdateResult[0] > 0) {
-            service.trigger(`user-${userId}`, "match", {
-              eventId,
-              text,
-            });
+            notifications.sendMatch(userId, eventId, "You have a new date!");
 
             res.send("Match found. Chosen plan updated in the event.");
           } else {
