@@ -86,8 +86,10 @@ function Register() {
               className="register-input"
             />
           </div>
-          <div className="signup-btn" id="cta-btn">
-            <button onClick={register}>Sign Up</button>
+          <div>
+            <button className="signup-btn" id="cta-btn" onClick={register}>
+              Sign Up
+            </button>
           </div>
 
           <p>
