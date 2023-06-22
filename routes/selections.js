@@ -84,7 +84,6 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
                 id: eventId,
                 [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
               },
-              include: ["inviter", "invitee"],
             });
 
             // if the current user is userId_1
