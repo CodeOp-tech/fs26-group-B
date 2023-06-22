@@ -6,6 +6,7 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
 import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsActiveRounded";
 import AuthContext from "../contexts/AuthContext";
+import Menu from "../components/Menu";
 
 // need endpoint to get open events for user
 
@@ -17,11 +18,11 @@ export default function NavBar() {
   const [pendingInvites, setPendingInvites] = useState([]);
   const [isNotification, setIsNotification] = useState(false);
   //const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     auth.user && fetchData();
     pendingInvites ? setIsNotification(true) : setIsNotification(false);
-    
   }, []);
 
   const fetchData = async () => {
@@ -32,7 +33,10 @@ export default function NavBar() {
       console.error("Error fetching open events", error);
     }
     console.log(pendingInvites);
-   
+
+    pendingInvites.length > 0
+      ? setIsNotification(true)
+      : setIsNotification(false);
   };
 
   const handleSelectSignUp = () => {
@@ -43,6 +47,14 @@ export default function NavBar() {
     navigate("/notifications");
     setIsNotification(false);
     // console.log(pendingInvites)
+  };
+
+  const handleMenuOpen = () => {
+    setMenuOpen(true);
+  };
+
+  const handleMenuClose = () => {
+    setMenuOpen(false);
   };
 
   return (
@@ -82,10 +94,12 @@ export default function NavBar() {
             <a onClick={auth.logout}>Logout</a>
           </div>
         )}
-
-        <a>
-          <MenuRoundedIcon />
-        </a>
+        <div>
+          <a onClick={handleMenuOpen}>
+            <MenuRoundedIcon />
+          </a>
+          <Menu open={menuOpen} onClose={handleMenuClose} />
+        </div>
       </div>
     </div>
   );
