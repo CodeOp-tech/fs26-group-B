@@ -5,6 +5,10 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import api from "../services/data";
 import { useNavigate } from "react-router-dom";
+import Pusher from "pusher-js";
+
+const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY;
+let channel;
 
 export default function Selections() {
   const navigate = useNavigate();
@@ -20,6 +24,34 @@ export default function Selections() {
   const [event, setEvent] = useState({});
   const { event_id } = useParams();
   const [showMgs, setShowMgs] = useState("");
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher(PUSHER_KEY, {
+      cluster: "eu",
+      forceTLS: true,
+    });
+
+    if (user?.id && !channel) {
+      channel = pusher.subscribe(`user-${user.id}`);
+      channel.bind("match", function (data) {
+        console.log(data);
+        alert(JSON.stringify(data));
+        navigate(`/its-a-date/${event_id}`);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  async function getProfile() {
+    const user = await api.getMyProfile();
+    setUser(user);
+  }
 
   useEffect(() => {
     fetchDataEvent();
