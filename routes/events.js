@@ -5,17 +5,8 @@ const models = require("../models");
 require("dotenv").config();
 const eventMustExist = require("../guards/eventMustExist");
 const { v4: uuidv4 } = require("uuid");
-const Pusher = require("pusher");
 
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
-
-const new_event_notification = new Pusher({
-  appId: process.env.PUSHER_APP_ID,
-  key: process.env.PUSHER_KEY,
-  secret: process.env.PUSHER_SECRET,
-  cluster: "eu",
-  useTLS: true,
-});
 
 // Create new event
 router.post("/", userShouldBeLoggedIn, async function (req, res) {
@@ -74,21 +65,6 @@ router.post("/", userShouldBeLoggedIn, async function (req, res) {
     console.error(error);
     res.status(500).send("Internal server error");
   }
-});
-
-// SEND push notification
-
-router.post("/notification/:userId", (req, res) => {
-  let { userId } = req.params;
-  let text = req.body.data.message;
-
-  // talk to pusher
-  new_event_notification.trigger("my-profile", "notification", {
-    userId,
-    text,
-  });
-
-  res.send({ msg: "Sent" });
 });
 
 // GET ALL EVENTS
