@@ -101,10 +101,29 @@ router.get("/", async function (req, res, next) {
   try {
     const selections = await models.Selection.findAll();
     res.status(200).send(selections);
+    
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
+//GET selection of given user id and given event Id
+router.get("/:userId/:eventId", async function (req, res, next) {
+  const { userId, eventId } = req.params;
+  try {
+    const selection = await models.Selection.findAll({
+      where: {
+        userId,
+        eventId,
+      },
+    });
+    res.status(200).send(selection);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
 
 //DELETE ALL SELECTIONS
 router.delete("/", async (req, res) => {
