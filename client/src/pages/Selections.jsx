@@ -31,6 +31,7 @@ export default function Selections() {
   const [endMsg, setEndMsg] = useState("");
   const [otherUser, setOtherUser] = useState({});
   const [user, setUser] = useState({});
+  const [unable, setUnable] = useState(false);
 
   useEffect(() => {
     Pusher.logToConsole = true;
@@ -74,7 +75,6 @@ export default function Selections() {
 
   useEffect(() => {
     fetchDataEvent();
-
     fetchOtherUser();
   }, []);
 
@@ -82,6 +82,7 @@ export default function Selections() {
     if (showLast) {
       fetchOtherSelections();
     }
+    console.log(endMsg);
   }, [showLast]);
 
   useEffect(() => {
@@ -97,20 +98,28 @@ export default function Selections() {
     setSelected(selectedPlanId.includes(cardB.id));
     console.log(finishedCards);
     checkMatch();
+    fetchOtherSelections();
   }, [currentIndex]);
 
   const fetchOtherSelections = async () => {
     try {
-      const otherHasStarted = await api.getOtherSelections(otherUser.id);
+      const otherHasStarted = await api.getOtherSelections(
+        otherUser.id,
+        event.id
+      );
       console.log(otherHasStarted);
       if (otherHasStarted) {
-        setEndMsg("Wait for ${otherUser.username} to start the selection");
+        setEndMsg(`Wait for ${otherUser.username} to start the selection`);
+        setUnable(true);
       } else {
-        setEndMsg("You haven`t match yet. <br> Try selecting different plans");
+        setEndMsg(
+          `You and ${otherUser.username} haven't match yet. <br> Try selecting different plans`
+        );
       }
     } catch (error) {
       console.log("Error al obtener el evento:", error);
     }
+    console.log(endMsg);
   };
 
   const fetchDataEvent = async () => {
@@ -187,6 +196,7 @@ export default function Selections() {
       setCardB({
         name: "No more options",
         imageSrc: "https://i.gifer.com/19E6.gif",
+        shortDescription: endMsg,
       });
       setCardC({ name: null, imageSrc: null });
       setCurrentIndex(0);

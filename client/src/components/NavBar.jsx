@@ -142,7 +142,7 @@ export default function NavBar() {
                 <NotificationsActiveRoundedIcon />
               </a>
             ) : (
-              <a>
+              <a onClick={() => navigate("/notifications")}>
                 <NotificationsNoneRoundedIcon />
               </a>
             )}
