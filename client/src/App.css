@@ -207,6 +207,7 @@ form input {
 
 /********************* Card *********************/
 
+
 .empty-card {
   visibility: hidden;
   width: 20em;
@@ -248,7 +249,7 @@ img {
 .card__info {
   display: flex;
   flex-direction: column;
-  padding: 4px 18px 0 18px;
+  padding: 5px 33px 0 33px;
   font-size: 12px;
   text-align: justify;
   color: var(--lightBlue);
@@ -257,7 +258,7 @@ img {
 .card__info h2 {
   font-size: 1.7em;
   color: var(--primary);
-  margin: 0.3rem 0 0 0;
+  margin: 0.4rem 0;
   text-align: center;
 }
 
