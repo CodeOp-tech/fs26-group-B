@@ -32,7 +32,14 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 3em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  color: var(--lightBlue);
+}
+
+h2 {
+  font-size: 1.6em;
   line-height: 1.1;
   margin-bottom: 1rem;
   color: var(--lightBlue);
@@ -352,7 +359,7 @@ img {
 .main-card {
   background-color: #ffffff;
   transform: scale(1.2);
-  z-index: 9999;
+  z-index: 999;
 }
 
 .next {
