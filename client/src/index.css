@@ -289,13 +289,13 @@ form input {
 
 .empty-card {
   visibility: hidden;
-  width: 22vw;
+  width: 20em;
   height: 47vh;
   min-height: 320px;
 }
 
 .card {
-  width: 22vw;
+  width: 20em;
   height: 47vh;
   min-height: 320px;
   border-radius: 8px;
@@ -344,7 +344,6 @@ img {
   display: flex;
   flex-direction: column;
   padding-top: 16vh;
- 
 }
 
 .cards-group {
