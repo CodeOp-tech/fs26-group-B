@@ -109,12 +109,10 @@ export default function Selections() {
       );
       console.log(otherHasStarted);
       if (otherHasStarted.length > 0) {
-        setEndMsg(`You and ${otherUser.username} haven't match yet.  Try selecting different plans`);
+        setEndMsg(`You and ${otherUser.username} haven't matched yet.`);
         setUnable(true);
       } else {
-        setEndMsg(
-          `Wait for ${otherUser.username} to start the selection`
-        );
+        setEndMsg(`Wait for ${otherUser.username} to start the selection`);
       }
     } catch (error) {
       console.log("Error al obtener el evento:", error);
@@ -265,7 +263,7 @@ export default function Selections() {
             </div>
           )}
           <div className="select-button">
-            {showLast ? (
+            {showLast && !unable ? (
               <button onClick={handleTryAgain}>
                 <ReplayRoundedIcon /> <p>Try again</p>
               </button>
