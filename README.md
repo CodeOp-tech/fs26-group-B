@@ -28,7 +28,7 @@
 
 ## System Overview
 
-Our decentralized library system is a web-based application that allows users to access a database of books and interact with other users. Our system enables users to leave reviews and ratings for books, check out physical copies of books, and facilitates the transfer of books between users. We utilize ReactJS for the frontend, Java for the backend, the Google Maps Platform, and PostgreSQL for the database management.
+
 
 <a name="System Components"></a>
 
