@@ -32,7 +32,7 @@ function Login() {
       // console.log("about to login");
       auth.login(data);
       // console.log(auth);
-      // console.log(data);
+      console.log(data);
       setData(data.message);
       navigate("/home");
     } catch (error) {
@@ -42,7 +42,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="sign-log">
       <div>
         <h2>Log in to get started</h2>
         <div className="input-div">
@@ -66,7 +66,7 @@ function Login() {
           />
         </div>
         <div>
-          <button className="signup-btn" onClick={login}>
+          <button className="signup-btn" id="cta-btn" onClick={login}>
             Log in
           </button>
         </div>

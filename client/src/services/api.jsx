@@ -1,14 +1,17 @@
 import axios from "axios";
 
-axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-  "token"
-)}`;
+function setToken() {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
+    "token"
+  )}`;
+}
 
 export const Api = {
   // Auth
 
   // Get the user that is logged in
   getMyProfile: async () => {
+    setToken()
     try {
       const { data } = await axios.get(`/api/auth/profile`);
       // send back data to server
@@ -21,6 +24,7 @@ export const Api = {
   },
 
   updatePassword: async (password) => {
+    setToken()
     try {
       const { data } = await axios.post(`/api/auth/password`, {
         password: password,
@@ -36,6 +40,7 @@ export const Api = {
 
   // Users
   getUser: async (userId) => {
+    setToken()
     console.log(userId);
     try {
       const { data } = await axios.get(`/users/${userId}`);
@@ -49,7 +54,7 @@ export const Api = {
   },
 
   //To search for a user by username
-  getUsername: async (username) => {
+  getUsername: async (username) => {setToken()
     try {
       console.log(username);
       const { data } = await axios.get(`/api/users/username/${username}`, {
@@ -68,7 +73,7 @@ export const Api = {
   //   await axios.get(`/events/${userId}`);
   // },
 
-  resetPassword: async (userId, password) => {
+  resetPassword: async (userId, password) => {setToken()
     console.log(userId);
     try {
       const { data } = await axios.post(`/register/${userId}`, {
@@ -85,7 +90,7 @@ export const Api = {
 
   // Events
 
-  getAllEvents: async () => {
+  getAllEvents: async () => {setToken()
     try {
       const { data } = await axios.get("/api/events", {
         method: "GET",
@@ -98,7 +103,7 @@ export const Api = {
     }
   },
 
-  createEvent: async (userId_2) => {
+  createEvent: async (userId_2) => {setToken()
     console.log(userId_2);
     try {
       const { data } = await axios.post("/api/events", {
@@ -107,12 +112,13 @@ export const Api = {
       // send back data to server
       return data;
     } catch (error) {
+      console.log(error);
       throw new Error(error.response.data);
     }
   },
 
   // getEvent by hash
-  getEventByHash: async (hash) => {
+  getEventByHash: async (hash) => {setToken()
     try {
       const { data } = await axios.get(`/api/events/private/${hash}`, {
         method: "GET",
@@ -127,7 +133,7 @@ export const Api = {
   },
 
   // getEvent by eventId
-  getEventById: async (eventId) => {
+  getEventById: async (eventId) => {setToken()
     try {
       const { data } = await axios.get(`/api/events/${eventId}`, {});
       // send back data to server
@@ -139,10 +145,10 @@ export const Api = {
   },
 
   //search open status event for userid and returns the whole event
-  getOpenEvents: async () => {
+  getOpenEvents: async (role) => {setToken()
+    console.log(role);
     try {
-      const { data } = await axios.get(`/api/events/user`);
-
+      const { data } = await axios.get(`/api/events/user?role=${role}`);
       data && console.log(data);
       // send back data to server
       return data;
@@ -152,10 +158,21 @@ export const Api = {
     }
   },
 
-  // getEvent(inviteeId)
+  // search for the open event and return the user that is not the user logging in
+  getUserToMatch: async (eventId) => {setToken()
+    try {
+      const { data } = await axios.get(`/api/events/user/${eventId}`);
+      data && console.log(data);
+      // send back data to server
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.response.data);
+    }
+  },
 
   // SELECTIONS & PLANS
-  getAllPlans: async () => {
+  getAllPlans: async () => {setToken()
     try {
       const { data } = await axios.get("/api/plans", {
         method: "GET",
@@ -168,7 +185,7 @@ export const Api = {
     }
   },
 
-  getPlan: async (planId) => {
+  getPlan: async (planId) => {setToken()
     try {
       const { data } = await axios.get(`/api/plans/${planId}`, {
         method: "GET",
@@ -181,7 +198,7 @@ export const Api = {
     }
   },
 
-  addSelection: async (eventId, planId) => {
+  addSelection: async (eventId, planId) => {setToken()
     try {
       const { data } = await axios.post("/api/selections", {
         eventId: eventId,
@@ -194,6 +211,22 @@ export const Api = {
       throw new Error(error.response.data);
     }
   },
+
+  getOtherSelections: async (userId, event_id) => {setToken()
+    try {
+      const { data } = await axios.get(`/api/selections/${userId}/${event_id}`, {
+ 
+      });
+      // send back data to server
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.response.data);
+    }
+  }
 };
+
+
 
 export default Api;

@@ -1,9 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const models = require("../models");
 const { Sequelize } = require("sequelize");
 // const eventShouldBelongToUser = require("../guards/eventShouldBelongToUser");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+const notifications = require("../utils/notifications");
 // ADD GUARDS
 // user should be logged in
 // user should exist
@@ -77,6 +78,31 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 
           // If an event with the given ID was found and updated successfully
           if (eventUpdateResult[0] > 0) {
+            // find the event with this userId
+            const event = await models.Event.findOne({
+              where: {
+                id: eventId,
+                [Sequelize.Op.or]: [{ userId_1: userId }, { userId_2: userId }],
+              },
+            });
+
+            // if the current user is userId_1
+            if (event.userId_1 === userId) {
+              // then send pusher to userId_2
+              notifications.sendMatch(
+                event.userId_2,
+                eventId,
+                "You have a new date!"
+              );
+            } else {
+              // otherwise send pusher to userId_1
+              notifications.sendMatch(
+                event.userId_1,
+                eventId,
+                "You have a new date!"
+              );
+            }
+
             res.send("Match found. Chosen plan updated in the event.");
           } else {
             res.send("No event found with the given ID.");
@@ -101,41 +127,44 @@ router.get("/", async function (req, res, next) {
   try {
     const selections = await models.Selection.findAll();
     res.status(200).send(selections);
+    
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
+//GET selection of given user id and given event Id
+router.get("/:userId/:eventId", async function (req, res, next) {
+  const { userId, eventId } = req.params;
+  try {
+    const selection = await models.Selection.findAll({
+      where: {
+        userId,
+        eventId,
+      },
+    });
+    res.status(200).send(selection);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
+
 //DELETE ALL SELECTIONS
-// router.delete("/", async (req, res) => {
-//   try {
-//     // Delete all events
-//     await models.Selection.destroy({
-//       where: {},
-//       truncate: true, // This ensures that the table is truncated, removing all rows
-//     });
+router.delete("/", async (req, res) => {
+  try {
+    // Delete all events
+    await models.Selection.destroy({
+      where: {},
+      truncate: true, // This ensures that the table is truncated, removing all rows
+    });
 
-//     res.send("All selections deleted successfully");
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging purposes
-//     res.status(500).send("Internal server error");
-//   }
-// });
-
-//SIMPLE POST
-
-// router.post("/", async function (req, res, next) {
-//   const { userId, planId, eventId } = req.body;
-//   try {
-//     const selection = await models.Selection.create({
-//       userId,
-//       planId,
-//       eventId,
-//     });
-//     res.send(selection);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+    res.send("All selections deleted successfully");
+  } catch (error) {
+    console.error(error); // Log the error for debugging purposes
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;

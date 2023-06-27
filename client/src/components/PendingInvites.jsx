@@ -1,39 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/data";
-// import AuthContext from "../contexts/AuthContext";
+import AuthContext from "../contexts/AuthContext";
 
 export default function PendingInvites() {
 	const [pendingInvites, setPendingInvites] = useState([]);
-	const { username } = localStorage.getItem("username");
+	const [unfinishedMatch, setUnfinishedMatch] = useState([]);
+	// const { username } = localStorage.getItem("username");
 	const [msg, setMsg] = useState("");
-
+	const auth = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetchData();
-		pendingInvites && console.log(`The pending invites are ${pendingInvites}`);
+		fetchInvitations();
+		fetchUnfinishedMatched();
+
+		if (pendingInvites.length === 0) {
+			setMsg("You have nothing pending here");
+		}
+		if (unfinishedMatch.length === 0) {
+			setMsg("You have nothing pending here");
+		}
 	}, []);
 
-	const fetchData = async () => {
+	const fetchInvitations = async () => {
 		try {
-			const data = await api.getOpenEvents();
+			const data = await api.getOpenEvents("invitee");
 			data && setPendingInvites(data);
 			data && console.log(data);
 		} catch (error) {
 			console.error("Error fetching open events", error);
 		}
-		pendingInvites &&
-			console.log(
-				`The pending invites are ${pendingInvites}`
-      );
-    if (pendingInvites.length === 0) {
-      setMsg("You have no pending invitations");
-    }
 	};
 
-  const handleAcceptInvitation = (id) => {
-    
+	const fetchUnfinishedMatched = async () => {
+		try {
+			const data = await api.getOpenEvents("inviter");
+			data && setUnfinishedMatch(data);
+			data && console.log(data);
+		} catch (error) {
+			console.error("Error fetching open events", error);
+		}
+
+		unfinishedMatch &&
+			console.log("this are your infinished" + unfinishedMatch);
+	};
+
+	const handleAcceptInvitation = (id) => {
 		navigate(`/event/${id}`);
 	};
 
@@ -50,20 +63,18 @@ export default function PendingInvites() {
 					{pendingInvites.length > 0 ? (
 						pendingInvites.map((invite, i) => (
 							<>
-                {invite.inviter.username === username ? (
-                  <div key={i} className="invitation-card">
-                    <p>
-                      You have a pending invitation with{" "}
-                      <strong>{invite.inviter.username}</strong>{" "}
-                    </p>
+								<div key={i} className="invitation-card">
+									<p>
+										Pending invitation from{" "}
+										<strong>{invite.inviter.username}</strong>{" "}
+									</p>
 
-                    <button onClick={() => handleAcceptInvitation(invite.id)}>
-                      Accept
-                    </button>
-                  </div>
-                ) : null
-									// setMsg("You have no pending invitations")
-								}
+									<button
+										onClick={() => handleAcceptInvitation(invite.id)}
+									>
+										Accept
+									</button>
+								</div>
 							</>
 						))
 					) : (
@@ -72,32 +83,30 @@ export default function PendingInvites() {
 							<button onClick={goHome}>Send an invite</button>
 						</div>
 					)}
-					{ msg }
 				</div>
 
-				<div className="unfinished">
+				<div className="unfinishedMatched">
 					<h3>Unfinished Matches</h3>
-					{pendingInvites.length > 0 ? (
-						pendingInvites.map((invite, i) => (
+					{unfinishedMatch.length > 0 ? (
+						unfinishedMatch.map((invite, i) => (
 							<>
-								{invite.inviter.username !== username && (
-									<div key={i} className="invitation-card">
-										<p>
-											Continue to find a match with{" "}
-											<strong>{invite.invitee.username}</strong>{" "}
-										</p>
+								<div key={i} className="invitation-card">
+									<p>
+										Continue to find a match with{" "}
+										<strong>{invite.invitee.username}</strong>{" "}
+									</p>
 
-										<button onClick={() => handleAcceptInvitation(invite.id)}>
-											Continue
-										</button>
-									</div>
-								)}
+									<button
+										onClick={() => handleAcceptInvitation(invite.id)}
+									>
+										Continue
+									</button>
+								</div>
 							</>
 						))
 					) : (
 						<div className="no-invites">
-							<h3>Pending Invitations</h3>
-							<h5>You have no pending invitations</h5>
+							<h5>{msg}</h5>
 							<button onClick={goHome}>Send an invite</button>
 						</div>
 					)}

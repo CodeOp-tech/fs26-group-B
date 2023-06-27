@@ -5,6 +5,14 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import api from "../services/data";
 import { useNavigate } from "react-router-dom";
+import Pusher from "pusher-js";
+import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
+import Noty from "noty";
+import "noty/src/noty.scss";
+import "noty/src/themes/bootstrap-v4.scss";
+
+const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY;
+let channel;
 
 export default function Selections() {
   const navigate = useNavigate();
@@ -20,27 +28,97 @@ export default function Selections() {
   const [event, setEvent] = useState({});
   const { event_id } = useParams();
   const [showMgs, setShowMgs] = useState("");
+  const [endMsg, setEndMsg] = useState("");
+  const [otherUser, setOtherUser] = useState({});
+  const [user, setUser] = useState({});
+  const [unable, setUnable] = useState(false);
+
+  useEffect(() => {
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher(PUSHER_KEY, {
+      cluster: "eu",
+      forceTLS: true,
+    });
+
+    console.log("user id and channel", user.id, channel);
+    if (user.id && !channel) {
+      channel = pusher.subscribe(`user-${user.id}`);
+      console.log("subscribed to channel in selections page");
+      channel.bind("match", function (data) {
+        // console.log("match pusher data is", data);
+
+        if (+data.eventId === +event_id) {
+          navigate(`/its-a-date/${event_id}`);
+
+          new Noty({
+            type: "info",
+            layout: "topCenter",
+            theme: "bootstrap-v4",
+            closeWith: ["click"],
+            timeout: 4000,
+            text: "You have a new date!",
+          }).show();
+        }
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  async function getProfile() {
+    const user = await api.getMyProfile();
+    setUser(user);
+  }
 
   useEffect(() => {
     fetchDataEvent();
-    checkMatch();
+    fetchOtherUser();
   }, []);
 
   useEffect(() => {
-    console.log(event && event.status === true ? "Abierto" : "Cerrado");
+    if (showLast) {
+      fetchOtherSelections();
+    }
+    console.log(endMsg);
+  }, [showLast]);
+
+  useEffect(() => {
+    console.log(event && event.status === true ? "Open event" : "Close event");
     if (event && event.status === true) {
-      console.log("Está abierto");
       fetchPlansData();
     } else {
-      console.log("El evento está cerrado");
-      setShowMgs("Este evento está cerrado");
+      setShowMgs("This event is closed");
     }
   }, [event]);
 
   useEffect(() => {
     setSelected(selectedPlanId.includes(cardB.id));
     console.log(finishedCards);
+    checkMatch();
+    fetchOtherSelections();
   }, [currentIndex]);
+
+  const fetchOtherSelections = async () => {
+    try {
+      const otherHasStarted = await api.getOtherSelections(
+        otherUser.id,
+        event.id
+      );
+      console.log(otherHasStarted);
+      if (otherHasStarted.length > 0) {
+        setEndMsg(`You and ${otherUser.username} haven't matched yet.`);
+        setUnable(true);
+      } else {
+        setEndMsg(`Wait for ${otherUser.username} to start the selection`);
+      }
+    } catch (error) {
+      console.log("Error al obtener el evento:", error);
+    }
+    console.log(endMsg);
+  };
 
   const fetchDataEvent = async () => {
     console.log(event_id);
@@ -57,6 +135,20 @@ export default function Selections() {
       }
     } else {
       console.log("No hay un event_id definido.");
+    }
+  };
+
+  const fetchOtherUser = async () => {
+    if (event) {
+      try {
+        const otherUser = await api.getUserToMatch(event_id);
+        console.log(otherUser);
+        if (otherUser) {
+          setOtherUser(otherUser);
+        }
+      } catch (error) {
+        console.log("Error al obtener el evento:", error);
+      }
     }
   };
 
@@ -91,7 +183,7 @@ export default function Selections() {
 
   const handleInteraction = () => {
     if (currentIndex === 0 && showLast) {
-      setCardA({ name: null, imageSrc: null });
+      setCardA({ name: null, imageSrc: null, shortDescription: endMsg });
       setCardB(plans[currentIndex]);
       setCardC(plans[currentIndex + 1]);
       setFinishedCards(true);
@@ -102,6 +194,7 @@ export default function Selections() {
       setCardB({
         name: "No more options",
         imageSrc: "https://i.gifer.com/19E6.gif",
+        shortDescription: endMsg,
       });
       setCardC({ name: null, imageSrc: null });
       setCurrentIndex(0);
@@ -152,6 +245,7 @@ export default function Selections() {
 
   return (
     <div className="event-selection">
+      <h2>Selections to match with {otherUser.username}</h2>
       {setEvent ? (
         <div className="selection-view">
           {plans && (
@@ -169,8 +263,10 @@ export default function Selections() {
             </div>
           )}
           <div className="select-button">
-            {showLast ? (
-              <button onClick={handleTryAgain}>Try again</button>
+            {showLast && !unable ? (
+              <button onClick={handleTryAgain}>
+                <ReplayRoundedIcon /> <p>Try again</p>
+              </button>
             ) : (
               <>
                 {!selected && (
