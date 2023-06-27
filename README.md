@@ -18,6 +18,7 @@
   - [Navigate to the Project Directory](#navigate-to-the-project-directory)
   - [Database Setup](#database-setup)
   - [Setting up your .env](#setting-up-your-.env)
+  - [Adding Pusher](#adding-pusher)
   - [Running the Backend](#running-the-backend)
   - [Running the Frontend](#running-the-frontend)
 - [Getting Started](#getting-started)
@@ -126,7 +127,7 @@ Open up the repository in your preferred code editor and create a .env file in t
 DB_HOST=localhost
 DB_USER=root
 DB_NAME=planner
-DB_PASS= [your password]
+DB_PASS= [your db password]
 
 SUPER_SECRET=shhhhh
 
@@ -142,8 +143,23 @@ Now create a .env file in the project root directory. In this .env file add the 
 VITE_PUSHER_KEY=
 ```
 
-Don't forget to create your .gitignore file and add .env (in both the root directory and client directory)!
+*Don't forget to create your .gitignore file and add .env (in both the root directory and client directory)!*
 
+<a name="Adding Pusher"></a>
+
+### Adding Pusher
+
+To populate the Pusher details in your .env files:
+
+1. Navigate to [Pusher](https://pusher.com/) and create an account.
+2. Once logged in you should see your [Pusher dashboard](https://dashboard.pusher.com/). Here you need to click "manage" on the channels card.
+3. Now you can click "Create app" in the top right of the page and fill in the form:
+  - Fill in a name for the app (we used "its-a-date")
+  - Select a cluster (we used eu)
+  - You don't need to tick the box for "Create apps for multiple environments?"
+  - Frontend: React
+  - Backend: Node.js
+4. Navigate to "App Keys" in the left nav and copy the keys you have generated into the .env files that you've just created.
 
 <a name="Running the Backend"></a>
 
@@ -204,7 +220,8 @@ npm run dev
 
 ## Getting Started
 
-Now It's a Date! should be accessible from [port 4000](http://localhost:4000)
+Now *It's a Date!* should be accessible from [http://localhost:5173](http://localhost:5173/)
+The backend will be running on [port 4000](http://localhost:4000/)
 
 
 <a name="API Documentation"></a>
