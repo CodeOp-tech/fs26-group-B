@@ -101,20 +101,17 @@ To set up the MySQL database, follow these steps:
 
    ```
    mysql -u root -p
-   
    ```
      
 2. Create the "planner" database with this command:
    
    ```
    CREATE DATABASE planner;
-   
    ```
 3. Connect to the new database with this command:
    
    ```
    use planner;
-   
    ```
 
 Now, you're ready to use your "planner" database.
@@ -137,14 +134,12 @@ PUSHER_APP_ID=
 PUSHER_KEY=
 PUSHER_SECRET=
 cluster=
-
 ```
 
 Now create a .env file in the project root directory. In this .env file add the following:
 
 ```
 VITE_PUSHER_KEY=
-
 ```
 
 Don't forget to create your .gitignore file and add .env (in both the root directory and client directory)!
@@ -163,26 +158,22 @@ cd group-b-project
 
 ```
 npm install
-
 ```
 
 3. Set up the database:
 
 ```
 npm run migrate
-
 ```
 
 ```
 npm run seed
-
 ```
 
 4. Start the application:
 
 ```
 npm start
-
 ```
 
 <a name="Running the Frontend"></a>
@@ -194,21 +185,18 @@ npm start
 
 ```
 cd client
-
 ```
 
 3. Install dependencies:
 
 ```
 npm install
-
 ```
 
 4. Start the application:
 
 ```
 npm run dev
-
 ```
 
 
