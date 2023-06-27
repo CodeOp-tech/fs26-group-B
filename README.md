@@ -1,23 +1,22 @@
-# Let's Match on a plan
+# It's a Date!
 
 <a name="Table of Contents"></a>
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [System Overview](#system-overview)
 - [System Components](#system-components)
   - [1. Frontend](#1-frontend)
   - [2. Backend](#2-backend)
-  - [3. Database & ORM](#3-database-&-orm)
+  - [3. Database & ORM](#database-and-orm)
   - [4. External API Usage](#4-external-api-usage)
-    - [ Google Maps ](#-google-maps)
+    - [ Google Maps ](#google-maps)
 - [Installation and Setup](#installation-and-setup)
   - [Required downloads](#required-downloads)
   - [Clone the Repository](#clone-the-repository)
   - [Navigate to the Project Directory](#navigate-to-the-project-directory)
   - [Database Setup](#database-setup)
-  - [Setting up your .env](#setting-up-your-.env)
+  - [Setting up your .env](#setting-up-your-env)
   - [Adding Pusher](#adding-pusher)
   - [Running the Backend](#running-the-backend)
   - [Running the Frontend](#running-the-frontend)
@@ -46,7 +45,7 @@
 
 - Node.js: We will use Node.js for the backend to handle the logic of our application.
 
-<a name="Database & ORM"></a>
+<a name="Database and ORM"></a>
 
 ### 3. Database & ORM
 
@@ -55,6 +54,8 @@
 <a name="External API Usage"></a>
 
 ### 4. External API Usage
+
+<a name="Google Maps"></a>
 
 #### Google Maps
 
@@ -117,7 +118,7 @@ To set up the MySQL database, follow these steps:
 
 Now, you're ready to use your "planner" database.
 
-<a name="Setting up your .env"></a>
+<a name="Setting up your env"></a>
 
 ### Setting up your .env
 
