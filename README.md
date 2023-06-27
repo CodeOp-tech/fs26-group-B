@@ -56,7 +56,7 @@ Our decentralized library system is a web-based application that allows users to
 
 ### 4. External API Usage
 
-#### <div align="center"> Google Maps
+#### Google Maps
 
 The Google Maps API is leveraged to display a map on each "match page" with the intention of adding Google Places pins on this map to suggest useful places related ot the chosen date idea.
 
@@ -86,7 +86,7 @@ git clone https://github.com/codeop/fs26-group-B.git
 ### Navigate to the Project Directory
 
 ```
-cd fs26-group-B
+cd group-b-project
 ```
 
 
