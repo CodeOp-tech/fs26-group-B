@@ -53,6 +53,8 @@
 
 - MySQL & Sequelize: We will utilize MySQL as the database management system to store information about users, plans, events and selections. We will utilize Sequelize as the ORM to manage our interactions with the database.
 
+<img src="Database Schema.png" width="600" alt="Database schema">
+
 <a name="External API Usage"></a>
 
 ### 4. External API Usage
