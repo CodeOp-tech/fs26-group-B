@@ -239,5 +239,5 @@ Here is a brief overview of the API endpoints available:
 | -------- | ---------------------------------- | ------------------------- |
 | `POST`   | `/auth/register`                   | Register user             |
 | `POST`   | `/auth/login`                      | Login user                |
-| `POST`   | `/auth/profile`                    | Access logged in user info|
+| `GET`    | `/auth/profile`                    | Access logged in user info|
 
