@@ -4,7 +4,7 @@
 
 ## Table of Contents
 
-- [System Overview](#system-overview)
+- [App Overview](#app-overview)
 - [System Components](#system-components)
   - [1. Frontend](#1-frontend)
   - [2. Backend](#2-backend)
@@ -23,11 +23,13 @@
 - [Getting Started](#getting-started)
 - [API Documentation](#internal-api-documentation)
 
-<a name="System Overview"></a>
+<a name="App Overview"></a>
 
-## System Overview
+## App Overview
 
+"It's a Date!" – The Ultimate Connection App for Unforgettable Experiences Together
 
+"It's a Date!" is the app that simplifies planning and brings you closer to your friends and partners. Say goodbye to endless messaging and indecisiveness, and hello to seamless coordination for your perfect date! Our app simplifies the process by offering 30 exciting date ideas for you to select from. Whether you're looking for a romantic dinner, an adventurous outdoor escapade, or a cozy movie night, we've got you covered. Invite your friend or partner to a date and they receive an instant notification. When both users choose the same plan, they instantly match and unlock a dedicated page with a detailed description, helpful suggestions, and a map of convenient locations. Users also have access to their notifications and personal profile to review pending invitations and reset their details. 
 
 <a name="System Components"></a>
 
