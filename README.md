@@ -233,6 +233,11 @@ The backend will be running on [port 4000](http://localhost:4000/)
 
 ## Internal API Documentation
 
+Here is a brief overview of the API endpoints available:
 
-
+| Method   | URL                                | Description               |
+| -------- | ---------------------------------- | ------------------------- |
+| `POST`   | `/auth/register`                   | Register user             |
+| `POST`   | `/auth/login`                      | Login user                |
+| `POST`   | `/auth/profile`                    | Access logged in user info|
 
