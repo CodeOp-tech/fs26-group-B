@@ -29,7 +29,7 @@
 
 "It's a Date!" – The Ultimate Connection App for Unforgettable Experiences Together
 
-"It's a Date!" is the app that simplifies planning and brings you closer to your friends and partners. Say goodbye to endless messaging and indecisiveness, and hello to seamless coordination for your perfect date! Our app simplifies the process by offering 30 exciting date ideas for you to select from. Whether you're looking for a romantic dinner, an adventurous outdoor escapade, or a cozy movie night, we've got you covered. Invite your friend or partner to a date and they receive an instant notification. When both users choose the same plan, they instantly match and unlock a dedicated page with a detailed description, helpful suggestions, and a map of convenient locations. Users also have access to their notifications and personal profile to review pending invitations and reset their details. 
+"It's a Date!" is the app that simplifies planning and brings you closer to your friends and partners. Say goodbye to endless messaging and indecisiveness, and hello to seamless coordination for your perfect date! Our app simplifies the process by offering 30 exciting date ideas for you to select from. Whether you're looking for a romantic dinner, an adventurous outdoor escapade, or a cozy movie night, we've got you covered. Invite your friend or partner to a date and they receive an instant, real-time notification. When both users choose the same plan, they instantly match and unlock a dedicated page with a detailed description, helpful suggestions, and a map of convenient locations. Users also have access to their notifications and personal profile to review pending invitations and reset their details. 
 
 <a name="System Components"></a>
 
