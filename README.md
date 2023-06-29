@@ -251,7 +251,7 @@ Here is a brief overview of the API endpoints available:
 | `DELETE` | `/events`                        | Delete all events                          |
 | `GET`    | `/plans`                         | Get all plans                              |
 | `GET`    | `/plans/{planId}`                | Get plan by ID                             |
-| `POST`   | `/selections`                    | Create selection and check for a match     |
+| `POST`   | `/selections`                    | Create a selection assigning a plan for the user1 then check if the same plan is already in the table for user 2 to response with a match  |
 | `GET`    | `/selections`                    | Get all selections                         |
 | `GET`    | `/selections/{userId}/{eventId}` | Get selection by user ID in given event ID |
 | `DELETE` | `/selections`                    | Delete all selections                      |
